@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('anggota'));
 });
+
+Route::get('/anggota', function () {
+    return view('registrasi.registrasi-anggota');
+})->name('anggota');
+
+Route::get('/koperasi', function () {
+    return view('registrasi.registrasi-anggota');
+})->name('koperasi');
