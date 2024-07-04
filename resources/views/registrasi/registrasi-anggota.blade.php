@@ -6,6 +6,7 @@
         <div class="col-xl-6 col-lg-6 d-flex align-items-center">
             <div class="main_title_1">
                 <h3>REGISTRASI ANGGOTA</h3>
+                <h2 class="text-white my-5">{{ $nama_koperasi }}</h2>
                 <p>
                     Jadilah bagian dari perubahan! Bergabunglah dengan koperasi
                     kami dan nikmati manfaatnya! Sebagai anggota, Anda akan
@@ -248,6 +249,7 @@
         const path = url.pathname.split("/");
         roles = path[2];
         slug_url = path[3];
+        console.log(path);
     });
 
     function convertBase64selfie() {
@@ -331,7 +333,7 @@
             roles,
         };
 
-        await fetch("/register/insert", {
+        await fetch("/register/insert-anggota", {
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Content-Type": "application/json",

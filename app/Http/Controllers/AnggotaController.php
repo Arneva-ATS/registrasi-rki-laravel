@@ -26,8 +26,8 @@ class AnggotaController extends Controller
             }
 
             // Convert Base64 to Image
-            $selfiePath = 'public/' . $data['roles'] . '/' . time() . '.png';
-            $ktpPath = 'public/' . $data['roles'] . '/' . time() . '.png';
+            $selfiePath = $data['roles'] . '/' . time() . '.png';
+            $ktpPath =  $data['roles'] . '/' . time() . '.png';
             Storage::put($selfiePath, base64_decode($data['selfie']));
             Storage::put($ktpPath, base64_decode($data['ktp']));
 
