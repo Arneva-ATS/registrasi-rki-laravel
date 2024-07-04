@@ -5,7 +5,7 @@
     <div class="row justify-content-between">
         <div class="col-xl-6 col-lg-6 d-flex align-items-center">
             <div class="main_title_1">
-                <h3 class="fs-4" id="koperasi"></h3>
+                <h3 class="fs-4">Rumah Kesejahteraan Indonesia</h3>
                 <h3>REGISTRASI <span id="tingkatan_koperasi"></span></h3>
                 <p id="message_tingkatan"></p>
                 <p><em>- Rumah Kesejahteraan Indonesia</em></p>
@@ -629,7 +629,7 @@
         type3
       };
 
-      fetch(`/register/koperasi/insert/${tingkatan_koperasi}`, {
+      fetch(`/api/register/rki/insert-koperasi/${tingkatan_koperasi}`, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
@@ -641,6 +641,8 @@
         .then(data => {
           alert(data.message);
           console.log(data.message);
+        }).catch(err=>{
+            console.log(err);
         });
     }
 </script>

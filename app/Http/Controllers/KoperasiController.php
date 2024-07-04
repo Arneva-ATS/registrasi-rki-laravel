@@ -9,21 +9,21 @@ use Illuminate\Support\Facades\Storage;
 class KoperasiController extends Controller
 {
     //
-    public function insert(Request $request, $tingkat)
+    public function insert_koperasi_rki(Request $request, $tingkat)
     {
         $data = $request->all();
         $tingkat_koperasi = $tingkat;
 
         // Convert Base64 to Image
-        $logoPath = 'public/koperasi/' . time() . '.png';
-        $ktpPath = 'public/koperasi/' . time() . '.png';
+        $logoPath = 'koperasi/' . time() . '.png';
+        $ktpPath = 'koperasi/' . time() . '.png';
         Storage::put($logoPath, base64_decode($data['logo']));
         Storage::put($ktpPath, base64_decode($data['ktp']));
 
         $logoUrl = Storage::url($logoPath);
         $ktpUrl = Storage::url($ktpPath);
 
-        $pdfPath = 'public/koperasi/' . time() . '.pdf';
+        $pdfPath = 'koperasi/' . time() . '.pdf';
         Storage::put($pdfPath, base64_decode($data['dokumen']));
         $pdfUrl = Storage::url($pdfPath);
 

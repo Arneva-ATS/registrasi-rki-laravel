@@ -5,8 +5,8 @@
     <div class="row justify-content-between">
         <div class="col-xl-6 col-lg-6 d-flex align-items-center">
             <div class="main_title_1">
-                <h3 class="fs-4" id="koperasi"></h3>
-                <h3>REGISTRASI <span id="tingkatan_koperasi"></span></h3>
+                <h3 class="fs-4">{{ $nama_koperasi }}</h3>
+                <h3>REGISTRASI <span id="koperasi"></span></h3>
                 <p id="message_tingkatan"></p>
                 <p><em>- Rumah Kesejahteraan Indonesia</em></p>
             </div>
@@ -400,7 +400,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div id="bottom-wizard">
                     <button type="button" name="backward" class="backward">
                         Prev
@@ -436,10 +435,10 @@
     const previewLogo = document.getElementById('preview-logo');
 
     window.addEventListener("load", () => {
-        const url = new URL(window.location.href);
-        const path = url.pathname.split('/');
-        document.getElementById("tingkatan_koperasi").innerText = path[3];
-        tingkatan_koperasi = path[3];
+        // const url = new URL(window.location.href);
+        // const path = url.pathname.split('/');
+        document.getElementById("koperasi").innerText = '{{ $tingkat }}'
+        tingkatan_koperasi = '{{ $tingkat }}';
 
         if (tingkatan_koperasi == 'inkop') {
             document.getElementById("message_tingkatan").innerText = "Bersama Induk Koperasi, kita wujudkan ekonomi mandiri yang kokoh dan berkelanjutan! Kami berkomitmen untuk mengoordinasikan dan mengawasi koperasi di seluruh jaringan kami, memastikan setiap anggota mendapatkan manfaat maksimal dan berkontribusi pada pertumbuhan ekonomi bersama. Bergabunglah dengan kami untuk masa depan yang lebih stabil dan makmur.";
@@ -451,10 +450,9 @@
             document.getElementById("message_tingkatan").innerText = "Jadilah bagian dari perubahan! Bergabunglah dengan koperasi kami dan nikmati manfaatnya! Sebagai anggota, Anda akan mendapatkan akses ke berbagai layanan dan dukungan yang dirancang untuk meningkatkan kesejahteraan Anda. Mari kita bersama-sama membangun komunitas yang lebih kuat dan ekonomi yang lebih adil.";
         }
 
-        koperasi = path[2]
-        console.log(path);
-        if(path[2] !== 'rki'){
-            document.getElementById("koperasi").innerText = 'Koperasi ' + koperasi;
+        koperasi = '{{ $tingkat }}';
+        if(tingkatan_koperasi !== 'rki'){
+            document.getElementById("koperasi").innerText = koperasi;
         }
     });
 
