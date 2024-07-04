@@ -14,7 +14,7 @@ class KoperasiController extends Controller
         $data = $request->all();
         $tingkat_koperasi = $tingkat;
 
-        // Convert Base64 to Image
+        //Convert Base64 to Image
         $logoPath = 'koperasi/' . time() . '.png';
         $ktpPath = 'koperasi/' . time() . '.png';
         Storage::put($logoPath, base64_decode($data['logo']));
@@ -60,9 +60,9 @@ class KoperasiController extends Controller
                 'no_bpjs_kesehatan' => $data['bpjs_kesehatan'],
                 'no_bpjs_tenaga_kerja' => $data['bpjs_ketenagakerjaan'],
                 'no_sertifikat_koperasi' => $data['no_sertifikat'],
-                'image_logo' => $logoUrl,
-                'ktp' => $ktpUrl,
-                'doc_url' => $pdfUrl,
+                // 'image_logo' => $logoUrl,
+                // 'ktp' => $ktpUrl,
+                // 'doc_url' => $pdfUrl,
                 'slug' => $data['slug'],
             ];
 
