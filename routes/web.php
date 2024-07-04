@@ -14,15 +14,20 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-
-
 Route::get('/login', function () {
     return view('dashboard.auth.login');
 });
 
 Route::post('/dologin', [App\Http\Controllers\LoginController::class, 'dologin']);
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index']);
+
+Route::get('/logout', function(){
+    Session::flush('id_koperasi');
+    Session::flush('username');
+    Session::flush('password');
+    return redirect('/login');
+});
 
 Route::get('/dashboard', function () {
     $id = Session::get('id_koperasi');

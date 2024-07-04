@@ -31,6 +31,10 @@
                 <ul>
                     <li>ANGGOTA</li>
                 </ul>
+                @else
+                <ul>
+                    <li><a href="/logout">LOGOUT</a></li>
+                </ul>
                 @endif
             </td>
             <td width="612"><?php use Illuminate\Support\Facades\Session; $data = Session::get('id'); echo $data; ?></td>
