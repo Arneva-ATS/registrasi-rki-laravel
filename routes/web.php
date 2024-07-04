@@ -29,6 +29,10 @@ Route::get('/logout', function(){
     return redirect('/login');
 });
 
+Route::get('/dashboard-new', function () {
+    return view('dashboard.index');
+});
+
 Route::get('/dashboard', function () {
     $id = Session::get('id_koperasi');
     $username = Session::get('username');
