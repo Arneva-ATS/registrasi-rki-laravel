@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', function () {
     return view('dashboard.auth.login');
+});
+
+Route::post('/dologin', [App\Http\Controllers\LoginController::class, 'dologin']);
+
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+
+Route::get('/dashboard', function () {
+    $id = Session::get('id_koperasi');
+    $username = Session::get('username');
+    $password = Session::get('password');
+    return view('dashboard.auth.home', compact('id','username','password'));
 });
 
 Route::get('/', function () {

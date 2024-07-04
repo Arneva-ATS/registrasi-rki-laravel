@@ -33,18 +33,19 @@
                             Login to your Account
                         </div>
                         <!-- Authentication card start -->
-                        <form class="md-float-material form-material mt-3" name="frmLogin" id="frmLogin" method="POST">
+                        <form class="md-float-material form-material mt-3" name="frmLogin" id="frmLogin" method="POST" action="/dologin">
+                        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                             <div class="form-group formlogin mt-3">
                                 <label for="username">Username</label><br>
-                                <input type="text" name="userId" id="userId" onkeydown="rfEnter();" class="style-form-input" required="" maxlength="20" placeholder="User ID" title="maximamal 20 character">
+                                <input type="text" name="username" id="username" onkeydown="rfEnter();" class="style-form-input" required="" maxlength="20" placeholder="Username" title="maximamal 20 character">
                             </div>
 
                             <div class="form-group formlogin mt-3">
                                 <label for="password">Password</label><br>
-                                <input type="password" name="userPwd" id="userPwd" class="style-form-input" required="" autocomplete="on" title="maximamal 10 character" maxlength="10" placeholder="Password" onkeydown="fnEnter();">
+                                <input type="password" name="password" id="password" class="style-form-input" required="" autocomplete="on" title="maximamal 10 character" maxlength="10" placeholder="Password" onkeydown="fnEnter();">
                             </div>
 
-                            <button class="btnlogin" type="button" onclick="login();">Log In</button>
+                            <button class="btnlogin" type="submit">Log In</button>
                         </form>
                         <!-- end of form -->
                     </div>
