@@ -22,3 +22,9 @@
 <script type="text/javascript" src="{{ asset('assets/auth/vendor/jquery/dist/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/auth/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
+<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/css/vendors.css') }}" rel="stylesheet" />
+<!-- YOUR CUSTOM CSS -->
+<link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

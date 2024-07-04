@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/login', function () {
     return view('dashboard.auth.login');
-});
+})->name('login');
 
 Route::post('/dologin', [App\Http\Controllers\LoginController::class, 'dologin']);
 
@@ -36,9 +36,9 @@ Route::get('/dashboard', function () {
     return view('dashboard.auth.home', compact('id','username','password'));
 });
 
-Route::get('/', function ($name) {
-    return redirect()->route('anggota.primkop', ['name' => $name]);
-});
+Route::get('/', function () {
+    return redirect()->route('login');
+})->name('home');
 
 // Routing anggota melalui primkopnya
 Route::get('/anggota/primkop/{name}', function ($name) {
