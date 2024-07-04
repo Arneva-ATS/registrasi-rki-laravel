@@ -8,11 +8,17 @@
 <!-- GOOGLE WEB FONT -->
 <link href="https://fonts.googleapis.com/css?family=Caveat|Poppins:300,400,500,600,700&display=swap" rel="stylesheet" />
 
-<!-- BASE CSS -->
-<link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/css/vendors.css') }}" rel="stylesheet" />
+<!-- Required Fremwork -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/auth/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+<!-- feather Awesome -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/auth/vendor/feather/css/feather.css') }}">
 
-<!-- YOUR CUSTOM CSS -->
-<link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" />
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- animation css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/auth/vendor/animate.css/animate.css') }}">
+<!-- Style.css -->
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/auth/css/style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/auth/css/jquery.mCustomScrollbar.css') }}">
+
+<script type="text/javascript" src="{{ asset('assets/auth/vendor/jquery/dist/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/auth/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+

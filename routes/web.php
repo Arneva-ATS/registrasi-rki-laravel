@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,28 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/login', function () {
+    return view('dashboard.auth.login');
+});
+
+Route::post('/dologin', [App\Http\Controllers\LoginController::class, 'dologin']);
+
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index']);
+
+Route::get('/logout', function(){
+    Session::flush('id_koperasi');
+    Session::flush('username');
+    Session::flush('password');
+    return redirect('/login');
+});
+
+Route::get('/dashboard', function () {
+    $id = Session::get('id_koperasi');
+    $username = Session::get('username');
+    $password = Session::get('password');
+    return view('dashboard.auth.home', compact('id','username','password'));
+});
 
 Route::get('/', function ($name) {
     return redirect()->route('anggota.primkop', ['name' => $name]);
@@ -58,3 +80,6 @@ Route::get('/koperasi/{tingkat}/{name}', function ($tingkat, $name) {
         return view('registrasi.registrasi-koperasi', ['tingkat' => $tingkat_koperasi[0]->nama_tingkatan , 'nama_koperasi' =>$koperasi[0]->nama_koperasi]);
     }
 })->name('koperasi');
+
+
+
