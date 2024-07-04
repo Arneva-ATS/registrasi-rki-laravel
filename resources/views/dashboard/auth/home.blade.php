@@ -16,26 +16,7 @@
         </tr>
         <tr>
             <td width="178" height="518" valign="top">
-                @if($username == 'inkop')
-                <ul>
-                    <li>INKOP</li>
-                    <li>PUSKOP</li>
-                    <li>PRIMKOP</li>
-                </ul>
-                @elseif($username == 'puskop')
-                <ul>
-                    <li>PUSKOP</li>
-                    <li>PRIMKOP</li>
-                </ul>
-                @elseif($username == 'primkop')
-                <ul>
-                    <li>ANGGOTA</li>
-                </ul>
-                @else
-                <ul>
-                    <li><a href="/logout">LOGOUT</a></li>
-                </ul>
-                @endif
+              @include('dashboard.auth.nav')
             </td>
             <td width="612"><?php use Illuminate\Support\Facades\Session; $data = Session::get('id'); echo $data; ?></td>
         </tr>
