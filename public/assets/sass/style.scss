@@ -4,7 +4,7 @@ Theme URI: http://www.ansonika.com/satisfyc/
 Author: Ansonika
 Author URI: http://themeforest.net/user/Ansonika/
 
-[Table of contents] 
+[Table of contents]
 
 1. SITE STRUCTURE and TYPOGRAPHY
 - 1.1 Typography
@@ -51,17 +51,17 @@ body {
     color: $body-text-color;
     &.style_1 {
 	    background: $bgcolor-1 url(../img/pattern_3.svg) no-repeat center left;
-	    @include background-size(cover); 
+	    @include background-size(cover);
 	    @include mobile {background: $bgcolor-1;}
 	}
 	&.style_2 {
 	    background: $bgcolor-2 url(../img/pattern_3.svg) no-repeat center left;
-	    @include background-size(cover); 
+	    @include background-size(cover);
 	    @include mobile {background: $bgcolor-2;}
 	}
 	&.style_3 {
 	    background: $bgcolor-3 url(../img/pattern_3.svg) no-repeat center left;
-	    @include background-size(cover); 
+	    @include background-size(cover);
 	    @include mobile {background: $bgcolor-3;}
 	}
 }
@@ -96,7 +96,7 @@ ul,ol {
 }
 
 /*General links color*/
-a {	
+a {
 	color: #fff;
 	text-decoration: none;
 	@include transition-default;
@@ -439,8 +439,8 @@ footer {
         margin: 0 0 25px 0;
         text-transform: uppercase;
         font-weight: 700;
-        @include fontSize(62px);
-        @include mobile {font-size:42px; margin-bottom: 20px;}
+        @include fontSize(42px);
+        @include mobile {font-size:30px; margin-bottom: 20px;}
     }
     p {
         @include fontSize(18px);
@@ -783,7 +783,7 @@ span.error {
 	@include border-radius(3px);
 	@include fontSize(14px);
 	height: calc(2.85rem + 2px);
-	color:#fff; 
+	color:#fff;
 	font-weight: 500;
 	background-color: rgba(0, 0, 0, 0.4);
 	&:focus {
@@ -799,7 +799,7 @@ span.error {
 	@include mobile {height: 200px!important;}
 }
 
-.checkbox_radio_container {	
+.checkbox_radio_container {
 	margin-bottom: 10px;
 	position: relative;
 	input[type="checkbox"] {
@@ -807,7 +807,7 @@ span.error {
 	}
 	input[type="radio"] {
 		display: none;
-	}	
+	}
 	label {
 		cursor: pointer;
 	}
@@ -1035,7 +1035,7 @@ span.error {
 	position: relative;
 	input[type="radio"] {
 		display: none;
-	}	
+	}
 	label {
 		cursor: pointer;
 	}
@@ -1143,7 +1143,7 @@ span.error {
         }
 		&.smile_1 {
            background-color: #ff0033;
-           
+
         }
         &.smile_2 {
            background-color: #ff5f7f;
@@ -1165,7 +1165,7 @@ span.error {
 	position: relative;
 	input[type="radio"] {
 		display: none;
-	}	
+	}
 	label {
 		cursor: pointer;
 	}

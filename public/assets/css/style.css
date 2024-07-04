@@ -4,7 +4,7 @@ Theme URI: http://www.ansonika.com/satisfyc/
 Author: Ansonika
 Author URI: http://themeforest.net/user/Ansonika/
 
-[Table of contents] 
+[Table of contents]
 
 1. SITE STRUCTURE and TYPOGRAPHY
 - 1.1 Typography
@@ -511,12 +511,12 @@ footer ul li a:hover {
   margin: 0 0 25px 0;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 62px;
+  font-size: 42px;
   font-size: 3.875rem;
 }
 @media (max-width: 767px) {
   .main_title_1 h1, .main_title_1 h3 {
-    font-size: 42px;
+    font-size: 30px;
     margin-bottom: 20px;
   }
 }
