@@ -48,25 +48,25 @@ Route::get('/dashboard', function () {
 });
 
 
-Route::get('/inkop', function(){
+Route::get('/inkop', function () {
     $id = Session::get('id_koperasi');
     $username = Session::get('username');
     $password = Session::get('password');
-    return view('dashboard.auth.inkop',compact('id','username','password'));
+    return view('dashboard.auth.inkop', compact('id', 'username', 'password'));
 });
 
-Route::get('/puskop', function(){
+Route::get('/puskop', function () {
     $id = Session::get('id_koperasi');
     $username = Session::get('username');
     $password = Session::get('password');
-    return view('dashboard.auth.puskop',compact('id','username','password'));
+    return view('dashboard.auth.puskop', compact('id', 'username', 'password'));
 });
 
-Route::get('/primkop', function(){
+Route::get('/primkop', function () {
     $id = Session::get('id_koperasi');
     $username = Session::get('username');
     $password = Session::get('password');
-    return view('dashboard.auth.primkop',compact('id','username','password'));
+    return view('dashboard.auth.primkop', compact('id', 'username', 'password'));
 });
 
 Route::get('/', function () {
@@ -81,7 +81,7 @@ Route::get('/anggota/primkop/{name}', function ($name) {
     if ($koperasi->isEmpty()) {
         return view('error');
     } else {
-        return view('registrasi.registrasi-anggota', ['name' => $name, 'nama_koperasi' => $koperasi[0]->nama_koperasi, 'id_koperasi'=>$koperasi[0]->id]);
+        return view('registrasi.registrasi-anggota', ['name' => $name, 'nama_koperasi' => $koperasi[0]->nama_koperasi, 'id_koperasi' => $koperasi[0]->id]);
     }
 })->name('anggota.primkop');
 
@@ -107,11 +107,12 @@ Route::get('/koperasi/{tingkat}/{name}', function ($tingkat, $name) {
         return view('error');
     } elseif ($koperasi[0]->id_tingkatan_koperasi > 2) {
         return view('error');
-} elseif ($koperasi[0]->id_tingkatan_koperasi < 3) {
+    } elseif ($koperasi[0]->id_tingkatan_koperasi < 3) {
         $tingkatan = $koperasi[0]->id_tingkatan_koperasi + 1;
-        $tingkat_koperasi = DB::table('tbl_tingkat_koperasi')->where('id', $tingkatan)->get();
-        // return dd($tingkat_koperasi);
-        return view('registrasi.registrasi-koperasi', ['tingkat' => $tingkat_koperasi[0]->nama_tingkatan, 'nama_koperasi' => $koperasi[0]->nama_koperasi]);
+        $tingkat_atas = DB::table('tbl_tingkat_koperasi')->where('id', $tingkatan)->get();
+        $tingkat_bawah = DB::table('tbl_tingkat_koperasi')->where('id', $koperasi[0]->id_tingkatan_koperasi)->get();
+
+        // return dd($tingkat_atas);
+        return view('registrasi.registrasi-koperasi', ['tingkat_bawah' => $tingkat_atas[0]->nama_tingkatan, "tingkat_atas"=>$tingkat_bawah[0]->nama_tingkatan, 'id_koperasi' => $koperasi[0]->id, 'nama_koperasi' => $koperasi[0]->nama_koperasi, 'id_tingkat' => $tingkatan]);
     }
 })->name('koperasi');
-

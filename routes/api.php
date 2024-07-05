@@ -26,4 +26,5 @@ Route::prefix('register')->group(function () {
     });
     Route::post("/rki/insert-koperasi/{tingkat}", [KoperasiController::class, 'insert_koperasi_rki']);
     Route::post('/anggota/insert-anggota', [AnggotaController::class, 'insert_anggota']);
+    Route::post('/koperasi/insert-koperasi/{koperasi}/{tingkat}', [KoperasiController::class, 'insert_koperasi']);
 })->name('register');
