@@ -1,9 +1,7 @@
 
 <!--  BEGIN SIDEBAR  -->
 <div class="sidebar-wrapper sidebar-theme">
-
     <nav id="sidebar">
-
         <div class="navbar-nav theme-brand flex-row  text-center">
             <div class="nav-logo">
                 <div class="nav-item theme-logo">
@@ -47,15 +45,32 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled show" id="dashboard" data-bs-parent="#accordionExample">
+                    @if($username == 'rki')
                     <li class="active">
-                        <a href="./index.html"> INKOP </a>
+                        <a href="#"> INKOP </a>
                     </li>
                     <li>
-                        <a href="./index2.html"> PUSKOP </a>
+                        <a href="#"> PUSKOP </a>
                     </li>
                     <li>
-                        <a href="./index2.html"> PRIMKOP </a>
+                        <a href="#"> PRIMKOP </a>
                     </li>
+                    @elseif($username == 'inkop')
+                    <li class="active">
+                        <a href="#"> PUSKOP </a>
+                    </li>
+                    <li>
+                        <a href="#"> PRIMKOP </a>
+                    </li>
+                    @elseif($username == 'puskop')
+                    <li class="active">
+                        <a href="#"> PRIMKOP </a>
+                    </li>
+                    @else
+                    <li class="active">
+                        <a href="#"> ANGGOTA </a>
+                    </li>
+                    @endif
                 </ul>
             </li>            
         </ul>
