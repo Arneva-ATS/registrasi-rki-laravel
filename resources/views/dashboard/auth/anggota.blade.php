@@ -51,9 +51,9 @@
                                             <td>#{{$data->id}}</td>
                                             <td>{{$data->no_anggota}}</td>
                                             <td>{{$data->nik}}</td>
-                                            <td>{{$data->no_anggota}}</td>
+                                            <td>{{$data->nama_lengkap}}</td>
                                             <td>{{$data->nomor_hp}}</td>
-                                            <td> <button class="btn btn-warning"> Edit </button> </td>
+                                            <td> <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a> </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -65,7 +65,7 @@
                     </li>
                     @else
                     <li class="active">
-                        <a href="/anggota"> ANGGOTA </a>
+                        <a href="/list_anggota"> ANGGOTA </a>
                     </li>
                     @endif
                     <li>
