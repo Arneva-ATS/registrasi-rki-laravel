@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2024 at 10:48 AM
+-- Generation Time: Jul 05, 2024 at 12:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `web_registrasi_new`
+-- Database: `web_registrasi_update`
 --
 
 -- --------------------------------------------------------
@@ -36,6 +36,7 @@ CREATE TABLE `tbl_anggota` (
   `tempat_lahir` varchar(100) DEFAULT NULL,
   `tanggal_lahir` date DEFAULT NULL,
   `jenis_kelamin` varchar(100) DEFAULT NULL,
+  `rt_rw` varchar(100) DEFAULT NULL,
   `kelurahan` varchar(100) DEFAULT NULL,
   `kecamatan` varchar(100) DEFAULT NULL,
   `kota` varchar(100) DEFAULT NULL,
@@ -52,18 +53,16 @@ CREATE TABLE `tbl_anggota` (
   `ktp` varchar(255) DEFAULT NULL,
   `id_role` int(11) DEFAULT NULL,
   `approval` tinyint(1) DEFAULT 1,
-  `id_koperasi` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+  `id_koperasi` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbl_anggota`
 --
 
-INSERT INTO `tbl_anggota` (`id`, `no_anggota`, `nis`, `nik`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `kelurahan`, `kecamatan`, `kota`, `provinsi`, `kode_pos`, `agama`, `status_pernikahan`, `pekerjaan`, `kewarganegaraan`, `alamat`, `nomor_hp`, `email`, `selfie`, `ktp`, `id_role`, `approval`, `id_koperasi`, `created_at`, `updated_at`) VALUES
-(21, '10.00025.0405', NULL, '3171066206560001', 'Hj. Dina Latifah', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0816769253', NULL, NULL, NULL, 1, 1, NULL, '2024-07-05 13:19:15', '2024-07-05 13:19:15'),
-(22, '10.05156.0716', NULL, '123456', 'wahyudi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '087785784556', NULL, NULL, NULL, 2, 1, NULL, '2024-07-05 13:19:15', '2024-07-05 13:19:15');
+INSERT INTO `tbl_anggota` (`id`, `no_anggota`, `nis`, `nik`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `rt_rw`, `kelurahan`, `kecamatan`, `kota`, `provinsi`, `kode_pos`, `agama`, `status_pernikahan`, `pekerjaan`, `kewarganegaraan`, `alamat`, `nomor_hp`, `email`, `selfie`, `ktp`, `id_role`, `approval`, `id_koperasi`) VALUES
+(21, '10.00025.0405', NULL, '3171066206560001', 'Hj. Dina Latifah', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0816769253', NULL, NULL, NULL, 1, 1, 2),
+(22, '10.05156.0716', NULL, '123456', 'wahyudi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '087785784556', NULL, NULL, NULL, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -74,9 +73,9 @@ INSERT INTO `tbl_anggota` (`id`, `no_anggota`, `nis`, `nik`, `nama_lengkap`, `te
 CREATE TABLE `tbl_koperasi` (
   `id` int(11) NOT NULL,
   `nama_koperasi` varchar(255) DEFAULT NULL,
-  `no_phone` varchar(20) DEFAULT NULL,
-  `hp_wa` varchar(20) DEFAULT NULL,
-  `hp_fax` varchar(20) DEFAULT NULL,
+  `no_phone` varchar(13) DEFAULT NULL,
+  `hp_wa` varchar(13) DEFAULT NULL,
+  `hp_fax` varchar(13) DEFAULT NULL,
   `email_koperasi` varchar(50) DEFAULT NULL,
   `url_website` varchar(255) DEFAULT NULL,
   `bidang_koperasi` varchar(255) DEFAULT NULL,
@@ -85,7 +84,7 @@ CREATE TABLE `tbl_koperasi` (
   `kota` varchar(255) DEFAULT NULL,
   `kecamatan` varchar(255) DEFAULT NULL,
   `kelurahan` varchar(255) DEFAULT NULL,
-  `kode_pos` varchar(20) DEFAULT NULL,
+  `kode_pos` varchar(10) DEFAULT NULL,
   `image_logo` varchar(255) DEFAULT NULL,
   `no_akta_pendirian` varchar(255) DEFAULT NULL,
   `tanggal_akta_pendirian` date DEFAULT NULL,
@@ -113,18 +112,19 @@ CREATE TABLE `tbl_koperasi` (
   `id_primkop` int(11) DEFAULT NULL,
   `ktp` varchar(255) NOT NULL,
   `slug` varchar(100) DEFAULT NULL,
-  `password` text DEFAULT '123456789',
-  `id_tingkatan_koperasi` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+  `username` varchar(200) NOT NULL,
+  `password` varchar(255) DEFAULT '123456789',
+  `id_tingkatan_koperasi` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tbl_koperasi`
 --
 
-INSERT INTO `tbl_koperasi` (`id`, `nama_koperasi`, `no_phone`, `hp_wa`, `hp_fax`, `email_koperasi`, `url_website`, `bidang_koperasi`, `alamat`, `provinsi`, `kota`, `kecamatan`, `kelurahan`, `kode_pos`, `image_logo`, `no_akta_pendirian`, `tanggal_akta_pendirian`, `no_akta_perubahan`, `tanggal_akta_perubahan`, `no_sk_kemenkumham`, `tanggal_sk_kemenkumham`, `no_spkum`, `tanggal_spkum`, `no_siup`, `masa_berlaku_siup`, `no_sk_domisili`, `masa_berlaku_sk_domisili`, `no_npwp`, `no_pkp`, `no_bpjs_kesehatan`, `no_bpjs_tenaga_kerja`, `no_sertifikat_koperasi`, `file_sertifikat_koperasi`, `approval`, `doc_url`, `singkatan_koperasi`, `id_inkop`, `id_puskop`, `id_primkop`, `ktp`, `slug`, `password`, `id_tingkatan_koperasi`, `created_at`, `updated_at`) VALUES
-(2, 'Koperasi Serba Usaha \"Pegangsaan\"', '', '085718478040', '', 'deeah.dhanti@gmail.com', '', 'Serba Usaha', 'Jl. Matraman Dalam III No. 12 Rt. 005/007\n', 'dki jakarta', 'jakarta pusat', 'menteng', 'pegangsaan', '10320', '/koperasi/1719893230157.jpeg', '1367', '1980-09-06', '199', '2011-08-31', '11', '2011-08-25', '1367', '1980-06-09', '1296000230358', '2021-02-05', '118', '2016-07-19', '013745708071000', '123123', '0001263114821', '123456', '3173020020033', NULL, 1, '/koperasi/1719893230161.pdf', 'KSUPegangsaan', NULL, NULL, NULL, '/koperasi/1719893230158.jpeg', 'ksu-pegangsaan', '123456789', 2, '2024-07-05 13:18:46', '2024-07-05 13:18:46');
+INSERT INTO `tbl_koperasi` (`id`, `nama_koperasi`, `no_phone`, `hp_wa`, `hp_fax`, `email_koperasi`, `url_website`, `bidang_koperasi`, `alamat`, `provinsi`, `kota`, `kecamatan`, `kelurahan`, `kode_pos`, `image_logo`, `no_akta_pendirian`, `tanggal_akta_pendirian`, `no_akta_perubahan`, `tanggal_akta_perubahan`, `no_sk_kemenkumham`, `tanggal_sk_kemenkumham`, `no_spkum`, `tanggal_spkum`, `no_siup`, `masa_berlaku_siup`, `no_sk_domisili`, `masa_berlaku_sk_domisili`, `no_npwp`, `no_pkp`, `no_bpjs_kesehatan`, `no_bpjs_tenaga_kerja`, `no_sertifikat_koperasi`, `file_sertifikat_koperasi`, `approval`, `doc_url`, `singkatan_koperasi`, `id_inkop`, `id_puskop`, `id_primkop`, `ktp`, `slug`, `username`, `password`, `id_tingkatan_koperasi`) VALUES
+(2, 'Koperasi Serba Usaha \"Pegangsaan\"', '', '085718478040', '', 'deeah.dhanti@gmail.com', '', 'Serba Usaha', 'Jl. Matraman Dalam III No. 12 Rt. 005/007\n', 'dki jakarta', 'jakarta pusat', 'menteng', 'pegangsaan', '10320', '/koperasi/1719893230157.jpeg', '1367', '1980-09-06', '199', '2011-08-31', '11', '2011-08-25', '1367', '1980-06-09', '1296000230358', '2021-02-05', '118', '2016-07-19', '013745708071000', '123123', '0001263114821', '123456', '3173020020033', NULL, 1, '/koperasi/1719893230161.pdf', 'KSUPegangsaan', 1, 1, 2, '/koperasi/1719893230158.jpeg', 'ksu-pegangsaan', 'pegangsaan', '123456789', 3),
+(3, 'Koperasi \"Puskop\"', '', '085718478040', '', 'deeah.dhanti@gmail.com', '', 'Serba Usaha', 'Jl. Matraman Dalam III No. 12 Rt. 005/007\r\n', 'dki jakarta', 'jakarta pusat', 'menteng', 'pegangsaan', '10320', '/koperasi/1719893230157.jpeg', '1367', '1980-09-06', '199', '2011-08-31', '11', '2011-08-25', '1367', '1980-06-09', '1296000230358', '2021-02-05', '118', '2016-07-19', '013745708071000', '123123', '0001263114821', '123456', '3173020020033', NULL, 1, '/koperasi/1719893230161.pdf', 'KSUPegangsaan', 14, 3, 2, '/koperasi/1719893230158.jpeg', 'ksu-puskop', 'ksu', '123456789', 2),
+(4, 'Koperasi \"Inkop\"', '', '085718478040', '', 'deeah.dhanti@gmail.com', '', 'Serba Usaha', 'Jl. Matraman Dalam III No. 12 Rt. 005/007\r\n', 'dki jakarta', 'jakarta pusat', 'menteng', 'pegangsaan', '10320', '/koperasi/1719893230157.jpeg', '1367', '1980-09-06', '199', '2011-08-31', '11', '2011-08-25', '1367', '1980-06-09', '1296000230358', '2021-02-05', '118', '2016-07-19', '013745708071000', '123123', '0001263114821', '123456', '3173020020033', NULL, 1, '/koperasi/1719893230161.pdf', 'KSUKSU', 4, 6, 2, '/koperasi/1719893230158.jpeg', 'ksu-inkop', 'inkop', '123456789', 1);
 
 -- --------------------------------------------------------
 
@@ -160,8 +160,7 @@ CREATE TABLE `tbl_roles` (
 
 INSERT INTO `tbl_roles` (`id`, `role_name`, `id_menu`, `created_date`, `updated_at`) VALUES
 (1, 'ketua', NULL, '2024-07-03 12:15:12', '2024-07-03 12:15:24'),
-(2, 'anggota', NULL, '2024-07-03 12:15:32', '2024-07-03 12:15:39'),
-(3, 'pengawas', NULL, '2024-07-05 13:11:32', '2024-07-05 13:11:36');
+(2, 'anggota', NULL, '2024-07-03 12:15:32', '2024-07-03 12:15:39');
 
 -- --------------------------------------------------------
 
@@ -196,7 +195,7 @@ CREATE TABLE `tbl_user` (
   `username` varchar(30) NOT NULL,
   `password` varchar(255) NOT NULL,
   `id_role` int(11) DEFAULT NULL,
-  `id_koperasi` int(11) DEFAULT NULL,
+  `id_koperasi_primer` int(11) DEFAULT NULL,
   `permission_create` int(11) NOT NULL DEFAULT 1,
   `permssion_update` int(11) NOT NULL DEFAULT 1,
   `permission_delete` int(11) NOT NULL DEFAULT 1,
@@ -208,7 +207,7 @@ CREATE TABLE `tbl_user` (
 -- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`id`, `username`, `password`, `id_role`, `id_koperasi`, `permission_create`, `permssion_update`, `permission_delete`, `created_at`, `updated_at`) VALUES
+INSERT INTO `tbl_user` (`id`, `username`, `password`, `id_role`, `id_koperasi_primer`, `permission_create`, `permssion_update`, `permission_delete`, `created_at`, `updated_at`) VALUES
 (1, 'dina29', '', 1, 2, 1, 1, 1, '2024-07-03 12:16:05', '2024-07-03 12:16:05'),
 (2, 'wahyudi88', '', 2, 2, 1, 1, 1, '2024-07-03 12:17:09', '2024-07-03 12:17:09');
 
@@ -221,8 +220,7 @@ INSERT INTO `tbl_user` (`id`, `username`, `password`, `id_role`, `id_koperasi`, 
 --
 ALTER TABLE `tbl_anggota`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `anggota_ibfk5` (`id_role`),
-  ADD KEY `anggota_ibfk6` (`id_koperasi`);
+  ADD KEY `anggota_ibfk5` (`id_role`);
 
 --
 -- Indexes for table `tbl_koperasi`
@@ -257,7 +255,7 @@ ALTER TABLE `tbl_tingkat_koperasi`
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_ibfk_2` (`id_role`),
-  ADD KEY `user_ibfk_5` (`id_koperasi`) USING BTREE;
+  ADD KEY `user_ibfk_5` (`id_koperasi_primer`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -267,19 +265,19 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_anggota`
 --
 ALTER TABLE `tbl_anggota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tbl_koperasi`
 --
 ALTER TABLE `tbl_koperasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_tingkat_koperasi`
@@ -301,8 +299,7 @@ ALTER TABLE `tbl_user`
 -- Constraints for table `tbl_anggota`
 --
 ALTER TABLE `tbl_anggota`
-  ADD CONSTRAINT `anggota_ibfk5` FOREIGN KEY (`id_role`) REFERENCES `tbl_roles` (`id`),
-  ADD CONSTRAINT `anggota_ibfk6` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`);
+  ADD CONSTRAINT `anggota_ibfk5` FOREIGN KEY (`id_role`) REFERENCES `tbl_roles` (`id`);
 
 --
 -- Constraints for table `tbl_koperasi`
@@ -321,7 +318,7 @@ ALTER TABLE `tbl_roles`
 --
 ALTER TABLE `tbl_user`
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_role`) REFERENCES `tbl_roles` (`id`),
-  ADD CONSTRAINT `user_ibfk_5` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`);
+  ADD CONSTRAINT `user_ibfk_5` FOREIGN KEY (`id_koperasi_primer`) REFERENCES `tbl_koperasi` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
