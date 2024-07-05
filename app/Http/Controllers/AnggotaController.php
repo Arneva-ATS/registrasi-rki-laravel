@@ -9,76 +9,93 @@ use Illuminate\Support\Facades\Storage;
 class AnggotaController extends Controller
 {
     //
-    public function insert(Request $request)
+    public function insert_anggota(Request $request)
     {
-        $data = $request->all();
-        $slug_url = $data['slug_url'];
-        $tingkat_koperasi = $data['tingkat_koperasi'];
-
         try {
-            // Determine koperasi data based on tingkat_koperasi
-            if ($tingkat_koperasi == 'inkop') {
-                $koperasi_data = DB::table('tbl_koperasi_induk')->where('slug', $slug_url)->first();
-            } elseif ($tingkat_koperasi == 'puskop') {
-                $koperasi_data = DB::table('tbl_koperasi_pusat')->where('slug', $slug_url)->first();
-            } elseif ($tingkat_koperasi == 'primkop') {
-                $koperasi_data = DB::table('tbl_koperasi_primer')->where('slug', $slug_url)->first();
-            }
-
-            // Convert Base64 to Image
-            $selfiePath = $data['roles'] . '/' . time() . '.png';
-            $ktpPath =  $data['roles'] . '/' . time() . '.png';
-            Storage::put($selfiePath, base64_decode($data['selfie']));
-            Storage::put($ktpPath, base64_decode($data['ktp']));
-
-            $selfieUrl = Storage::url($selfiePath);
-            $ktpUrl = Storage::url($ktpPath);
-
-            // Insert into tbl_anggota
-            $anggotaId = DB::table('tbl_anggota')->insertGetId([
-                'no_anggota' => $data['no_anggota'],
-                'nik' => $data['nik'],
-                'nama_lengkap' => $data['nama_lengkap'],
-                'tempat_lahir' => $data['tempat_lahir'],
-                'tanggal_lahir' => $data['tanggal_lahir'],
-                'jenis_kelamin' => $data['jenis_kelamin'],
-                'rt_rw' => $data['rt_rw'],
-                'kelurahan' => $data['kelurahan'],
-                'kecamatan' => $data['kecamatan'],
-                'kota' => $data['kota'],
-                'provinsi' => $data['provinsi'],
-                'kode_pos' => $data['kode_pos'],
-                'agama' => $data['agama'],
-                'status_pernikahan' => $data['status_pernikahan'],
-                'pekerjaan' => $data['pekerjaan'],
-                'kewarganegaraan' => $data['kewarganegaraan'],
-                'alamat' => $data['alamat'],
-                'nomor_hp' => $data['nomor_hp'],
-                'email' => $data['email'],
-                'selfie' => $selfieUrl,
-                'ktp' => $ktpUrl,
+            $request->validate([
+                'no_anggota' => 'required',
+                'nik' => 'required',
+                'nama_lengkap' => 'required',
+                'tempat_lahir' => 'required',
+                'tanggal_lahir' => 'required|date',
+                'jenis_kelamin' => 'required',
+                'kelurahan' => 'required',
+                'kecamatan' => 'required',
+                'kota' => 'required',
+                'provinsi' => 'required',
+                'kode_pos' => 'required',
+                'agama' => 'required',
+                'status_pernikahan' => 'required',
+                'pekerjaan' => 'required',
+                'kewarganegaraan' => 'required',
+                'alamat' => 'required',
+                'nomor_hp' => 'required',
+                'email' => 'required|email',
+                'slug_url' => 'required',
+                'id_role'=>'required',
+                'id_koperasi' => 'required'
             ]);
 
-            // Insert into tbl_user
-            $userData = [
-                'username' => $data['username'],
-                'id_anggota' => $anggotaId,
-                'id_role' => 2,
+            // Convert Base64 to Image
+            // Simpan foto selfie
+            $selfie_base64 = $request->selfie;
+            $selfie_extension = 'png';
+            $selfie_name = time() . 'anggota.' . $selfie_extension;
+            $selfie_folder = '/anggota/selfie/';
+            $selfie_path = public_path() . $selfie_folder . $selfie_name;
+            // $logo_path = public_path().'/images' public_path($logo_folder . $logo_name);
+            file_put_contents($selfie_path, base64_decode($selfie_base64));
+
+            // Simpan foto selfie
+            $ktp_base64 = $request->ktp;
+            $ktp_extension = 'png';
+            $ktp_name = time() . 'anggota.' . $ktp_extension;
+            $ktp_folder = '/anggota/ktp/';
+            $ktp_path = public_path() . $ktp_folder . $ktp_name;
+            // $logo_path = public_path().'/images' public_path($logo_folder . $logo_name);
+            file_put_contents($ktp_path, base64_decode($ktp_base64));
+
+            // simpan url
+            $selfieUrl = $selfie_folder . $selfie_name;
+            $ktpUrl = $ktp_folder . $ktp_name;
+            $anggotaData = [
+                'no_anggota' => $request->no_anggota,
+                'nik' => $request->nik,
+                'nama_lengkap' => $request->nama_lengkap,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'kelurahan' => $request->kelurahan,
+                'kecamatan' => $request->kecamatan,
+                'kota' => $request->kota,
+                'provinsi' => $request->provinsi,
+                'kode_pos' => $request->kode_pos,
+                'agama' => $request->agama,
+                'status_pernikahan' => $request->status_pernikahan,
+                'pekerjaan' => $request->pekerjaan,
+                'kewarganegaraan' => $request->kewarganegaraan,
+                'alamat' => $request->alamat,
+                'nomor_hp' => $request->nomor_hp,
+                'email' => $request->email,
+                'selfie' => $selfieUrl,
+                'ktp' => $ktpUrl,
+                'id_koperasi'=>$request->id_koperasi,
+                'id_role'=>$request->id_role
             ];
-
-            if ($tingkat_koperasi == 'inkop') {
-                $userData['id_koperasi_induk'] = $koperasi_data->id;
-            } elseif ($tingkat_koperasi == 'puskop') {
-                $userData['id_koperasi_pusat'] = $koperasi_data->id;
-            } elseif ($tingkat_koperasi == 'primkop') {
-                $userData['id_koperasi_primer'] = $koperasi_data->id;
+            // Insert into tbl_anggota
+            $insert_anggota = DB::table('tbl_anggota')->insertGetId($anggotaData);
+            if(!$insert_anggota){
+                throw new \Exception('Gagal Tambah Anggota!');
             }
-
-            DB::table('tbl_user')->insert($userData);
-
-            return response()->json(['message' => 'success'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            return response()->json([
+                'response_code' => "00",
+                'response_message' => 'Sukses simpan data!',
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'response_code' => "01",
+                'response_message' => $th->getMessage(),
+            ], 400);
         }
     }
 }

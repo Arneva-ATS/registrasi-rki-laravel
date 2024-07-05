@@ -16,14 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::prefix('register')->group(function () {
     Route::post('/rki/primkop', function () {
         return "OK";
     });
     Route::post("/rki/insert-koperasi/{tingkat}", [KoperasiController::class, 'insert_koperasi_rki']);
-    Route::post('/koperasi/insert-anggota', [AnggotaController::class, 'insert']);
+    Route::post('/anggota/insert-anggota', [AnggotaController::class, 'insert_anggota']);
 })->name('register');
