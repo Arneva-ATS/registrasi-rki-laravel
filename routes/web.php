@@ -80,7 +80,7 @@ Route::get('/list_puskop', function(){
     $id_inkop = Session::get('id_inkop');
     $id_puskop = Session::get('id_puskop');
     $id_primkop = Session::get('id_primkop');
-    $puskop = DB::table('tbl_koperasi')->where('id_inkop', $id_inkop)->get();
+    $puskop = DB::table('tbl_koperasi')->where('id_inkop',  $id_inkop)->get();
     return view('dashboard.auth.puskop',compact('id','username','password','tingkatan','puskop'));
 });
 
