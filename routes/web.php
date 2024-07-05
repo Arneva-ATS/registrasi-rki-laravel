@@ -36,11 +36,37 @@ Route::get('/logout', function () {
     return redirect('/login');
 });
 
+// Route::get('/dashboard-new', function () {
+//     return view('dashboard.index');
+// });
+
 Route::get('/dashboard', function () {
     $id = Session::get('id_koperasi');
     $username = Session::get('username');
     $password = Session::get('password');
     return view('dashboard.auth.home', compact('id', 'username', 'password'));
+});
+
+
+Route::get('/inkop', function(){
+    $id = Session::get('id_koperasi');
+    $username = Session::get('username');
+    $password = Session::get('password');
+    return view('dashboard.auth.inkop',compact('id','username','password'));
+});
+
+Route::get('/puskop', function(){
+    $id = Session::get('id_koperasi');
+    $username = Session::get('username');
+    $password = Session::get('password');
+    return view('dashboard.auth.puskop',compact('id','username','password'));
+});
+
+Route::get('/primkop', function(){
+    $id = Session::get('id_koperasi');
+    $username = Session::get('username');
+    $password = Session::get('password');
+    return view('dashboard.auth.primkop',compact('id','username','password'));
 });
 
 Route::get('/', function () {
