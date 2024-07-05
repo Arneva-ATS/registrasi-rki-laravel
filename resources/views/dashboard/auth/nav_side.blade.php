@@ -5,12 +5,12 @@
         <div class="navbar-nav theme-brand flex-row  text-center">
             <div class="nav-logo">
                 <div class="nav-item theme-logo">
-                    <a href="./index.html">
+                    <a href="#">
                         <img src="{{asset('/assets/dashboard/src/assets/img/logo.svg')}}" class="navbar-logo" alt="logo">
                     </a>
                 </div>
                 <div class="nav-item theme-text">
-                    <a href="./index.html" class="nav-link"> DASHBOARD </a>
+                    <a href="#" class="nav-link"> DASHBOARD </a>
                 </div>
             </div>
             <div class="nav-item sidebar-toggle">
@@ -45,32 +45,32 @@
                     </div>
                 </a>
                 <ul class="collapse submenu list-unstyled show" id="dashboard" data-bs-parent="#accordionExample">
-                    @if($username == 'rki')
+                    @if($tingkatan == 'rki')
                     <li class="active">
-                        <a href="#"> INKOP </a>
+                        <a href="/list_inkop"> INKOP </a>
                     </li>
                     <li>
-                        <a href="#"> PUSKOP </a>
+                        <a href="/list_puskop"> PUSKOP </a>
                     </li>
                     <li>
-                        <a href="#"> PRIMKOP </a>
+                        <a href="/list_primkop"> PRIMKOP </a>
                     </li>
-                    @elseif($username == 'inkop')
+                    @elseif($tingkatan == 'inkop')
                     <li class="active">
-                        <a href="#"> PUSKOP </a>
+                        <a href="/list_puskop"> PUSKOP </a>
                     </li>
-                    <li>
-                        <a href="#"> PRIMKOP </a>
-                    </li>
-                    @elseif($username == 'puskop')
+                    @elseif($tingkatan == 'puskop')
                     <li class="active">
-                        <a href="#"> PRIMKOP </a>
+                        <a href="/list_primkop"> PRIMKOP </a>
                     </li>
                     @else
                     <li class="active">
-                        <a href="#"> ANGGOTA </a>
+                        <a href="/anggota"> ANGGOTA </a>
                     </li>
                     @endif
+                    <li>
+                        <a href="/logout"> LOGOUT </a>
+                    </li>
                 </ul>
             </li>            
         </ul>

@@ -26,6 +26,10 @@ Route::get('/logout', function(){
     Session::flush('id_koperasi');
     Session::flush('username');
     Session::flush('password');
+    Session::flush('tingkatan');
+    Session::flush('id_inkop');
+    Session::flush('id_puskop');
+    Session::flush('id_primkop');
     return redirect('/login');
 });
 
@@ -35,32 +39,69 @@ Route::get('/logout', function(){
 
 Route::get('/dashboard', function () {
     $id = Session::get('id_koperasi');
-    $username = Session::get('username');
-    $password = Session::get('password');
-    return view('dashboard.auth.home', compact('id','username','password'));
+    if(!empty($id)){
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        return view('dashboard.auth.home', compact('id','username','password','tingkatan'));
+    }else{
+        return redirect('/login');
+    }
+   
 });
 
 
-Route::get('/inkop', function(){
+Route::get('/list_inkop', function(){
     $id = Session::get('id_koperasi');
     $username = Session::get('username');
     $password = Session::get('password');
-    return view('dashboard.auth.inkop',compact('id','username','password'));
+    $tingkatan = Session::get('tingkatan');
+    $id_inkop = Session::get('id_inkop');
+    $id_puskop = Session::get('id_puskop');
+    $id_primkop = Session::get('id_primkop');
+    return view('dashboard.auth.inkop',compact('id','username','password','tingkatan'));
 });
 
-Route::get('/puskop', function(){
+Route::get('/list_puskop', function(){
     $id = Session::get('id_koperasi');
     $username = Session::get('username');
     $password = Session::get('password');
-    return view('dashboard.auth.puskop',compact('id','username','password'));
+    $tingkatan = Session::get('tingkatan');
+    $id_inkop = Session::get('id_inkop');
+    $id_puskop = Session::get('id_puskop');
+    $id_primkop = Session::get('id_primkop');
+    $puskop = DB::table('tbl_koperasi')->where('id_inkop', $id_inkop)->get();
+    return view('dashboard.auth.puskop',compact('id','username','password','tingkatan','puskop'));
 });
 
-Route::get('/primkop', function(){
+Route::get('/list_primkop', function(){
     $id = Session::get('id_koperasi');
     $username = Session::get('username');
     $password = Session::get('password');
-    return view('dashboard.auth.primkop',compact('id','username','password'));
+    $tingkatan = Session::get('tingkatan');
+    $id_inkop = Session::get('id_inkop');
+    $id_puskop = Session::get('id_puskop');
+    $id_primkop = Session::get('id_primkop');
+    $primkop = DB::table('tbl_koperasi')->where('id_puskop', $id_puskop)->get();
+    return view('dashboard.auth.primkop',compact('id','username','password','tingkatan','primkop'));
 });
+
+
+Route::get('/anggota', function(){
+    $id = Session::get('id_koperasi');
+    $username = Session::get('username');
+    $password = Session::get('password');
+    $tingkatan = Session::get('tingkatan');
+    $id_inkop = Session::get('id_inkop');
+    $id_puskop = Session::get('id_puskop');
+    $id_primkop = Session::get('id_primkop');
+    $primkop_anggota = DB::table('tbl_anggota')->where('id_koperasi', $id)->get();
+    return view('dashboard.auth.anggota',compact('id','username','password','tingkatan','primkop_anggota'));
+});
+
 
 Route::get('/', function () {
     return redirect()->route('login');

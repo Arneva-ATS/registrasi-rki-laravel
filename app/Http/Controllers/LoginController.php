@@ -16,14 +16,21 @@ class LoginController extends Controller
     {
      
         $username = $request->username;
-        $password = bcrypt($request->password);
-        $koperasi = DB::table('tbl_koperasi')->where('username', $username)->orWhere('password',$password)->first();
-        if(!empty($koperasi->id) || !empty($koperasi->username) || !empty($koperasi->password)) {
-
-            Session::put('id_koperasi', $koperasi->id);
+        $password = $request->password;
+        // $koperasi = DB::table('tbl_koperasi')->where('username', $username)->where('password',$password)->first();
+        $koperasi = DB::table('tbl_koperasi')
+        ->select('*','tbl_koperasi.id  as id_kop')
+        ->join('tbl_tingkat_koperasi', 'tbl_koperasi.id_tingkatan_koperasi', '=', 'tbl_tingkat_koperasi.id')
+        ->where('tbl_koperasi.username', $username)->where('tbl_koperasi.password',$password)->first();
+       
+        if(!empty($koperasi->id_kop) || !empty($koperasi->username) || !empty($koperasi->password)) {
+            Session::put('id_koperasi', $koperasi->id_kop);
             Session::put('username', $koperasi->username);
             Session::put('password', $koperasi->password);
-
+            Session::put('tingkatan', $koperasi->nama_tingkatan);
+            Session::put('id_inkop', $koperasi->id_inkop);
+            Session::put('id_puskop', $koperasi->id_puskop);
+            Session::put('id_primkop', $koperasi->id_primkop);
             return redirect('/dashboard');
 
         } else {

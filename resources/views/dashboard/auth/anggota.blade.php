@@ -38,22 +38,22 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Nama Koperasi</th>
-                                            <th>No Wa</th>
-                                            <th>Email</th>
-                                            <th>Bidang Usaha</th>
+                                            <th>NO Anggota</th>
+                                            <th>Nik</th>
+                                            <th>Nama Anggota</th>
+                                            <th>No HP</th>
                                             <th class="no-content">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($primkop as $data)
+                                        @foreach($primkop_anggota as $data)
                                         <tr>
                                             <td>#{{$data->id}}</td>
-                                            <td>{{$data->nama_koperasi}}</td>
-                                            <td>{{$data->hp_wa}}</td>
-                                            <td>{{$data->email_koperasi}}</td>
-                                            <td>{{$data->bidang_koperasi}}</td>
-                                            <td> <button class="btn btn-warning"> View Primkop </button> </td>
+                                            <td>{{$data->no_anggota}}</td>
+                                            <td>{{$data->nik}}</td>
+                                            <td>{{$data->no_anggota}}</td>
+                                            <td>{{$data->nomor_hp}}</td>
+                                            <td> <button class="btn btn-warning"> Edit </button> </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
