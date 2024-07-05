@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KoperasiController;
+use App\Http\Controllers\WilayahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,10 @@ Route::prefix('register')->group(function () {
     Route::post('/anggota/insert-anggota', [AnggotaController::class, 'insert_anggota']);
     Route::post('/koperasi/insert-koperasi/{koperasi}/{tingkat}', [KoperasiController::class, 'insert_koperasi']);
 })->name('register');
+
+Route::prefix('wilayah')->group(function () {
+    Route::get('/provinsi', [WilayahController::class, 'province']);
+    Route::get('/kota/{id_provinsi}', [WilayahController::class, 'city']);
+    Route::get('/kecamatan/{id_kota}', [WilayahController::class, 'district']);
+    Route::get('/kelurahan/{id_kecamatan}', [WilayahController::class, 'subdistrict']);
+})->name('wilayah');

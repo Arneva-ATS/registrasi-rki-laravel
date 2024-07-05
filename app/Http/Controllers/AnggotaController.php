@@ -32,7 +32,7 @@ class AnggotaController extends Controller
                 'nomor_hp' => 'required',
                 'email' => 'required|email',
                 'slug_url' => 'required',
-                'id_role'=>'required',
+                'id_role' => 'required',
                 'id_koperasi' => 'required'
             ]);
 
@@ -65,10 +65,10 @@ class AnggotaController extends Controller
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'jenis_kelamin' => $request->jenis_kelamin,
-                'kelurahan' => $request->kelurahan,
-                'kecamatan' => $request->kecamatan,
-                'kota' => $request->kota,
-                'provinsi' => $request->provinsi,
+                'id_kelurahan' => $request->kelurahan,
+                'id_kecamatan' => $request->kecamatan,
+                'id_kota' => $request->kota,
+                'id_provinsi' => $request->provinsi,
                 'kode_pos' => $request->kode_pos,
                 'agama' => $request->agama,
                 'status_pernikahan' => $request->status_pernikahan,
@@ -79,12 +79,12 @@ class AnggotaController extends Controller
                 'email' => $request->email,
                 'selfie' => $selfieUrl,
                 'ktp' => $ktpUrl,
-                'id_koperasi'=>$request->id_koperasi,
-                'id_role'=>$request->id_role
+                'id_koperasi' => $request->id_koperasi,
+                'id_role' => $request->id_role
             ];
             // Insert into tbl_anggota
             $insert_anggota = DB::table('tbl_anggota')->insertGetId($anggotaData);
-            if(!$insert_anggota){
+            if (!$insert_anggota) {
                 throw new \Exception('Gagal Tambah Anggota!');
             }
             return response()->json([
