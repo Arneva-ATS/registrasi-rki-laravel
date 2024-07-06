@@ -104,35 +104,49 @@
                                 <div class="row">
                                     <div class="col-6 pe-2">
                                         <div class="form-group">
-                                            <label for="provinsi">Provinsi</label>
-                                            <input type="text" name="provinsi" id="provinsi" class="form-control"
-                                                placeholder="Masukan Provinsi" required />
+                                            {{-- <label for="provinsi">Provinsi</label> --}}
+                                            <p class="mb-1">Provinsi</p>
+                                            <select id="provinsi" class="form-control"
+                                                required>
+                                                <option value="00" hidden selected>Pilih Provinsi</option>
+                                            </select>
+                                            <div id="provinsi-error" class="text-danger mt-1 hidden"></div>
                                         </div>
                                     </div>
                                     <div class="col-6 ps-2">
                                         <div class="form-group">
-                                            <label for="kota">Kab/Kota</label>
-                                            <input type="text" name="kota" id="kota" class="form-control"
-                                                placeholder="Masukan Kota" required />
+                                            {{-- <label for="kota">Kab/Kota</label> --}}
+                                            <p class="mb-1">Kabupaten/Kota</p>
+                                            <select id="kota" class="form-control"
+                                                required>
+                                                <option value="00" hidden selected>Pilih Kabuptaen/Kota</option>
+                                            </select>
+                                            <div id="kota-error" class="text-danger mt-1 hidden"></div>
                                         </div>
                                     </div>
-
-
                                 </div>
 
                                 <div class="row">
                                     <div class="col-6 pe-2">
                                         <div class="form-group">
-                                            <label for="kecamatan">Kecamatan</label>
-                                            <input type="text" name="kecamatan" id="kecamatan" class="form-control"
-                                                placeholder="Masukan Kecamatan" required />
+                                             {{-- <label for="kecamatan">Kecamatan</label> --}}
+                                             <p class="mb-1">Kecamatan</p>
+                                             <select id="kecamatan" class="form-control"
+                                                 required>
+                                                 <option value="00" hidden selected>Pilih Kecamatan</option>
+                                             </select>
+                                             <div id="kecamatan-error" class="text-danger mt-1 hidden"></div>
                                         </div>
                                     </div>
                                     <div class="col-6 ps-2">
                                         <div class="form-group">
-                                            <label for="kelurahan">Kelurahan / Desa</label>
-                                            <input type="text" name="kelurahan" id="kelurahan" class="form-control"
-                                                placeholder="Masukan Keluarahan" required />
+                                            {{-- <label for="kelurahan">Kelurahan/Desa</label> --}}
+                                            <p class="mb-1">Kelurahan/Desa</p>
+                                            <select id="kelurahan" class="form-control"
+                                                required>
+                                                <option value="00" hidden selected>Pilih Kelurahan/Desa</option>
+                                            </select>
+                                            <div id="kelurahan-error" class="text-danger mt-1 hidden"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +180,7 @@
                                     <div class="col-6 ps-2">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="text" name="email" id="email" class="form-control"
+                                            <input type="email" name="email" id="email" class="form-control"
                                                 placeholder="Masukan Email" required />
                                         </div>
                                     </div>
@@ -175,17 +189,32 @@
                                 <div class="row">
                                     <div class="col-6 pe-2">
                                         <div class="form-group">
-                                            <label for="status_pernikahan">Status Perkawinan</label>
-                                            <input type="text" name="status_pernikahan" id="status_pernikahan"
-                                                class="form-control" placeholder="Masukan Status Perkawinan" required />
+                                            {{-- <label for="status_pernikahan">Status Perkawinan</label> --}}
+                                            <p class="mb-1">Status Perkawinan</p>
+                                            <select name="status_pernikahan" id="status_pernikahan" class="form-control">
+                                                <option value="00" hidden>Pilih Status Perkawinan</option>
+                                                <option value="belum kawin">Belum Kawin</option>
+                                                <option value="sudah kawin">Sudah Kawin</option>
+                                                <option value="cerai mati">Cerai Mati</option>
+                                                <option value="cerai hidup">Cerai Hidup</option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-6 ps-2">
                                         <div class="form-group">
-                                            <label for="agama">Agama</label>
-                                            <input type="text" name="agama" id="agama" class="form-control"
-                                                placeholder="Masukan Agama" required />
+                                            {{-- <label for="agama">Agama</label> --}}
+                                            <p class="mb-1">Agama</p>
+                                            <select name="agama" id="agama" class="form-control">
+                                                <option value="00" hidden>Pilih Agama</option>
+                                                <option value="islam">Islam</option>
+                                                <option value="protestan">Protestan</option>
+                                                <option value="katolik">Katolik</option>
+                                                <option value="hindu">Hindu</option>
+                                                <option value="buddha">Buddha</option>
+                                                <option value="konghucu">Konghucu</option>
+                                                <option value="lainnya">Lainnya</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +264,7 @@
                             <button type="button" name="backward" class="backward">
                                 Kembali
                             </button>
-                            <button type="button" name="forward" class="forward">
+                            <button type="button" name="forward" class="forward" onclick="validateStep()">
                                 Selanjutnya
                             </button>
                             <button type="button" name="process" id="button-submit" class="submit"
@@ -251,6 +280,7 @@
 @endsection
 
 @push('js')
+    <script src="{{ asset('assets/js/function.js') }}"></script>
     <script>
         let baseStringSelfie;
         let baseStringKtp;
@@ -258,12 +288,13 @@
         let type2;
         let slug_url;
         let roles;
-
+        
         window.addEventListener("load", () => {
             const url = new URL(window.location.href);
             const path = url.pathname.split("/");
             roles = path[2];
             slug_url = path[3];
+            getProvince();
         });
 
         function convertBase64selfie() {
@@ -311,7 +342,7 @@
             var validselfie = document.getElementById("selfie").files[0];
             var validktp = document.getElementById("ktp").files[0];
 
-            if (no_anggota == "" || validselfie == "" || validktp == "") {
+            if (no_anggota == "" || validselfie == "" || validktp == "" || provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
                 alert("Pastikan Data Terisi Semua !");
                 return false;
             }

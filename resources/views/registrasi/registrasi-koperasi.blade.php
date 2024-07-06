@@ -97,28 +97,52 @@
                                 </div>
 
                                 <!-- /review_block-->
-                                <div class="form-group">
-                                    <label for="provinsi">Provinsi</label>
-                                    <input type="text" name="provinsi" id="provinsi" class="form-control"
-                                        placeholder="Masukan Provinsi" />
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            {{-- <label for="provinsi">Provinsi</label> --}}
+                                            <p class="mb-1">Provinsi</p>
+                                            <select id="provinsi" class="form-control"
+                                                required>
+                                                <option value="00" hidden selected>Pilih Provinsi</option>
+                                            </select>
+                                            <div id="provinsi-error" class="text-danger mt-1 hidden"></div>
+    
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            {{-- <label for="kabupaten">Kabupaten/Kota</label> --}}
+                                            <p class="mb-1">Kabupaten/Kota</p>
+                                            <select id="kota" class="form-control"
+                                                        required>
+                                                        <option value="00" hidden selected>Pilih Kabuptaen/Kota</option>
+                                            </select>
+                                            <div id="kota-error" class="text-danger mt-1 hidden"></div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="kabupaten">Kabupaten/Kota</label>
-                                    <input type="text" name="kabupaten" id="kabupaten" class="form-control"
-                                        placeholder="Masukan Kabupaten" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="kecamatan">Kecamatan</label>
-                                    <input type="text" name="kecamatan" id="kecamatan" class="form-control"
-                                        placeholder="Masukan kecamatan" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="kelurahan">Kelurahan/Desa</label>
-                                    <input type="text" name="kelurahan" id="kelurahan" class="form-control"
-                                        placeholder="Masukan Kelurahan" />
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            {{-- <label for="kecamatan">Kecamatan</label> --}}
+                                            <p class="mb-1">Kecamatan</p>
+                                            <select id="kecamatan" class="form-control">
+                                                <option value="00" hidden selected>Pilih Kecamatan</option>
+                                            </select>
+                                            <div id="kecamatan-error" class="text-danger mt-1 hidden"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            {{-- <label for="kelurahan">Kelurahan/Desa</label> --}}
+                                            <p class="mb-1">Kelurahan/Desa</p>
+                                            <select id="kelurahan" class="form-control">
+                                                <option value="00" hidden selected>Pilih Kelurahan/Desa</option>
+                                            </select>
+                                            <div id="kelurahan-error" class="text-danger mt-1 hidden"></div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -465,6 +489,7 @@
 @endsection
 
 @push('js')
+    <script src="{{ asset('assets/js/function.js') }}"></script>
     <script>
         let baseStringKtp;
         let baseStringLogo;
@@ -483,6 +508,7 @@
         const previewLogo = document.getElementById('preview-logo');
 
         window.addEventListener("load", () => {
+            getProvince();
             const url = new URL(window.location.href);
             const path = url.pathname.split('/');
             document.getElementById("koperasi").innerText = '{{ $tingkat_bawah }}'
@@ -535,13 +561,6 @@
             convertBase64dokumen();
         });
 
-        function createSlug(name) {
-            return name
-                .toLowerCase() // Mengubah semua huruf menjadi huruf kecil
-                .replace(/\s+/g, '-') // Mengganti semua spasi dengan strip (-)
-                .replace(/[^\w\-]+/g, ''); // Menghapus karakter non-alphanumeric kecuali strip (-) dan underscore (_)
-        }
-
         function convertBase64dokumen() {
             const file = dokumenInput.files[0];
             type3 = file.type.split('/')[1];
@@ -584,7 +603,7 @@
             const alamat = document.getElementById("alamat").value;
             const kelurahan = document.getElementById("kelurahan").value;
             const kecamatan = document.getElementById("kecamatan").value;
-            const kabupaten = document.getElementById("kabupaten").value;
+            const kota = document.getElementById("kota").value;
             const provinsi = document.getElementById("provinsi").value;
             const kode_pos = document.getElementById("kode_pos").value;
             const no_ktp_pengurus = document.getElementById("no_ktp_pengurus").value;
@@ -640,7 +659,7 @@
                 alamat,
                 kelurahan,
                 kecamatan,
-                kabupaten,
+                kota,
                 provinsi,
                 kode_pos,
                 no_ktp_pengurus,

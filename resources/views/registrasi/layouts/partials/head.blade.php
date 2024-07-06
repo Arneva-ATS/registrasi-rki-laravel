@@ -9,8 +9,10 @@
 <link href="https://fonts.googleapis.com/css?family=Caveat|Poppins:300,400,500,600,700&display=swap" rel="stylesheet" />
 
 <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+
 <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/css/vendors.css') }}" rel="stylesheet" />
 <!-- YOUR CUSTOM CSS -->
 <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" />
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
