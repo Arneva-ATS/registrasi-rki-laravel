@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 
 class AnggotaController extends Controller
 {
@@ -97,5 +98,16 @@ class AnggotaController extends Controller
                 'response_message' => $th->getMessage(),
             ], 400);
         }
+    }
+
+    public function create(){
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        return view('dashboard.auth.tambah_anggota',compact('id','username','password','tingkatan'));
     }
 }

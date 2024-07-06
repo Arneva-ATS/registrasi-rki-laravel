@@ -29,6 +29,8 @@ Route::post('/dologin', [App\Http\Controllers\LoginController::class, 'dologin']
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index']);
 
+Route::get('/tambah_anggota', [App\Http\Controllers\AnggotaController::class, 'create']);
+
 Route::get('/logout', function () {
     Session::flush('id_koperasi');
     Session::flush('username');
