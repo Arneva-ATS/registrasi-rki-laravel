@@ -46,25 +46,25 @@
                 </a>
                 <ul class="collapse submenu list-unstyled show" id="dashboard" data-bs-parent="#accordionExample">
                     @if($tingkatan == 'rki')
-                    <li class="active">
-                        <a href="/list_inkop"> INKOP </a>
+                    <li <?= (Request::segment(1) == 'dashboard') ? 'class="active"' : ''; ?>>
+                        <a href="/list_inkop"> INKOP  </a>
                     </li>
-                    <li>
+                    <li <?= (Request::segment(1) == 'list_puskop') ? 'class="active"' : ''; ?>>
                         <a href="/list_puskop"> PUSKOP </a>
                     </li>
-                    <li>
+                    <li <?= (Request::segment(1) == 'list_primkop') ? 'class="active"' : ''; ?>>
                         <a href="/list_primkop"> PRIMKOP </a>
                     </li>
                     @elseif($tingkatan == 'inkop')
-                    <li class="active">
+                    <li <?= (Request::segment(1) == 'list_puskop') ? 'class="active"' : ''; ?>>
                         <a href="/list_puskop"> PUSKOP </a>
                     </li>
                     @elseif($tingkatan == 'puskop')
-                    <li class="active">
+                    <li <?= (Request::segment(1) == 'list_primkop') ? 'class="active"' : ''; ?>>
                         <a href="/list_primkop"> PRIMKOP </a>
                     </li>
                     @else
-                    <li class="active">
+                    <li <?= (Request::segment(1) == 'list_anggota') ? 'class="active"' : ''; ?>>
                         <a href="/list_anggota"> ANGGOTA </a>
                     </li>
                     @endif

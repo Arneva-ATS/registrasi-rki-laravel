@@ -29,7 +29,7 @@
                     </div>
                     
                     <p class="mt-2">
-                       https://registrasi.rkicoop.id/anggota/primkop/{name_koperasi}
+                       [ https://registrasi.rkicoop.id/anggota/primkop/{name_koperasi} ]
                     </p>
 
                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">

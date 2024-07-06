@@ -30,9 +30,9 @@
 
                     
                     <p class="mt-2">
-                       https://registrasi.rkicoop.id/koperasi/{tingkat}/{name}
+                       [ https://registrasi.rkicoop.id/koperasi/{tingkat}/{name} ]
                     </p>
-                    
+
                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                             <div class="widget-content widget-content-area br-8">
                                 <table id="zero-config" class="table dt-table-hover" style="width:100%">
