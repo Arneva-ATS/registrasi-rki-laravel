@@ -23,7 +23,7 @@
                         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Data</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Anggota</li>
+                                <li class="breadcrumb-item active" aria-current="page">Primkop</li>
                             </ol>
                         </nav>
                     </div>

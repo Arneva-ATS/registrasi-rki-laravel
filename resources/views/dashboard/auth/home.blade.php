@@ -45,7 +45,7 @@
                             <div class="w-content">
 
                                 <div class="w-info">
-                                    
+                                {{$inkop_count}}
                                 </div>
                                 
                             </div>
@@ -90,7 +90,7 @@
                             <div class="w-content">
 
                                 <div class="w-info">
-                                    
+                                {{$puskop_count}}
                                 </div>
                                 
                             </div>
@@ -136,7 +136,7 @@
                             <div class="w-content">
 
                                 <div class="w-info">
-                                    
+                                    {{$primkop_count}}
                                 </div>
                                 
                             </div>
@@ -184,7 +184,7 @@
                             <div class="w-content">
 
                                 <div class="w-info">
-                                    
+                                {{$puskop_count}}
                                 </div>
                                 
                             </div>
@@ -229,7 +229,7 @@
                             <div class="w-content">
 
                                 <div class="w-info">
-                                    
+                                {{$primkop_count}}
                                 </div>
                                 
                             </div>
@@ -277,7 +277,7 @@
                             <div class="w-content">
 
                                 <div class="w-info">
-                                    
+                                {{$primkop_count}}
                                 </div>
                                 
                             </div>
@@ -324,7 +324,7 @@
                             <div class="w-content">
 
                                 <div class="w-info">
-                                    
+                                    {{$anggota_count}}
                                 </div>
                                 
                             </div>

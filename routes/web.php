@@ -53,7 +53,11 @@ Route::get('/dashboard', function () {
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.auth.home', compact('id','username','password','tingkatan'));
+        $inkop_count = DB::table('tbl_koperasi')->where('id_inkop', '!=', 0)->count();
+        $puskop_count = DB::table('tbl_koperasi')->where('id_puskop', '!=', 0)->count();
+        $primkop_count = DB::table('tbl_koperasi')->where('id_primkop', '!=', 0)->count();
+        $anggota_count = DB::table('tbl_anggota')->where('id_koperasi', $id)->count();
+        return view('dashboard.auth.home', compact('id','username','password','tingkatan','inkop_count','puskop_count','primkop_count','anggota_count'));
     }else{
         return redirect('/login');
     }
