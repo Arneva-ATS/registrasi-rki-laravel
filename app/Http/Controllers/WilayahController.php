@@ -13,7 +13,7 @@ class WilayahController extends Controller
         try {
             $province = DB::table('tbl_provinces')->select('prov_id', 'prov_name')->get();
             if ($province->isEmpty()) {
-                throw new ('Gagal Mendapatkan Provinsi!');
+                throw new Error('Gagal Mendapatkan Provinsi!');
             }
             return response()->json(['response_code' => '00', 'data' => $province], 200);
         } catch (\Throwable $th) {
@@ -26,7 +26,7 @@ class WilayahController extends Controller
             $city = DB::table('tbl_cities')->select('city_id', 'city_name')->where('prov_id', $id)->get();
             // return dd($city);
             if ($city->isEmpty()) {
-                throw new ('Gagal Mendapatkan Kota!');
+                throw new Error ('Gagal Mendapatkan Kota!');
             }
             return response()->json(['response_code' => '00', 'data' => $city], 200);
         } catch (\Throwable $th) {
@@ -39,7 +39,7 @@ class WilayahController extends Controller
             $district = DB::table('tbl_districts')->select('dis_id', 'dis_name')->where('city_id', $id)->get();
             // return dd($district);
             if ($district->isEmpty()) {
-                throw new ('Gagal Mendapatkan Kota!');
+                throw new Error ('Gagal Mendapatkan Kota!');
             }
             return response()->json(['response_code' => '00', 'data' => $district], 200);
         } catch (\Throwable $th) {
@@ -52,7 +52,7 @@ class WilayahController extends Controller
             $subdistrict = DB::table('tbl_subdistrics')->where('dis_id', $id)->get();
             // return dd($subdistrict);
             if ($subdistrict->isEmpty()) {
-                throw new ('Gagal Mendapatkan Kota!');
+                throw new Error ('Gagal Mendapatkan Kota!');
             }
             return response()->json(['response_code' => '00', 'data' => $subdistrict], 200);
         } catch (\Throwable $th) {
