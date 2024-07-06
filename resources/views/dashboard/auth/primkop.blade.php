@@ -29,7 +29,7 @@
                     </div>
 
                     <p class="mt-2">
-                       [ https://registrasi.rkicoop.id/koperasi/{tingkat}/{name} ]
+                    <a href="/tambah_primkop" class="btn btn-primary"> Tambah Primkop </a> ||  [ https://registrasi.rkicoop.id/koperasi/{tingkat}/{name} ]
                     </p>
 
                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
