@@ -7621,7 +7621,7 @@ CREATE TABLE `tbl_koperasi` (
   `id_primkop` int(11) DEFAULT NULL,
   `ktp` varchar(255) NOT NULL,
   `slug` varchar(100) DEFAULT NULL,
-  `password` text DEFAULT '123456789',
+  `password` varchar(255) DEFAULT '123456789',
   `id_tingkatan_koperasi` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
