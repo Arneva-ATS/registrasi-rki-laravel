@@ -199,8 +199,11 @@
 <!--  END CONTENT AREA  -->
 
 </div>
-
-
+<script>
+window.addEventListener("load", () => {
+getProvince();
+});
+</script>
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/function.js') }}"></script>
 <script src="{{ asset('assets/js/functions.js') }}"></script>
