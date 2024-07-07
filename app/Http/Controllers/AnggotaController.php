@@ -12,6 +12,8 @@ class AnggotaController extends Controller
     //
     public function insert_anggota(Request $request)
     {
+        DB::beginTransaction();
+
         try {
             $request->validate([
                 'no_anggota' => 'required',
@@ -88,11 +90,13 @@ class AnggotaController extends Controller
             if (!$insert_anggota) {
                 throw new \Exception('Gagal Tambah Anggota!');
             }
+            DB::commit();
             return response()->json([
                 'response_code' => "00",
                 'response_message' => 'Sukses simpan data!',
             ], 200);
         } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json([
                 'response_code' => "01",
                 'response_message' => $th->getMessage(),
@@ -100,7 +104,8 @@ class AnggotaController extends Controller
         }
     }
 
-    public function create(){
+    public function create()
+    {
         $id = Session::get('id_koperasi');
         $username = Session::get('username');
         $password = Session::get('password');
@@ -110,8 +115,7 @@ class AnggotaController extends Controller
         $id_primkop = Session::get('id_primkop');
         $koperasi = Session::get('nama_koperasi');
         $nama_koperasi = $koperasi;
-        $id_koperasi = $id ;
-        return view('dashboard.auth.tambah_anggota',compact('id','username','password','tingkatan','id_koperasi','nama_koperasi'));
+        $id_koperasi = $id;
+        return view('dashboard.auth.tambah_anggota', compact('id', 'username', 'password', 'tingkatan', 'id_koperasi', 'nama_koperasi'));
     }
 }
-

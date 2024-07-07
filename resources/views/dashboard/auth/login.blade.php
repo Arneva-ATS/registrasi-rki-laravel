@@ -64,7 +64,7 @@
 
                             <div class="form-group formlogin mt-3">
                                 <label for="password">Password</label><br>
-                                <input type="password" name="password" id="password" class="style-form-input" required="" autocomplete="on" title="maximamal 10 character" maxlength="10" placeholder="Password" onkeydown="fnEnter();">
+                                <input type="password" name="password" id="password" class="style-form-input" required="" autocomplete="on" title="maximal 10 character" maxlength="20" placeholder="Password" onkeydown="fnEnter();">
                             </div>
 
                             <button class="btnlogin" type="submit">Log In</button>
