@@ -37,4 +37,4 @@ Route::prefix('wilayah')->group(function () {
     Route::get('/kecamatan/{id_kota}', [WilayahController::class, 'district']);
     Route::get('/kelurahan/{id_kecamatan}', [WilayahController::class, 'subdistrict']);
 })->name('wilayah');
-Route::post('/send-mail', [MailController::class, 'sendMail']);
+Route::post('/send-mail/{id}', [MailController::class, 'sendMail']);
