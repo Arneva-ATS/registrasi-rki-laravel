@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KoperasiController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,3 +37,4 @@ Route::prefix('wilayah')->group(function () {
     Route::get('/kecamatan/{id_kota}', [WilayahController::class, 'district']);
     Route::get('/kelurahan/{id_kecamatan}', [WilayahController::class, 'subdistrict']);
 })->name('wilayah');
+Route::post('/send-mail', [MailController::class, 'sendMail']);
