@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Mail;
 class MailController extends Controller
 {
     //
-    public function sendMail(Request $request, $id)
+    public function sendMailAnggota(Request $request, $id)
     {
         try {
             $password = bin2hex(openssl_random_pseudo_bytes(10));
@@ -19,13 +19,34 @@ class MailController extends Controller
                 throw new \Exception('Data tidak ada!');
             }
             $details = [
-                'title' => 'Verfikasi Keanggotaan',
+                'title' => 'Verifikasi Keanggotaan',
                 'content' => 'Selamat! Email Anda berhasil Terverifikasi',
                 'info' => 'Berikut akun keanggotaan yang bisa anda gunakan saat login',
                 'email' => $request->email,
                 'password' => $password
             ];
-            Mail::to('aditbest5@gmail.com')->send(new VerificationMail($details));
+            Mail::to($request->email)->send(new VerificationMail($details));
+            return response()->json(['response_code' => '00', 'response_message' => 'Berhasil verfikasi data!']);
+        } catch (\Throwable $th) {
+            return response()->json(['response_code' => '01', 'response_message' => $th->getMessage()]);
+        }
+    }
+    public function sendMailKoperasi(Request $request, $id)
+    {
+        try {
+            $password = bin2hex(openssl_random_pseudo_bytes(10));
+            $data = DB::table('tbl_koperasi')->where('id', $id)->update(['approval' => 1, 'password' => $password]);
+            if (!$data) {
+                throw new \Exception('Data tidak ada!');
+            }
+            $details = [
+                'title' => 'Verifikasi Keanggotaan',
+                'content' => 'Selamat! Akun Koperasi Anda berhasil Terverifikasi',
+                'info' => 'Berikut akun koperasi yang bisa anda gunakan saat login',
+                'email' => $request->email,
+                'password' => $password
+            ];
+            Mail::to($request->email)->send(new VerificationMail($details));
             return response()->json(['response_code' => '00', 'response_message' => 'Berhasil verfikasi data!']);
         } catch (\Throwable $th) {
             return response()->json(['response_code' => '01', 'response_message' => $th->getMessage()]);

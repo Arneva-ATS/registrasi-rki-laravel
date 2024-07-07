@@ -118,28 +118,28 @@
                                        
 
                                         <div class="col-md-6 position-relative">
-                                            <label for="validationTooltip04" class="form-label">Nama Pengurus</label>
+                                            <label for="validationTooltip04" class="form-label">Nama Ketua</label>
                                                     <input type="text" name="nama_pengurus" id="nama_pengurus" class="form-control"
                                                     placeholder="Masukan nama_pengurus" />
                                         </div>
                                         <div class="col-md-6 position-relative">
-                                            <label for="validationTooltip04" class="form-label">No Pengurus KTP</label>
+                                            <label for="validationTooltip04" class="form-label">No KTP Ketua</label>
                                                 <input type="text" name="no_ktp_pengurus" id="no_ktp_pengurus"
                                                 class="form-control" placeholder="Masukan no_ktp_pengurus" />
                                         </div>
                                         <div class="col-md-6 position-relative">
-                                          <label for="validationTooltip04" class="form-label">No Anggota</label>
+                                          <label for="validationTooltip04" class="form-label">No Anggota Ketua</label>
                                                 <input type="text" name="no_anggota_pengurus" id="no_anggota_pengurus"
                                                 class="form-control" placeholder="Masukan no_anggota" />
                                         </div>
-                                        <div class="col-md-6 position-relative">
+                                        {{-- <div class="col-md-6 position-relative">
                                             <label for="validationTooltip04" class="form-label">Jabatan Pengurus</label>
                                                 <input type="text" name="jabatan_pengurus" id="jabatan_pengurus" value="1"
-                                                class="form-control" placeholder="Masukan Jabatan" hidden />
-                                        </div> 
+                                                class="form-control" placeholder="Masukan Jabatan"/>
+                                        </div>  --}}
 
                                         <div class="col-md-6 position-relative">
-                                            <label for="kewarganegaraan">No WA</label>
+                                            <label for="kewarganegaraan">No WA Ketua</label>
                                             <input type="text" name="no_wa_pengurus" id="no_wa_pengurus" class="form-control"
                                             placeholder="Masukan no_wa_pengurus" />
                                         </div>
@@ -162,14 +162,14 @@
                                                 class="form-control" placeholder="Masukan Nomor Anggota" />
                                         </div>
 
-                                        <div class="col-md-6 position-relative">
+                                        {{-- <div class="col-md-6 position-relative">
                                             <label for="validationTooltip04" class="form-label">Jabatan Pengawas</label>
                                                 <input type="text" name="jabatan_pengawas" id="jabatan_pengawas" value="3"
-                                                    class="form-control" placeholder="Masukan Jabatan" hidden />
-                                        </div>
+                                                    class="form-control" placeholder="Masukan Jabatan" />
+                                        </div> --}}
 
                                         <div class="col-md-6 position-relative">
-                                            <label for="validationTooltip04" class="form-label">Jabatan Pengawas</label>
+                                            <label for="validationTooltip04" class="form-label">Nomer Pengawas</label>
                                                 <input type="text" name="no_wa_pengawas" id="no_wa_pengawas" class="form-control"
                                                 placeholder="Masukan Nomor WA" />
                                         </div>
@@ -420,12 +420,12 @@ getProvince();
             const no_ktp_pengurus = document.getElementById("no_ktp_pengurus").value;
             const nama_pengurus = document.getElementById("nama_pengurus").value;
             const no_anggota_pengurus = document.getElementById("no_anggota_pengurus").value;
-            const jabatan_pengurus = document.getElementById("jabatan_pengurus").value;
+            const jabatan_pengurus = 1
             const no_wa_pengurus = document.getElementById("no_wa_pengurus").value;
             const no_ktp_pengawas = document.getElementById("no_ktp_pengawas").value;
             const nama_pengawas = document.getElementById("nama_pengawas").value;
             const no_anggota_pengawas = document.getElementById("no_anggota_pengawas").value;
-            const jabatan_pengawas = document.getElementById("jabatan_pengawas").value;
+            const jabatan_pengawas = 3
             const no_wa_pengawas = document.getElementById("no_wa_pengawas").value;
             const no_akta = document.getElementById("no_akta").value;
             const tanggal_akta = document.getElementById("tanggal_akta").value;
