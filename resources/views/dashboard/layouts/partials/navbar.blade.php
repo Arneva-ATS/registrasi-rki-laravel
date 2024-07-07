@@ -1,9 +1,4 @@
-<header class="header navbar navbar-expand-sm expand-header">
-
-    <a href="javascript:void(0);" class="sidebarCollapse">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    </a>
-
+<header class="header navbar navbar-expand-sm expand-header justify-content-between">
     {{-- <div class="search-animated toggle-search">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <form class="form-inline search-full form-inline search" role="search">
@@ -14,9 +9,14 @@
         </form>
         <span class="badge badge-secondary">Ctrl + /</span>
     </div> --}}
-    <div class="">
-        <h4 class="m-0 p-0 text-white text-capitalize">Hello, {{$username}}! 👋</h4>
-        <p class="m-0 p-0" style="color: #9DA2AE;">Welcome back, we miss your coming</p>
+    <div class="d-md-flex align-items-center gap-3">
+        <a href="javascript:void(0);" class="sidebarCollapse">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </a>
+        <div class="d-none d-md-block">
+            <h4 class="m-0 p-0 text-white text-capitalize">Hello, {{$username}}! 👋</h4>
+            <p class="m-0 p-0" style="color: #9DA2AE;">Welcome back, we miss your coming</p>
+        </div>
     </div>
 
     <ul class="navbar-item flex-row ms-lg-auto ms-0">
