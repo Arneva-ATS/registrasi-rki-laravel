@@ -53,13 +53,25 @@
                                             <td>{{$data->nik}}</td>
                                             <td>{{$data->nama_lengkap}}</td>
                                             <td>{{$data->nomor_hp}}</td>
-                                            <td> <div class="row">
-                                                    <div class="col-6">
-                                                        <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
+                                            <td> 
+                                                    @if ($data->approval)
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button class="btn py-3" disabled>Verified</button>
+                                                        </div>
+                                                    </div>                                                   
+                                                     @else
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button onclick="approveBtn({{$data->id}}, '{{$data->email}}')" class="btn btn-danger py-3"> Approve </button>                                                    </div>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <button onclick="approveBtn({{$data->id}}, '{{$data->email}}')" class="btn btn-danger py-3"> Approve </button>                                                    </div>
-                                                </div>
+                                                    @endif
                                             </td>
                                         </tr>
                                         @endforeach
@@ -111,7 +123,8 @@
                     if (data.response_code == '00') {
                         swal("Berhasil Approve!", {
                             icon: "success",
-                        });    
+                        });
+                        window.location.href= '/list_anggota'
                     } else {
                         swal("Gagal Approve!", {
                             icon: "info",
