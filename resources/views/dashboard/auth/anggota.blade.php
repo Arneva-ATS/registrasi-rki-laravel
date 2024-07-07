@@ -109,7 +109,7 @@
             dangerMode: true,
         }).then((willOut) => {
             if (willOut) {
-                fetch(`/api/send-mail/${id}`, {
+                fetch(`/api/send-mail/anggota/${id}`, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'application/json'

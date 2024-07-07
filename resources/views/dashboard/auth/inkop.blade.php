@@ -43,6 +43,7 @@
                                             <th>No Wa</th>
                                             <th>Email</th>
                                             <th>Bidang Usaha</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -53,6 +54,13 @@
                                             <td>{{$data->hp_wa}}</td>
                                             <td>{{$data->email_koperasi}}</td>
                                             <td>{{$data->bidang_koperasi}}</td>
+                                            <td>
+                                                @if ($data->approval)
+                                                <button class="btn py-3">Verified</button>                                                    
+                                                @else
+                                                <button onclick="approveBtn({{$data->id}}, '{{$data->email_koperasi}}')" class="btn btn-danger py-3"> Approve </button>
+                                                @endif
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -78,5 +86,53 @@
 <!--  END CONTENT AREA  -->
 
 </div>
-
+<script>
+    function approveBtn(id, email){
+        let data = {email};
+        swal({
+            title: "Approve",
+            text: 'Apakah data sudah benar?',
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willOut) => {
+            if (willOut) {
+                fetch(`/api/send-mail/koperasi/${id}`, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.response_code == '00') {
+                        swal("Berhasil Approve!", {
+                            icon: "success",
+                        });
+                        window.location.href= '/list_inkop'
+                    } else {
+                        swal("Gagal Approve!", {
+                            icon: "info",
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    swal("Gagal Approve!", {
+                         icon: "info",
+                    });
+                });
+                       
+            } else {
+                         
+            }
+        }).catch(err=>{
+            swal("Gagal approve data!\nCoba lagi", {
+                icon: "error",
+                });  
+        });
+    }
+</script>
 @endsection

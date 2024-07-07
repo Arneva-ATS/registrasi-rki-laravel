@@ -8,10 +8,12 @@
 </head>
 <body>
     <h1>{{ $title }}</h1>
-    <p>{{ $content }}</p>
-    <p class="mb-4">{{$info}}</p>
-    <p>Email: {{ $email }}</p>
-    <p>Password: {{ $password }}</p>
-    <p class="mt-4"><b>Terima kasih telah menggunakan layanan RKI APP kami</b></p>
+    <p style="margin-bottom: 6px;>{{ $content }}</p>
+    <p style="margin-bottom: 10px;">{{$info}}</p>
+    <ul>
+        <li><b>Email: {{ $email }}</b></li>
+        <li><b>Password: {{ $password }}</b></li>
+    </ul>
+    <p style="margin-top: 10px;">Terima kasih telah menggunakan layanan RKI APP kami</p>
 </body>
 </html>

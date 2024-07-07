@@ -30,11 +30,10 @@ class VerificationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('adityaaprianto68@arneva.co.id', 'Aditya Aprianto'),
+            from: new Address(config('mail.from.address'), config('mail.from.name')),
             subject: 'Verification Mail',
         );
     }
-
     /**
      * Get the message content definition.
      */
