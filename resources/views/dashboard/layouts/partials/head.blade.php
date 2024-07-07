@@ -24,6 +24,19 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/dashboard/src/assets/css/dark/elements/alert.css') }}">
 <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
+ <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+ <link href="{{asset('/assets/dashboard/src/plugins/src/apex/apexcharts.css')}}" rel="stylesheet" type="text/css">
+ <link href="{{asset('/assets/dashboard/src/assets/css/light/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
+ <link href="{{asset('/assets/dashboard/src/assets/css/dark/dashboard/dash_1.css')}}" rel="stylesheet" type="text/css" />
+ <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+
+ <!-- BEGIN PAGE LEVEL STYLES -->
+ <link rel="stylesheet" type="text/css" href="{{asset('/assets/dashboard/src/plugins/src/table/datatable/datatables.css')}}">
+
+ <link rel="stylesheet" type="text/css" href="{{asset('/assets/dashboard/src/plugins/css/light/table/datatable/dt-global_style.css')}}">
+ <link rel="stylesheet" type="text/css" href="{{asset('/assets/dashboard/src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
+ <!-- END PAGE LEVEL STYLES -->
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
     body.dark .layout-px-spacing, .layout-px-spacing {
         min-height: calc(100vh - 155px) !important;
