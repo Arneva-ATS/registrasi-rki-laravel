@@ -42,7 +42,13 @@
                 <div class="layout-px-spacing">
                     <div class="middle-content container-xxl p-0">
                         <!-- BREADCRUMB -->
-                        @yield('breadcrumb')
+                        <div class="page-meta">
+                            <nav class="breadcrumb-style-one" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    @yield('breadcrumb')
+                                </ol>
+                            </nav>
+                        </div>
                         <!-- /BREADCRUMB -->
 
                         <!-- CONTENT AREA -->

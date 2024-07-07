@@ -362,7 +362,7 @@ class KoperasiController extends Controller
             ], 400);
         }
     }
-    
+
     public function primkop(){
         $id = Session::get('id_koperasi');
         $username = Session::get('username');
@@ -371,7 +371,7 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.auth.tambah_primkop',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.cooperative.primkop.create',compact('id','username','password','tingkatan'));
     }
 
     public function puskop(){
@@ -382,7 +382,7 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.auth.tambah_puskop',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.cooperative.puskop.create',compact('id','username','password','tingkatan'));
     }
 
     public function inkop(){
@@ -393,6 +393,6 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.auth.tambah_inkop',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.cooperative.inkop.create',compact('id','username','password','tingkatan'));
     }
 }
