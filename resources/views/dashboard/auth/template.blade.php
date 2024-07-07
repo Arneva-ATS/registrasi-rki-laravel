@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/assets/dashboard/src/plugins/css/light/table/datatable/dt-global_style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('/assets/dashboard/src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
     <!-- END PAGE LEVEL STYLES -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body class="layout-boxed">

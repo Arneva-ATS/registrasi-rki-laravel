@@ -33,7 +33,7 @@
 
                         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                             <div class="widget-content widget-content-area br-8 p-3">
-                                    <form class="row g-3 needs-validation" novalidate>
+                                    <form class="row g-3 needs-validation" novalidate entype="multipart/form-data">
                                         <div class="col-md-6 position-relative">
                                             <div class="form-group">
                                             <label for="nama_koperasi" class="form-label">Nama Koperasi</label>
@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="col-md-6 position-relative">
                                             <label for="alamat" class="form-label">Alamat Lengkap</label>
-                                            <textarea name="alamat" id="alamat" class="form-control" style="height: 120px" onkeyup="getVals(this, 'alamat');"></textarea>
+                                            <textarea name="alamat" id="alamat" class="form-control" style="height: 120px"></textarea>
                                         </div>
                                         <div class="col-md-6 position-relative">
                                             <label for="validationTooltip04" class="form-label">Provinsi</label>
@@ -110,6 +110,13 @@
                                                     </select>
                                                     <div id="kelurahan-error" class="text-danger mt-1 hidden"></div>
                                         </div>
+                                        <div class="col-md-6 position-relative">
+                                            <label for="validationTooltip04" class="form-label">Kode Pos</label>
+                                                <input type="text" name="kode_pos" id="kode_pos" class="form-control"
+                                                placeholder="Masukan kode_pos" />
+                                        </div>
+                                       
+
                                         <div class="col-md-6 position-relative">
                                             <label for="validationTooltip04" class="form-label">Nama Pengurus</label>
                                                     <input type="text" name="nama_pengurus" id="nama_pengurus" class="form-control"
@@ -159,6 +166,12 @@
                                             <label for="validationTooltip04" class="form-label">Jabatan Pengawas</label>
                                                 <input type="text" name="jabatan_pengawas" id="jabatan_pengawas" value="3"
                                                     class="form-control" placeholder="Masukan Jabatan" hidden />
+                                        </div>
+
+                                        <div class="col-md-6 position-relative">
+                                            <label for="validationTooltip04" class="form-label">Jabatan Pengawas</label>
+                                                <input type="text" name="no_wa_pengawas" id="no_wa_pengawas" class="form-control"
+                                                placeholder="Masukan Nomor WA" />
                                         </div>
 
                                         <div class="col-md-6 position-relative">
@@ -243,7 +256,12 @@
                                                 id="no_npwp" placeholder="Masukan Nomor NPWP" />
                                         </div>
 
-                                        
+                                        <div class="col-md-6 position-relative">
+                                            <label for="validationTooltip04" class="form-label">Nomor PKP</label>
+                                                <input type="text" class="form-control w-100" name="no_pkp"
+                                                    id="no_pkp" placeholder="Masukan Nomor PKP" />
+                                        </div>
+                                       
                                         <div class="col-md-6 position-relative">
                                             <label for="validationTooltip04" class="form-label">No BPJS Kesehatan</label>
                                                 <input type="text" class="form-control w-100" name="bpjs_kesehatan"
@@ -289,7 +307,9 @@
                                         </div>
 
                                         <div class="col-12">
-                                          <button class="btn btn-primary" type="submit">Submit form</button>
+                                        <button type="button" onclick="saveData()" name="process" class="btn btn-primary">
+                                            Submit
+                                        </button>
                                         </div>
                                     </form>
                             </div>
@@ -321,4 +341,237 @@ getProvince();
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/function.js') }}"></script>
 <script src="{{ asset('assets/js/functions.js') }}"></script>
+
+<script>
+        let baseStringKtp;
+        let baseStringLogo;
+        let baseStringDokumen;
+        let type1;
+        let type2;
+        let type3;
+        let tingkatan_koperasi;
+        let koperasi;
+        let id_koperasi;
+        const ktpInput = document.getElementById('foto_ktp');
+        const logoInput = document.getElementById('foto_logo');
+        const dokumenInput = document.getElementById('dokumen');
+        const previewProfil = document.getElementById('preview-profil');
+        const previewLogo = document.getElementById('preview-logo');
+
+        window.addEventListener("load", () => {
+            getProvince();
+            tingkatan_koperasi = "puskop"
+            id_koperasi = 2;
+        });
+
+        ktpInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewProfil.src = e.target.result;
+                    baseStringKtp = e.target.result;
+                    type1 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        logoInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewLogo.src = e.target.result;
+                    baseStringLogo = e.target.result;
+                    type2 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        dokumenInput.addEventListener('change', () => {
+            const file = dokumenInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringDokumen = e.target.result;
+                    type3 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function saveData() {
+            const nama_koperasi = document.getElementById("nama_koperasi").value;
+            const singkatan_koperasi = document.getElementById("singkatan_koperasi").value;
+            const email = document.getElementById("email").value;
+            const no_telp = document.getElementById("no_telp").value;
+            const no_wa = document.getElementById("no_wa").value;
+            const no_fax = document.getElementById("no_fax").value;
+            const web = document.getElementById("web").value;
+            const bidang_koperasi = document.getElementById("bidang_koperasi").value;
+            const alamat = document.getElementById("alamat").value;
+            const kelurahan = document.getElementById("kelurahan").value;
+            const kecamatan = document.getElementById("kecamatan").value;
+            const kota = document.getElementById("kota").value;
+            const provinsi = document.getElementById("provinsi").value;
+            const kode_pos = document.getElementById("kode_pos").value;
+            const no_ktp_pengurus = document.getElementById("no_ktp_pengurus").value;
+            const nama_pengurus = document.getElementById("nama_pengurus").value;
+            const no_anggota_pengurus = document.getElementById("no_anggota_pengurus").value;
+            const jabatan_pengurus = document.getElementById("jabatan_pengurus").value;
+            const no_wa_pengurus = document.getElementById("no_wa_pengurus").value;
+            const no_ktp_pengawas = document.getElementById("no_ktp_pengawas").value;
+            const nama_pengawas = document.getElementById("nama_pengawas").value;
+            const no_anggota_pengawas = document.getElementById("no_anggota_pengawas").value;
+            const jabatan_pengawas = document.getElementById("jabatan_pengawas").value;
+            const no_wa_pengawas = document.getElementById("no_wa_pengawas").value;
+            const no_akta = document.getElementById("no_akta").value;
+            const tanggal_akta = document.getElementById("tanggal_akta").value;
+            const no_skk = document.getElementById("no_skk").value;
+            const tanggal_skk = document.getElementById("tanggal_skk").value;
+            const no_spkk = document.getElementById("no_spkk").value;
+            const tanggal_spkk = document.getElementById("tanggal_spkk").value;
+            const no_akta_perubahan = document.getElementById("no_akta_perubahan").value;
+            const masa_berlaku_perubahan = document.getElementById("masa_berlaku_perubahan").value;
+            const no_siup = document.getElementById("no_siup").value;
+            const masa_berlaku_siup = document.getElementById("masa_berlaku_siup").value;
+            const no_skdu = document.getElementById("no_skdu").value;
+            const masa_berlaku_skdu = document.getElementById("masa_berlaku_skdu").value;
+            const no_npwp = document.getElementById("no_npwp").value;
+            const no_pkp = document.getElementById("no_pkp").value;
+            const bpjs_kesehatan = document.getElementById("bpjs_kesehatan").value;
+            const bpjs_ketenagakerjaan = document.getElementById("bpjs_ketenagakerjaan").value;
+            const no_sertifikat = document.getElementById("no_sertifikat").value;
+            const image_ktp = baseStringKtp;
+            const image_logo = baseStringLogo;
+            const doc_dokumen = baseStringDokumen;
+            const slug = createSlug(nama_koperasi);
+            const validKtp = ktpInput.files[0];
+            const validLogo = logoInput.files[0];
+            const validDokumen = dokumenInput.files[0];
+
+            if (!validKtp || !validLogo || !validDokumen ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
+                alert("Pastikan Data Terisi Semua!");
+                return false;
+            }
+            // Show loading dialog
+            swal({
+                title: "Please wait",
+                text: "Submitting data...",
+                icon: "/assets/images/loading.gif",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                className: "swal-loading",
+            });
+            const jsondata = {
+                singkatan_koperasi,
+                nama_koperasi,
+                slug,
+                email,
+                no_telp,
+                no_wa,
+                no_fax,
+                web,
+                bidang_koperasi,
+                alamat,
+                kelurahan,
+                kecamatan,
+                kota,
+                provinsi,
+                kode_pos,
+                no_ktp_pengurus,
+                nama_pengurus,
+                no_anggota_pengurus,
+                jabatan_pengurus,
+                no_wa_pengurus,
+                no_ktp_pengawas,
+                nama_pengawas,
+                no_anggota_pengawas,
+                jabatan_pengawas,
+                no_wa_pengawas,
+                no_akta,
+                tanggal_akta,
+                no_skk,
+                tanggal_skk,
+                no_spkk,
+                tanggal_spkk,
+                no_akta_perubahan,
+                masa_berlaku_perubahan,
+                no_siup,
+                masa_berlaku_siup,
+                no_skdu,
+                masa_berlaku_skdu,
+                no_npwp,
+                no_pkp,
+                bpjs_kesehatan,
+                bpjs_ketenagakerjaan,
+                no_sertifikat,
+                ktp: image_ktp,
+                logo: image_logo,
+                dokumen: doc_dokumen,
+                type1,
+                type2,
+                type3
+            };
+
+
+            await fetch(`/api/register/rki/insert-koperasi/${id_koperasi}`, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify(jsondata)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    swal.close();
+                    console.log(data)
+                    if (data.response_code == '00') {
+                        swal({
+                            title: "Status Registrasi",
+                            text: data?.response_message,
+                            icon: "success",
+                            buttons: true,
+                        }).then((willOut) => {
+                            if (willOut) {
+                                // window.location.href = "/koperasi/rki/" + tingkatan_koperasi;
+                                console.log("success")
+                            } else {
+                                console.log("error");
+                            }
+                        });
+                    } else {
+                        swal({
+                            title: "Status Registrasi",
+                            text: data?.response_message,
+                            icon: "error",
+                            buttons: true,
+                        }).then((willOut) => {
+                            if (willOut) {} else {
+                                console.log("error");
+                            }
+                        });
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    swal.close();
+                    swal({
+                        title: "Status Registrasi",
+                        text: err,
+                        icon: "info",
+                        buttons: true,
+                    }).then((willOut) => {
+                        if (willOut) {
+                            //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
+                        } else {
+                            console.log("error");
+                        }
+                    });
+                });
+        }
+    </script>
 @endsection
