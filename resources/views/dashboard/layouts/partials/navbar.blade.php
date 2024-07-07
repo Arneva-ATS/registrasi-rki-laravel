@@ -4,7 +4,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
     </a>
 
-    <div class="search-animated toggle-search">
+    {{-- <div class="search-animated toggle-search">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <form class="form-inline search-full form-inline search" role="search">
             <div class="search-bar">
@@ -13,6 +13,10 @@
             </div>
         </form>
         <span class="badge badge-secondary">Ctrl + /</span>
+    </div> --}}
+    <div class="">
+        <h4 class="m-0 p-0 text-white text-capitalize">Hello, {{$username}}! 👋</h4>
+        <p class="m-0 p-0" style="color: #9DA2AE;">Welcome back, we miss your coming</p>
     </div>
 
     <ul class="navbar-item flex-row ms-lg-auto ms-0">
@@ -36,12 +40,12 @@
             <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                 <div class="user-profile-section">
                     <div class="media mx-auto">
-                        <div class="emoji me-2">
+                        {{-- <div class="emoji me-2">
                             &#x1F44B;
-                        </div>
+                        </div> --}}
                         <div class="media-body">
-                            <h5>{{$username}}</h5>
-                            <p>Project Leader</p>
+                            <h5>Hello, {{$username}}</h5>
+                            {{-- <p>Project Leader</p> --}}
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@
 
 @section('content')
 <div class="row">
-    <p class="mt-2">
+    <p class="mt-2 text-white">
         <a href="/tambah_inkop" class="btn btn-primary"> Tambah Inkop </a> ||  [ https://registrasi.rkicoop.id/koperasi/{tingkat}/{name} ]
     </p>
     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">

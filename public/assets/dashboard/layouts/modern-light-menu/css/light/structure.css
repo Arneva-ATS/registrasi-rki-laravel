@@ -17,7 +17,7 @@ body {
   color: #888ea8;
   height: 100%;
   font-size: 0.875rem;
-  background: #fafafa;
+  background: #233668;
   overflow-x: hidden;
   overflow-y: auto;
   letter-spacing: 0.0312rem;
@@ -31,7 +31,7 @@ body:before {
   top: 0;
   z-index: 1;
   left: 0;
-  background: rgba(250, 250, 250, 0.71);
+  background: #233668;
   -webkit-backdrop-filter: saturate(200%) blur(10px);
   backdrop-filter: saturate(200%) blur(10px);
 }
@@ -122,6 +122,7 @@ code {
 
 #content {
   width: 50%;
+  background-color: #233668;
   flex-grow: 8;
   margin-top: 70px;
   margin-bottom: 0;
@@ -252,10 +253,10 @@ code {
   -webkit-box-shadow: 0 6px 10px 0 rgba(255, 255, 255, 0.14), 0 1px 18px 0 rgba(255, 255, 255, 0.12), 0 3px 5px -1px rgba(255, 255, 255, 0.2);
   -moz-box-shadow: 0 6px 10px 0 rgba(255, 255, 255, 0.14), 0 1px 18px 0 rgba(255, 255, 255, 0.12), 0 3px 5px -1px rgba(255, 255, 255, 0.2);
   box-shadow: 0 6px 10px 0 rgba(255, 255, 255, 0.14), 0 1px 18px 0 rgba(255, 255, 255, 0.12), 0 3px 5px -1px rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  background-color: #304378 !important;
   -webkit-backdrop-filter: saturate(200%) blur(6px);
   backdrop-filter: saturate(200%) blur(6px);
-  border: 1px solid #e0e6ed;
+  border: 1px solid #3b518a;
   box-shadow: 18px 20px 10.3px -23px rgba(0, 0, 0, 0.15);
 }
 .header-container.container-xxl {
@@ -530,6 +531,20 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
 }
 .navbar .form-inline.search {
   display: inline-block;
+}
+.navbar .form-inline.search .search-form-control {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  padding: 8px 69px 8px 12px;
+  cursor: pointer;
+  width: 201px;
+}
+.navbar .form-inline.search .search-form-control::placeholder {
+    color: #fff;
+}
+.navbar .form-inline.search .search-form-control::-webkit-input-placeholder {
+    color: #fff;
 }
 .navbar .form-inline.search .search-form-control {
   display: inline-block;
@@ -860,7 +875,7 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
 }
 
 .sidebar-theme {
-  background: #2A3B6A;
+  background: #304378 !important;
 }
 
 .sidebar-closed > .sidebar-wrapper {
@@ -880,9 +895,9 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
 }
 
 #sidebar .theme-brand {
-  background-color: #2A3B6A;
+  background-color: #304378;
   padding: 10px 12px 6px 21px;
-  border-bottom: 1px solid #2A3B6A;
+  border-bottom: 1px solid #304378;
   border-radius: 8px 6px 0 0;
   justify-content: space-between;
 }
@@ -1072,14 +1087,14 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
   cursor: pointer;
   font-size: 15px;
   color: #fff;
-  padding: 10.2px 16px;
+  padding: 18px 16px;
   font-weight: 400;
   transition: 0.6s;
   letter-spacing: 1px;
   margin-bottom: 2px;
   margin: 0;
   border-radius: 0;
-  margin-top: 2px;
+  margin-top: 0;
 }
 #sidebar ul.menu-categories li.menu > .dropdown-toggle.disabled {
   opacity: 0.5;
@@ -1192,7 +1207,7 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
   position: absolute;
   height: 7px;
   width: 7px;
-  top: 18px;
+  top: 25px;
   left: 5px;
   border-radius: 50%;
 }
@@ -1268,7 +1283,7 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
   background-color: #fff !important;
 }
 #sidebar ul.menu-categories ul.submenu > li a.dropdown-toggle {
-  padding: 10px 16px 10px 33px;
+  padding: 16px 16px 16px 33px;
 }
 #sidebar ul.menu-categories ul.submenu > li a.dropdown-toggle svg {
   align-self: center;
@@ -1276,7 +1291,7 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
 }
 #sidebar ul.menu-categories ul.submenu > li ul.sub-submenu > li a {
   position: relative;
-  padding: 10px 12px 10px 48px;
+  padding: 14px 12px 14px 48px;
   padding-left: 25px;
   margin-left: 72px;
   font-size: 15px;
@@ -1301,7 +1316,7 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
   content: "";
   background-color: #bfc9d4;
   position: absolute;
-  top: 18.5px !important;
+  top: 25px !important;
   border-radius: 50%;
   left: 3px;
   height: 4px;
