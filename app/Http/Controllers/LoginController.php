@@ -14,16 +14,19 @@ class LoginController extends Controller
      */
     public function dologin(Request $request)
     {
-     
+
         $username = $request->username;
         $password = $request->password;
 
+        // Mencari user di tabel koperasi
         $koperasi = DB::table('tbl_koperasi')
-        ->select('*','tbl_koperasi.id  as id_kop')
-        ->join('tbl_tingkat_koperasi', 'tbl_koperasi.id_tingkatan_koperasi', '=', 'tbl_tingkat_koperasi.id')
-        ->where('tbl_koperasi.username', $username)->where('tbl_koperasi.password',$password)->first();
-       
-        if(!empty($koperasi->id_kop) || !empty($koperasi->username) || !empty($koperasi->password)) {
+            ->select('*', 'tbl_koperasi.id as id_kop')
+            ->join('tbl_tingkat_koperasi', 'tbl_koperasi.id_tingkatan_koperasi', '=', 'tbl_tingkat_koperasi.id')
+            ->where('tbl_koperasi.username', $username)
+            ->where('tbl_koperasi.password', $password)
+            ->first();
+
+        if (!empty($koperasi->id_kop) || !empty($koperasi->username) || !empty($koperasi->password)) {
             Session::put('id_koperasi', $koperasi->id_kop);
             Session::put('username', $koperasi->username);
             Session::put('nama_koperasi', $koperasi->nama_koperasi);
@@ -33,9 +36,7 @@ class LoginController extends Controller
             Session::put('id_puskop', $koperasi->id_puskop);
             Session::put('id_primkop', $koperasi->id_primkop);
             return redirect('/dashboard');
-
-        } elseif ($username == 'rki' && $password=='123456789') {
-            
+        } elseif ($username == 'rki' && $password == '123456789') {
             Session::put('id_koperasi', 111);
             Session::put('username', 'rki');
             Session::put('password', $password);
@@ -44,7 +45,6 @@ class LoginController extends Controller
             Session::put('id_puskop', 0);
             Session::put('id_primkop', 0);
             return redirect('/dashboard');
-
         } else {
             return redirect('/login');
         }

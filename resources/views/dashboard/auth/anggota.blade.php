@@ -55,22 +55,12 @@
                                             <td>{{$data->nomor_hp}}</td>
                                             <td> 
                                                     @if ($data->approval)
-                                                    <div class="row">
-                                                        <div class="col-6">
                                                             <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <button class="btn py-3" disabled>Verified</button>
-                                                        </div>
+                                                            <button class="btn" disabled>Verified</button>
                                                     </div>                                                   
                                                      @else
-                                                    <div class="row">
-                                                        <div class="col-6">
                                                             <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <button onclick="approveBtn({{$data->id}}, '{{$data->email}}')" class="btn btn-danger py-3"> Approve </button>                                                    </div>
-                                                    </div>
+                                                            <button onclick="approveBtn({{$data->id}}, '{{$data->email}}')" class="btn btn-danger"> Approve </button>                                                    </div>
                                                     @endif
                                             </td>
                                         </tr>

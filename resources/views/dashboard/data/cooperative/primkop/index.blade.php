@@ -34,9 +34,11 @@
                         <td>{{$data->bidang_koperasi}}</td>
                         <td>
                             @if ($data->approval)
-                            <button class="btn btn-warning"> View Primkop </button>
+                            <button class="btn btn-warning"> Detail</button>
+                            <a href="/list_anggota_primkop/{{$data->id}}" class="btn btn-info"> Anggota</a>
                             @else
-                            <button class="btn btn-warning"> View Primkop </button>
+                            <button class="btn btn-warning"> Detail </button>
+                            <a href="/list_anggota_primkop/{{$data->id}}"" class="btn btn-info"> Anggota</a>
                             <button onclick="approveBtn({{$data->id}}, '{{$data->email_koperasi}}')" class="btn btn-danger"> Approve </button>
                             @endif
                         </td>                    
