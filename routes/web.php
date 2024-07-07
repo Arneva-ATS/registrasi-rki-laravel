@@ -30,6 +30,9 @@ Route::post('/dologin', [App\Http\Controllers\LoginController::class, 'dologin']
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::get('/tambah_anggota', [App\Http\Controllers\AnggotaController::class, 'create']);
+Route::get('/tambah_primkop', [App\Http\Controllers\KoperasiController::class, 'primkop']);
+Route::get('/tambah_puskop', [App\Http\Controllers\KoperasiController::class, 'puskop']);
+Route::get('/tambah_inkop', [App\Http\Controllers\KoperasiController::class, 'inkop']);
 
 Route::get('/logout', function () {
     Session::flush('id_koperasi');

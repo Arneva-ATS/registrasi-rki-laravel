@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
+use Illuminate\Support\Facades\Session;
 
 class KoperasiController extends Controller
 {
@@ -360,5 +361,38 @@ class KoperasiController extends Controller
                 'response_message' => $th->getMessage(),
             ], 400);
         }
+    }
+    
+    public function primkop(){
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        return view('dashboard.auth.tambah_primkop',compact('id','username','password','tingkatan'));
+    }
+
+    public function puskop(){
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        return view('dashboard.auth.tambah_puskop',compact('id','username','password','tingkatan'));
+    }
+
+    public function inkop(){
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        return view('dashboard.auth.tambah_inkop',compact('id','username','password','tingkatan'));
     }
 }
