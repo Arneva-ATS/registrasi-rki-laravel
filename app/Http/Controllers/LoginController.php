@@ -26,6 +26,7 @@ class LoginController extends Controller
         if(!empty($koperasi->id_kop) || !empty($koperasi->username) || !empty($koperasi->password)) {
             Session::put('id_koperasi', $koperasi->id_kop);
             Session::put('username', $koperasi->username);
+            Session::put('nama_koperasi', $koperasi->nama_koperasi);
             Session::put('password', $koperasi->password);
             Session::put('tingkatan', $koperasi->nama_tingkatan);
             Session::put('id_inkop', $koperasi->id_inkop);
