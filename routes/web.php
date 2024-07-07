@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KoperasiController;
+use App\Http\Controllers\LoginController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -25,14 +27,14 @@ Route::get('rki/primkop', function (Request $request) {
     return "OK";
 });
 
-Route::post('/dologin', [App\Http\Controllers\LoginController::class, 'dologin']);
+Route::post('/dologin', [LoginController::class, 'dologin']);
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/dashboard', [HomeController::class, 'index']);
 
-Route::get('/tambah_anggota', [App\Http\Controllers\AnggotaController::class, 'create']);
-Route::get('/tambah_primkop', [App\Http\Controllers\KoperasiController::class, 'primkop']);
-Route::get('/tambah_puskop', [App\Http\Controllers\KoperasiController::class, 'puskop']);
-Route::get('/tambah_inkop', [App\Http\Controllers\KoperasiController::class, 'inkop']);
+Route::get('/tambah_anggota', [AnggotaController::class, 'create']);
+Route::get('/tambah_primkop', [KoperasiController::class, 'primkop']);
+Route::get('/tambah_puskop', [KoperasiController::class, 'puskop']);
+Route::get('/tambah_inkop', [KoperasiController::class, 'inkop']);
 
 Route::get('/logout', function () {
     Session::flush('id_koperasi');
@@ -45,9 +47,9 @@ Route::get('/logout', function () {
     return redirect('/login');
 });
 
-// Route::get('/dashboard-new', function () {
-//     return view('dashboard.index');
-// });
+Route::get('/dashboard-new', function () {
+    return view('dashboard.index');
+});
 
 Route::get('/dashboard', function () {
     $id = Session::get('id_koperasi');
@@ -62,12 +64,12 @@ Route::get('/dashboard', function () {
         $puskop_count = DB::table('tbl_koperasi')->where('id_puskop', '!=', 0)->count();
         $primkop_count = DB::table('tbl_koperasi')->where('id_primkop', '!=', 0)->count();
         $anggota_count = DB::table('tbl_anggota')->where('id_koperasi', $id)->count();
-        return view('dashboard.auth.home', compact('id','username','password','tingkatan','inkop_count','puskop_count','primkop_count','anggota_count'));
+        return view('dashboard.overview.index', compact('id','username','password','tingkatan','inkop_count','puskop_count','primkop_count','anggota_count'));
     }else{
         return redirect('/login');
     }
-   
-});
+
+})->name('overview');
 
 
 Route::get('/list_inkop', function(){
@@ -79,8 +81,8 @@ Route::get('/list_inkop', function(){
     $id_puskop = Session::get('id_puskop');
     $id_primkop = Session::get('id_primkop');
     $list_inkop = DB::table('tbl_koperasi')->where('id_inkop', '!=', 0)->get();
-    return view('dashboard.auth.inkop',compact('id','username','password','tingkatan','list_inkop'));
-});
+    return view('dashboard.data.cooperative.inkop.index',compact('id','username','password','tingkatan','list_inkop'));
+})->name('view-inkop');
 
 Route::get('/list_puskop', function(){
     $id = Session::get('id_koperasi');
@@ -95,8 +97,8 @@ Route::get('/list_puskop', function(){
     }else{
         $puskop = DB::table('tbl_koperasi')->where('id_inkop',  $id_inkop)->get();
     }
-    return view('dashboard.auth.puskop',compact('id','username','password','tingkatan','puskop'));
-});
+    return view('dashboard.data.cooperative.puskop.index',compact('id','username','password','tingkatan','puskop'));
+})->name('view-puskop');
 
 Route::get('/list_primkop', function(){
     $id = Session::get('id_koperasi');
@@ -111,8 +113,8 @@ Route::get('/list_primkop', function(){
     }else{
         $primkop = DB::table('tbl_koperasi')->where('id_puskop', $id_puskop)->get();
     }
-    return view('dashboard.auth.primkop',compact('id','username','password','tingkatan','primkop'));
-});
+    return view('dashboard.data.cooperative.primkop.index',compact('id','username','password','tingkatan','primkop'));
+})->name('view-primkop');
 
 
 Route::get('/list_anggota', function(){
@@ -125,8 +127,7 @@ Route::get('/list_anggota', function(){
     $id_primkop = Session::get('id_primkop');
     $primkop_anggota = DB::table('tbl_anggota')->where('id_koperasi', $id)->get();
     return view('dashboard.auth.anggota',compact('id','username','password','tingkatan','primkop_anggota'));
-});
-
+})->name('view-anggota');
 
 
 
