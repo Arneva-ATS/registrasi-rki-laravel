@@ -307,7 +307,7 @@ code {
 .navbar .toggle-sidebar, .navbar .sidebarCollapse {
   display: inline-block;
   position: relative;
-  color: #0e1726;
+  color: #fff;
 }
 .navbar .navbar-item .nav-item.theme-toggle-item .nav-link {
   padding: 4.24px 0;
