@@ -148,7 +148,7 @@
                 </div> -->
 
                 <div class="col-md-6 position-relative">
-                    <label for="validationTooltip04" class="form-label">Jabatan Pengawas</label>
+                    <label for="validationTooltip04" class="form-label">No Wa Pengawas</label>
                         <input type="text" name="no_wa_pengawas" id="no_wa_pengawas" class="form-control"
                         placeholder="Masukan Nomor WA" />
                 </div>
@@ -241,7 +241,7 @@
                             id="no_pkp" placeholder="Masukan Nomor PKP" />
                 </div>
 
-                <div class="col-md-6 position-relative">
+                {{-- <div class="col-md-6 position-relative">
                     <label for="validationTooltip04" class="form-label">No BPJS Kesehatan</label>
                         <input type="text" class="form-control w-100" name="bpjs_kesehatan"
                         id="bpjs_kesehatan" placeholder="Masukan Nomor" />
@@ -251,7 +251,7 @@
                     <label for="validationTooltip04" class="form-label">No BPJS Ketenagakerjaan</label>
                         <input type="text" class="form-control w-100" name="bpjs_ketenagakerjaan"
                         id="bpjs_ketenagakerjaan" placeholder="Masukan Nomor" />
-                </div>
+                </div> --}}
 
                 <div class="col-md-6 position-relative">
                     <label for="validationTooltip04" class="form-label">No. Sertifikat Koperasi</label>
@@ -325,8 +325,9 @@
 
         window.addEventListener("load", () => {
             getProvince();
-            tingkatan_koperasi = "primkop"
-            id_koperasi = 3;
+            tingkatan_koperasi = "{{$tingkatan}}"
+            id_koperasi = {{$id}};
+            console.log(id_koperasi)
         });
 
         ktpInput.addEventListener('change', (event) => {
@@ -389,8 +390,8 @@
             const no_wa_pengurus = document.getElementById("no_wa_pengurus").value;
             const no_ktp_pengawas = document.getElementById("no_ktp_pengawas").value;
             const nama_pengawas = document.getElementById("nama_pengawas").value;
-            const no_anggota_pengawas = 3;
-            const jabatan_pengawas = document.getElementById("jabatan_pengawas").value;
+            const no_anggota_pengawas = document.getElementById("no_anggota_pengurus").value;;
+            const jabatan_pengawas =3;
             const no_wa_pengawas = document.getElementById("no_wa_pengawas").value;
             const no_akta = document.getElementById("no_akta").value;
             const tanggal_akta = document.getElementById("tanggal_akta").value;
@@ -406,8 +407,8 @@
             const masa_berlaku_skdu = document.getElementById("masa_berlaku_skdu").value;
             const no_npwp = document.getElementById("no_npwp").value;
             const no_pkp = document.getElementById("no_pkp").value;
-            const bpjs_kesehatan = document.getElementById("bpjs_kesehatan").value;
-            const bpjs_ketenagakerjaan = document.getElementById("bpjs_ketenagakerjaan").value;
+            // const bpjs_kesehatan = document.getElementById("bpjs_kesehatan").value;
+            // const bpjs_ketenagakerjaan = document.getElementById("bpjs_ketenagakerjaan").value;
             const no_sertifikat = document.getElementById("no_sertifikat").value;
             const image_ktp = baseStringKtp;
             const image_logo = baseStringLogo;
@@ -416,7 +417,7 @@
             const validKtp = ktpInput.files[0];
             const validLogo = logoInput.files[0];
             const validDokumen = dokumenInput.files[0];
-            const username = createUsername(username);
+            const username = createUsername(singkatan_koperasi);
 
             if (!validKtp || !validLogo || !validDokumen ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
                 alert("Pastikan Data Terisi Semua!");
@@ -473,8 +474,8 @@
                 masa_berlaku_skdu,
                 no_npwp,
                 no_pkp,
-                bpjs_kesehatan,
-                bpjs_ketenagakerjaan,
+                // bpjs_kesehatan,
+                // bpjs_ketenagakerjaan,
                 no_sertifikat,
                 ktp: image_ktp,
                 logo: image_logo,
@@ -484,61 +485,116 @@
                 type3
             };
 
-
-            await fetch(`/api/register/rki/insert-koperasi/${id_koperasi}`, {
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify(jsondata)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    swal.close();
-                    console.log(data)
-                    if (data.response_code == '00') {
+            if(tingkatan_koperasi=='rki'){
+                    await fetch(`/api/register/rki/insert-koperasi/3`, {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: JSON.stringify(jsondata)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        swal.close();
+                        console.log(data)
+                        if (data.response_code == '00') {
+                            swal({
+                                title: "Status Registrasi",
+                                text: data?.response_message,
+                                icon: "success",
+                                buttons: true,
+                            }).then((willOut) => {
+                                if (willOut) {
+                                    window.location.href = "/list_primkop";
+                                } else {
+                                    console.log("error");
+                                }
+                            });
+                        } else {
+                            swal({
+                                title: "Status Registrasi",
+                                text: data?.response_message,
+                                icon: "error",
+                                buttons: true,
+                            }).then((willOut) => {
+                                if (willOut) {} else {
+                                    console.log("error");
+                                }
+                            });
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                        swal.close();
                         swal({
                             title: "Status Registrasi",
-                            text: data?.response_message,
-                            icon: "success",
+                            text: err,
+                            icon: "info",
                             buttons: true,
                         }).then((willOut) => {
                             if (willOut) {
-                                window.location.href = "/list_primkop";
-                                console.log("success")
+                                //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
                             } else {
                                 console.log("error");
                             }
                         });
-                    } else {
-                        swal({
-                            title: "Status Registrasi",
-                            text: data?.response_message,
-                            icon: "error",
-                            buttons: true,
-                        }).then((willOut) => {
-                            if (willOut) {} else {
-                                console.log("error");
-                            }
-                        });
-                    }
-                }).catch(err => {
-                    console.log(err);
-                    swal.close();
-                    swal({
-                        title: "Status Registrasi",
-                        text: err,
-                        icon: "info",
-                        buttons: true,
-                    }).then((willOut) => {
-                        if (willOut) {
-                            //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
-                        } else {
-                            console.log("error");
-                        }
                     });
-                });
+                }else{
+                    await fetch(`/api/register/koperasi/insert-koperasi/${id_koperasi}/3`, {
+                            headers: {
+                                'Access-Control-Allow-Origin': '*',
+                                'Content-Type': 'application/json'
+                            },
+                            method: "POST",
+                            body: JSON.stringify(jsondata)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            swal.close();
+                            console.log(data)
+                            if (data.response_code == '00') {
+                                swal({
+                                    title: "Status Registrasi",
+                                    text: data?.response_message,
+                                    icon: "success",
+                                    buttons: true,
+                                }).then((willOut) => {
+                                    if (willOut) {
+                                        window.location.href = "/list_primkop";
+                                        console.log("success")
+                                    } else {
+                                        console.log("error");
+                                    }
+                                });
+                            } else {
+                                swal({
+                                    title: "Status Registrasi",
+                                    text: data?.response_message,
+                                    icon: "error",
+                                    buttons: true,
+                                }).then((willOut) => {
+                                    if (willOut) {} else {
+                                        console.log("error");
+                                    }
+                                });
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                            swal.close();
+                            swal({
+                                title: "Status Registrasi",
+                                text: err,
+                                icon: "info",
+                                buttons: true,
+                            }).then((willOut) => {
+                                if (willOut) {
+                                    //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
+                                } else {
+                                    console.log("error");
+                                }
+                            });
+                        });
+                }
         }
     </script>
 @endpush

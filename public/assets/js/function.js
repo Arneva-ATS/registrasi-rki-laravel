@@ -24,6 +24,7 @@ function getProvince() {
 document.getElementById("provinsi").addEventListener("change", function () {
     const provinsiSelect = document.getElementById("provinsi");
     const selectedProvinsiId = provinsiSelect.value;
+    console.log(selectedProvinsiId);
 
     fetch("/api/wilayah/kota/" + selectedProvinsiId, {
         method: "GET",
@@ -171,4 +172,3 @@ function createUsername(name) {
         .replace(/\s+/g, "") // Menghilangkan semua spasi
         .replace(/[^\w]+/g, ""); // Menghapus karakter non-alphanumeric
 }
-

@@ -324,8 +324,9 @@
 
         window.addEventListener("load", () => {
             getProvince();
-            tingkatan_koperasi = "inkop"
-            id_koperasi = 1;
+            tingkatan_koperasi = "{{$tingkatan}}"
+            id_koperasi = {{$id}};
+            console.log(tingkatan_koperasi  )
         });
 
         ktpInput.addEventListener('change', (event) => {
@@ -407,8 +408,8 @@
             const masa_berlaku_skdu = document.getElementById("masa_berlaku_skdu").value;
             const no_npwp = document.getElementById("no_npwp").value;
             const no_pkp = document.getElementById("no_pkp").value;
-            const bpjs_kesehatan = document.getElementById("bpjs_kesehatan").value;
-            const bpjs_ketenagakerjaan = document.getElementById("bpjs_ketenagakerjaan").value;
+            // const bpjs_kesehatan = document.getElementById("bpjs_kesehatan").value;
+            // const bpjs_ketenagakerjaan = document.getElementById("bpjs_ketenagakerjaan").value;
             const no_sertifikat = document.getElementById("no_sertifikat").value;
             const image_ktp = baseStringKtp;
             const image_logo = baseStringLogo;
@@ -484,8 +485,8 @@
                 type3
             };
 
-
-            await fetch(`/api/register/rki/insert-koperasi/${id_koperasi}`, {
+            if(tingkatan_koperasi=='rki'){
+                await fetch(`/api/register/rki/insert-koperasi/1`, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'application/json'
@@ -505,8 +506,7 @@
                             buttons: true,
                         }).then((willOut) => {
                             if (willOut) {
-                                window.location = "/list_inkop";
-                                console.log("success")
+                                window.location.href = "/list_inkop";
                             } else {
                                 console.log("error");
                             }
@@ -539,6 +539,8 @@
                         }
                     });
                 });
+            }
+            
         }
     </script>
 @endpush

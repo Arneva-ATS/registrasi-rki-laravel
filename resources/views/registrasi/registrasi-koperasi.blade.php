@@ -66,14 +66,14 @@
                                         <div class="form-group">
                                             <label for="no_fax">No Fax (Opsional)</label>
                                             <input type="text" class="form-control w-100" name="no_fax" id="no_fax"
-                                                placeholder="no_fax" required />
+                                                placeholder="no_fax" />
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="web">Website (Opsional)</label>
                                             <input type="text" class="form-control w-100" name="web" id="web"
-                                                placeholder="web" required />
+                                                placeholder="web" />
                                         </div>
                                     </div>
                                 </div>
@@ -428,7 +428,7 @@
                                                     style="color: red;">*</span></label>
                                             <input type="file" class="form-control" id="foto_ktp" name="foto_ktp" required />
                                             <img id="preview-profil" height="100" width="100" class="mt-1"
-                                                src="/assets/images/AGT1.jpg" alt="Preview Image">
+                                                src="/assets/images/default.jpg" alt="Preview Image">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
@@ -437,7 +437,7 @@
                                             <input type="file" class="form-control" id="foto_logo"
                                                 name="foto_logo" required />
                                             <img id="preview-logo" height="100" width="100" class="mt-1"
-                                                src="/assets/images/AGT1.jpg" alt="Preview Image">
+                                                src="/assets/images/default.jpg" alt="Preview Image">
                                         </div>
                                     </div>
                                 </div>
@@ -471,8 +471,8 @@
     </div>
 @endsection
 
-<script src="{{ asset('assets/js/function.js') }}"></script>
 @push('js')
+<script src="{{ asset('assets/js/function.js') }}"></script>
     <script>
         let baseStringKtp;
         let baseStringLogo;
@@ -513,7 +513,7 @@
             }
             id_tingkat = {{ $id_tingkat }}
             id_koperasi = {{ $id_koperasi }};
-
+            console.log(id_tingkat)
         });
 
         ktpInput.addEventListener('change', (event) => {

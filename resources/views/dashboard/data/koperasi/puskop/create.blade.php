@@ -148,7 +148,7 @@
                 </div> -->
 
                 <div class="col-md-6 position-relative">
-                    <label for="validationTooltip04" class="form-label">Jabatan Pengawas</label>
+                    <label for="validationTooltip04" class="form-label">No WA Pengawas</label>
                         <input type="text" name="no_wa_pengawas" id="no_wa_pengawas" class="form-control"
                         placeholder="Masukan Nomor WA" />
                 </div>
@@ -324,8 +324,9 @@
 
             window.addEventListener("load", () => {
                 getProvince();
-                tingkatan_koperasi = "puskop"
-                id_koperasi = 2;
+                tingkatan_koperasi = "{{$tingkatan}}"
+                id_koperasi = {{$id}};
+                console.log(tingkatan_koperasi)
             });
 
             ktpInput.addEventListener('change', (event) => {
@@ -405,8 +406,8 @@
                 const masa_berlaku_skdu = document.getElementById("masa_berlaku_skdu").value;
                 const no_npwp = document.getElementById("no_npwp").value;
                 const no_pkp = document.getElementById("no_pkp").value;
-                const bpjs_kesehatan = document.getElementById("bpjs_kesehatan").value;
-                const bpjs_ketenagakerjaan = document.getElementById("bpjs_ketenagakerjaan").value;
+                // const bpjs_kesehatan = document.getElementById("bpjs_kesehatan").value;
+                // const bpjs_ketenagakerjaan = document.getElementById("bpjs_ketenagakerjaan").value;
                 const no_sertifikat = document.getElementById("no_sertifikat").value;
                 const image_ktp = baseStringKtp;
                 const image_logo = baseStringLogo;
@@ -471,8 +472,8 @@
                     masa_berlaku_skdu,
                     no_npwp,
                     no_pkp,
-                    bpjs_kesehatan,
-                    bpjs_ketenagakerjaan,
+                    // bpjs_kesehatan,
+                    // bpjs_ketenagakerjaan,
                     no_sertifikat,
                     ktp: image_ktp,
                     logo: image_logo,
@@ -481,9 +482,62 @@
                     type2,
                     type3
                 };
-
-
-                await fetch(`/api/register/rki/insert-koperasi/${id_koperasi}`, {
+                if(tingkatan_koperasi=='rki'){
+                    await fetch(`/api/register/rki/insert-koperasi/2`, {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: JSON.stringify(jsondata)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        swal.close();
+                        console.log(data)
+                        if (data.response_code == '00') {
+                            swal({
+                                title: "Status Registrasi",
+                                text: data?.response_message,
+                                icon: "success",
+                                buttons: true,
+                            }).then((willOut) => {
+                                if (willOut) {
+                                    window.location.href = "/list_puskop";
+                                } else {
+                                    console.log("error");
+                                }
+                            });
+                        } else {
+                            swal({
+                                title: "Status Registrasi",
+                                text: data?.response_message,
+                                icon: "error",
+                                buttons: true,
+                            }).then((willOut) => {
+                                if (willOut) {} else {
+                                    console.log("error");
+                                }
+                            });
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                        swal.close();
+                        swal({
+                            title: "Status Registrasi",
+                            text: err,
+                            icon: "info",
+                            buttons: true,
+                        }).then((willOut) => {
+                            if (willOut) {
+                                //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
+                            } else {
+                                console.log("error");
+                            }
+                        });
+                    });
+                }else{
+                    await fetch(`/api/register/koperasi/insert-koperasi/${id_koperasi}/2`, {
                         headers: {
                             'Access-Control-Allow-Origin': '*',
                             'Content-Type': 'application/json'
@@ -537,6 +591,8 @@
                             }
                         });
                     });
-            }
+                }
+                
+         }
     </script>
 @endpush

@@ -34,17 +34,13 @@
                                 <td>{{ $data->nomor_hp }}</td>
                                 <td>
                                     @if ($data->approval)
-                                            <button class="btn" disabled>Verified</button>
+                                        <button class="btn" disabled>Verified</button>
                                     @else
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <button onclick="rejectBtn({{ $data->id }}, '{{ $data->email }}')"
-                                                    class="btn btn-danger"> Reject </button>                                            </div>
-                                            <div class="col-6">
-                                                <button onclick="approveBtn({{ $data->id }}, '{{ $data->email }}', '{{ $data->username }}')"
-                                                    class="btn btn-warning"> Approve </button>
-                                            </div>
-                                        </div>
+                            
+                                        <button onclick="rejectBtn({{ $data->id }}, '{{ $data->email }}')"
+                                            class="btn btn-danger"> Reject </button>                                            </div>
+                                        <button onclick="approveBtn({{ $data->id }}, '{{ $data->email }}', '{{ $data->username }}')"
+                                            class="btn btn-warning"> Approve </button>
                                     @endif
                                 </td>
                             </tr>

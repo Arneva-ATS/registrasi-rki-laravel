@@ -49,7 +49,7 @@
                                         <button onclick="rejectBtn({{ $data->id }}, '{{ $data->email_koperasi }}')"
                                             class="btn btn-danger"> Reject </button>   
                                         <button
-                                            onclick="approveBtn({{ $data->id }}, '{{ $data->username }}','{{ $data->email_koperasi }}'))"
+                                            onclick="approveBtn({{ $data->id }}, '{{ $data->username }}','{{ $data->email_koperasi }}')"
                                             class="btn btn-warning"> Approve </button>
                                     @endif
                                 </td>
@@ -238,7 +238,7 @@
                                 swal("Berhasil Approve!", {
                                     icon: "success",
                                 });
-                                window.location = '/list_inkop'
+                                window.location = '/list_puskop'
                             } else {
                                 swal("Gagal Approve!", {
                                     icon: "info",
