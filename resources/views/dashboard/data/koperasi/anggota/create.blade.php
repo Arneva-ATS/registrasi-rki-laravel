@@ -306,7 +306,7 @@ window.addEventListener("load", () => {
                             buttons: true,
                         }).then((willOut) => {
                             if (willOut) {
-                                // window.location.href = "/anggota/primkop/" + slug_url;
+                                window.location = "/list_anggota";
                                 console.log("success")
                             } else {
                                 console.log("error");

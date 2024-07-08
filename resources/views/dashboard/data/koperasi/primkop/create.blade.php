@@ -505,7 +505,7 @@
                             buttons: true,
                         }).then((willOut) => {
                             if (willOut) {
-                                // window.location.href = "/koperasi/rki/" + tingkatan_koperasi;
+                                window.location.href = "/list_primkop";
                                 console.log("success")
                             } else {
                                 console.log("error");
