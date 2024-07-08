@@ -237,7 +237,7 @@
                                 swal("Berhasil Approve!", {
                                     icon: "success",
                                 });
-                                window.location.href = '/list_primkop'
+                                window.location = '/list_primkop'
                             } else {
                                 swal("Gagal Approve!", {
                                     icon: "info",

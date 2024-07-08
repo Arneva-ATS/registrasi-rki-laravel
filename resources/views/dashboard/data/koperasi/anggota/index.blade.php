@@ -94,7 +94,7 @@
                                 swal("Berhasil Approve!", {
                                     icon: "success",
                                 });
-                                window.location.href = '/list_anggota'
+                                window.location = '/list_anggota'
                             } else {
                                 swal("Gagal Approve!", {
                                     icon: "info",

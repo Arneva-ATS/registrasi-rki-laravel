@@ -236,7 +236,7 @@
                                 swal("Berhasil Approve!", {
                                     icon: "success",
                                 });
-                                window.location.href = '/list_inkop'
+                                window.location = '/list_inkop'
                             } else {
                                 swal("Gagal Approve!", {
                                     icon: "info",
