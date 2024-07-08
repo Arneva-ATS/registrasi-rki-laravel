@@ -60,9 +60,9 @@ Route::get('/dashboard', function () {
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        $inkop_count = DB::table('tbl_koperasi')->where('id_inkop', '!=', 0)->count();
-        $puskop_count = DB::table('tbl_koperasi')->where('id_puskop', '!=', 0)->count();
-        $primkop_count = DB::table('tbl_koperasi')->where('id_primkop', '!=', 0)->count();
+        $inkop_count = DB::table('tbl_koperasi')->where('id_tingkatan', '=', 1)->count();
+        $puskop_count = DB::table('tbl_koperasi')->where('id_tingkatan', '!=', 3)->count();
+        $primkop_count = DB::table('tbl_koperasi')->where('id_tingkatan', '!=', 2)->count();
         $anggota_count = DB::table('tbl_anggota')->where('id_koperasi', $id)->count();
         $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
         // return dd($koperasi);
