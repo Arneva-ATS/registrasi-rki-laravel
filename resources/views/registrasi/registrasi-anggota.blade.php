@@ -288,7 +288,7 @@
         let type2;
         let slug_url;
         let roles;
-        
+
         window.addEventListener("load", () => {
             const url = new URL(window.location.href);
             const path = url.pathname.split("/");
@@ -341,6 +341,7 @@
             var image_ktp = baseStringKtp;
             var validselfie = document.getElementById("selfie").files[0];
             var validktp = document.getElementById("ktp").files[0];
+            const username = createUsername(nama_lengkap);
 
             if (no_anggota == "" || validselfie == "" || validktp == "" || provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
                 alert("Pastikan Data Terisi Semua !");
@@ -358,6 +359,7 @@
             var jsondata = {
                 slug_url,
                 no_anggota,
+                username,
                 nik: nik,
                 nama_lengkap: nama_lengkap,
                 tempat_lahir: tempat_lahir,
