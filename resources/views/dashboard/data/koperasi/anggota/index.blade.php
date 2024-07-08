@@ -48,7 +48,7 @@
                                                 <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
                                             </div>
                                             <div class="col-6">
-                                                <button onclick="approveBtn({{ $data->id }}, '{{ $data->email }}')"
+                                                <button onclick="approveBtn({{ $data->id }}, '{{ $data->email }}', '{{ $data->nama_lengkap }}')"
                                                     class="btn btn-danger"> Approve </button>
                                             </div>
                                         </div>
@@ -66,9 +66,10 @@
 
 @push('js')
     <script>
-        function approveBtn(id, email) {
+        function approveBtn(id, email, nama) {
             let data = {
-                email
+                email,
+                createUsername(nama);
             };
             swal({
                 title: "Approve",

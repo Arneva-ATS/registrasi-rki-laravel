@@ -15,7 +15,7 @@ class MailController extends Controller
         DB::beginTransaction();
         try {
             $password = bin2hex(openssl_random_pseudo_bytes(10));
-            $data = DB::table('tbl_anggota')->where('id', $id)->update(['approval' => 1, 'password' => $password]);
+            $data = DB::table('tbl_anggota')->where('id', $id)->update(['approval' => 1, 'password' => $password, 'username'=>$request->username]);
             if (!$data) {
                 throw new \Exception('Data tidak ada!');
             }
