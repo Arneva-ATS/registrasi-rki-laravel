@@ -276,7 +276,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
 @endsection
 
     <script src="{{ asset('assets/js/function.js') }}"></script>
