@@ -11,7 +11,7 @@
     <p style="margin-bottom: 6px;>{{ $content }}</p>
     <p style="margin-bottom: 10px;">{{$info}}</p>
     <ul>
-        <li><b>Email: {{ $email }}</b></li>
+        <li><b>Username: {{ $username }}</b></li>
         <li><b>Password: {{ $password }}</b></li>
     </ul>
     <p style="margin-top: 10px;">Terima kasih telah menggunakan layanan RKI APP kami</p>

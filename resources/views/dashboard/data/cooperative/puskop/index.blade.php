@@ -9,7 +9,7 @@
 @section('content')
     <div class="row">
         <p class="mt-2 text-white">
-            <a href="/tambah_puskop" class="btn btn-primary"> Tambah Puskop </a> ||
+            <a href="/tambah_puskop" class="btn btn-primary"> Tambah Puskop </a>
         </p>
 
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -41,10 +41,11 @@
                                         <a href="/list_primkop_puskop/{{ $data->id }}" class="btn btn-info"> Primkop
                                         </a>
                                     @else
-                                        <button class="btn btn-warning"> Detail </button>
-                                        <a href="/list_primkop_puskop/{{ $data->id }}" class="btn btn-warning"> Primkop
+                                    <button type="button" class="btn btn-warning"
+                                    onclick="modalBtn({{ json_encode($data) }})" data-bs-toggle="modal"
+                                    data-bs-target="#modalInkop">Detail </button>                                        <a href="/list_primkop_puskop/{{ $data->id }}" class="btn btn-warning"> Primkop
                                         </a>
-                                        <button onclick="approveBtn({{ $data->id }}, '{{ $data->email_koperasi }}')"
+                                        <button onclick="approveBtn({{ $data->id }}, '{{ $data->username }}')"
                                             class="btn btn-danger"> Approve </button>
                                     @endif
                                 </td>
@@ -205,9 +206,9 @@
             document.getElementById('no_sertifikat').innerText = data.no_sertifikat_koperasi
         }
 
-        function approveBtn(id, email) {
+        function approveBtn(id, username) {
             let data = {
-                email
+                username
             };
             swal({
                 title: "Approve",
