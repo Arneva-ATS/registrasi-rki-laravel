@@ -239,7 +239,7 @@ window.addEventListener("load", () => {
             var image_ktp = baseStringKtp;
             var validselfie = document.getElementById("selfie").files[0];
             var validktp = document.getElementById("ktp").files[0];
-
+            const username = createUsername(nama_lengkap);
             if (no_anggota == "" || validselfie == "" || validktp == "" || provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
                 alert("Pastikan Data Terisi Semua !");
                 return false;
@@ -247,7 +247,7 @@ window.addEventListener("load", () => {
             swal({
                 title: "Please wait",
                 text: "Submitting data...",
-                icon: "/assets/images/loading.gif",
+                // icon: "/assets/images/loading.gif",
                 button: false,
                 closeOnClickOutside: false,
                 closeOnEsc: false,
@@ -257,6 +257,7 @@ window.addEventListener("load", () => {
                 slug_url,
                 no_anggota,
                 nik: nik,
+                username,
                 nama_lengkap: nama_lengkap,
                 tempat_lahir: tempat_lahir,
                 tanggal_lahir: tanggal_lahir,

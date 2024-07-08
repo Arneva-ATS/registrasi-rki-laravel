@@ -416,6 +416,7 @@
             const validKtp = ktpInput.files[0];
             const validLogo = logoInput.files[0];
             const validDokumen = dokumenInput.files[0];
+            const username = createUsername(username);
 
             if (!validKtp || !validLogo || !validDokumen ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
                 alert("Pastikan Data Terisi Semua!");
@@ -425,7 +426,7 @@
             swal({
                 title: "Please wait",
                 text: "Submitting data...",
-                icon: "/assets/images/loading.gif",
+                // icon: "/assets/images/loading.gif",
                 button: false,
                 closeOnClickOutside: false,
                 closeOnEsc: false,
@@ -436,6 +437,7 @@
                 nama_koperasi,
                 slug,
                 email,
+                username,
                 no_telp,
                 no_wa,
                 no_fax,
