@@ -9,8 +9,7 @@
 @section('content')
     <div class="row">
         <p class="mt-2 text-white">
-            <a href="/tambah_puskop" class="btn btn-primary"> Tambah Puskop </a> || [
-            https://registrasi.rkicoop.id/koperasi/{tingkat}/{name} ]
+            <a href="/tambah_puskop" class="btn btn-primary"> Tambah Puskop </a> ||
         </p>
 
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
@@ -184,7 +183,7 @@
     </div>
     </div>
     <script>
-             function modalBtn(data) {
+        function modalBtn(data) {
             console.log(data)
             document.getElementById('nama_koperasi').innerText = data.nama_koperasi
             document.getElementById('no_wa').innerText = data.hp_wa
@@ -204,9 +203,8 @@
             document.getElementById('no_npwp').innerText = data.no_npwp
             document.getElementById('no_pkp').innerText = data.no_pkp
             document.getElementById('no_sertifikat').innerText = data.no_sertifikat_koperasi
-
-
         }
+
         function approveBtn(id, email) {
             let data = {
                 email
