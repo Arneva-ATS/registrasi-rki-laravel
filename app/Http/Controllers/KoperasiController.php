@@ -366,7 +366,7 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.data.cooperative.primkop.create',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.koperasi.primkop.create',compact('id','username','password','tingkatan'));
     }
 
     public function puskop(){
@@ -377,7 +377,7 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.data.cooperative.puskop.create',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.koperasi.puskop.create',compact('id','username','password','tingkatan'));
     }
 
     public function inkop(){
@@ -388,6 +388,6 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.data.cooperative.inkop.create',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.koperasi.inkop.create',compact('id','username','password','tingkatan'));
     }
 }

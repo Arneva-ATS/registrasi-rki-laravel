@@ -79,8 +79,8 @@ Route::get('/list_inkop', function () {
     $id_inkop = Session::get('id_inkop');
     $id_puskop = Session::get('id_puskop');
     $id_primkop = Session::get('id_primkop');
-    $list_inkop = DB::table('tbl_koperasi')->where('id_tingkatan_koperasi', '=', 1)->get();
-    return view('dashboard.data.cooperative.inkop.index', compact('id', 'username', 'password', 'tingkatan', 'list_inkop'));
+    $list_inkop = DB::table('tbl_koperasi')->where('id_inkop', '!=', 0)->get();
+    return view('dashboard.data.koperasi.inkop.index',compact('id','username','password','tingkatan','list_inkop'));
 })->name('view-inkop');
 
 Route::get('/list_puskop', function () {
@@ -96,7 +96,7 @@ Route::get('/list_puskop', function () {
     } else {
         $puskop = DB::table('tbl_koperasi')->where('id_inkop',  $id)->get();
     }
-    return view('dashboard.data.cooperative.puskop.index', compact('id', 'username', 'password', 'tingkatan', 'puskop'));
+    return view('dashboard.data.koperasi.puskop.index',compact('id','username','password','tingkatan','puskop'));
 })->name('view-puskop');
 
 Route::get('/list_puskop_inkop/{id}', function ($id) {
@@ -109,7 +109,7 @@ Route::get('/list_puskop_inkop/{id}', function ($id) {
     $id_puskop = Session::get('id_puskop');
     $id_primkop = Session::get('id_primkop');
     $puskop = DB::table('tbl_koperasi')->where('id_inkop',  $id)->where('approval', '=', 1)->get();
-    return view('dashboard.data.cooperative.puskop.index', compact('id_ink', 'username', 'password', 'tingkatan', 'puskop'));
+    return view('dashboard.data.koperasi.puskop.index', compact('id_ink', 'username', 'password', 'tingkatan', 'puskop'));
 })->name('view-puskop');
 
 Route::get('/list_primkop', function () {
@@ -127,7 +127,7 @@ Route::get('/list_primkop', function () {
     } else {
         $primkop = DB::table('tbl_koperasi')->where('id_puskop', $id)->get();
     }
-    return view('dashboard.data.cooperative.primkop.index', compact('id', 'username', 'password', 'tingkatan', 'primkop'));
+    return view('dashboard.data.koperasi.primkop.index',compact('id','username','password','tingkatan','primkop'));
 })->name('view-primkop');
 
 Route::get('/list_primkop_puskop/{id}', function ($id) {
