@@ -43,7 +43,7 @@
                                             onclick="modalBtn({{ json_encode($data) }})" data-bs-toggle="modal"
                                             data-bs-target="#modalInkop">Detail </button>
                                         <a href="/list_puskop_inkop/{{ $data->id }}" class="btn btn-info">Puskop </a>
-                                        <button onclick="approveBtn({{ $data->id }}, '{{ $data->username }}')"
+                                        <button onclick="approveBtn({{ $data->id }},'{{ $data->username }}','{{ $data->email_koperasi }}')"
                                             class="btn btn-danger"> Approve </button>
                                     @endif
                                 </td>
@@ -234,9 +234,9 @@
         // });
     </script>
     <script>
-        function approveBtn(id, username) {
+        function approveBtn(id, username,email) {
             let data = {
-                username
+                username, email
             };
             swal({
                 title: "Approve",

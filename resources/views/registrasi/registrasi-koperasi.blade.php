@@ -93,7 +93,8 @@
 
                                 <div class="form-group">
                                     <label for="alamat">Alamat Lengkap</label>
-                                    <textarea name="alamat" id="alamat" class="form-control" style="height: 120px" onkeyup="getVals(this, 'alamat');" required></textarea>
+                                    <textarea name="alamat" id="alamat" class="form-control" style="height: 120px" onkeyup="getVals(this, 'alamat');"
+                                        required></textarea>
                                 </div>
 
                                 <!-- /review_block-->
@@ -102,8 +103,7 @@
                                         <div class="form-group">
                                             {{-- <label for="provinsi">Provinsi</label> --}}
                                             <p class="mb-1">Provinsi</p>
-                                            <select id="provinsi" class="form-control"
-                                                required>
+                                            <select id="provinsi" class="form-control" required>
                                                 <option value="00" hidden selected>Pilih Provinsi</option>
                                             </select>
                                             <div id="provinsi-error" class="text-danger mt-1 hidden"></div>
@@ -114,9 +114,8 @@
                                         <div class="form-group">
                                             {{-- <label for="kabupaten">Kabupaten/Kota</label> --}}
                                             <p class="mb-1">Kabupaten/Kota</p>
-                                            <select id="kota" class="form-control"
-                                                        required>
-                                                        <option value="00" hidden selected>Pilih Kabuptaen/Kota</option>
+                                            <select id="kota" class="form-control" required>
+                                                <option value="00" hidden selected>Pilih Kabuptaen/Kota</option>
                                             </select>
                                             <div id="kota-error" class="text-danger mt-1 hidden"></div>
                                         </div>
@@ -185,7 +184,7 @@
                                 <div class="form-group">
                                     <label for="no_wa_pengurus">No Wa Ketua</label>
                                     <input type="text" name="no_wa_pengurus" id="no_wa_pengurus" class="form-control"
-                                        placeholder="Masukan no_wa_pengurus" required/>
+                                        placeholder="Masukan no_wa_pengurus" required />
                                 </div>
                             </div>
                             <!-- /step 3-->
@@ -198,19 +197,19 @@
                                 <div class="form-group">
                                     <label for="nama_pengawas">Nama Pengawas</label>
                                     <input type="text" name="nama_pengawas" id="nama_pengawas" class="form-control"
-                                        placeholder="Masukan Nama Pengawas" required/>
+                                        placeholder="Masukan Nama Pengawas" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="no_ktp_pengawas">No KTP Pengawas</label>
                                     <input type="text" name="no_ktp_pengawas" id="no_ktp_pengawas"
-                                        class="form-control" placeholder="Masukan no_ktp_pengawas" required/>
+                                        class="form-control" placeholder="Masukan no_ktp_pengawas" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="no_anggota_pengawas">No Anggota Pengawas</label>
                                     <input type="text" name="no_anggota_pengawas" id="no_anggota_pengawas"
-                                        class="form-control" placeholder="Masukan Nomor Anggota" required/>
+                                        class="form-control" placeholder="Masukan Nomor Anggota" required />
                                 </div>
 
                                 {{-- <div class="form-group">
@@ -250,23 +249,23 @@
 
                                 <!-- /row -->
                                 <!-- <div class="form-group terms">
-                                        <label class="container_check"
-                                        >Please accept our
-                                        <a
-                                            href="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#terms-txt"
-                                            style="color: #fff; text-decoration: underline"
-                                            >Terms and conditions</a
-                                        >
-                                        <input
-                                            type="checkbox"
-                                            name="terms"
-                                            value="Yes"
-                                            class="required" />
-                                        <span class="checkmark"></span>
-                                        </label>
-                                    </div> -->
+                                            <label class="container_check"
+                                            >Please accept our
+                                            <a
+                                                href="#"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#terms-txt"
+                                                style="color: #fff; text-decoration: underline"
+                                                >Terms and conditions</a
+                                            >
+                                            <input
+                                                type="checkbox"
+                                                name="terms"
+                                                value="Yes"
+                                                class="required" />
+                                            <span class="checkmark"></span>
+                                            </label>
+                                        </div> -->
                             </div>
                             <!-- /step 5-->
 
@@ -309,7 +308,8 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <input type="date" class="form-control w-100" name="tanggal_spkk"
-                                                id="tanggal_spkk" placeholder="Masukan Tanggal Surat Pengesahan" required />
+                                                id="tanggal_spkk" placeholder="Masukan Tanggal Surat Pengesahan"
+                                                required />
                                         </div>
                                     </div>
                                 </div>
@@ -426,7 +426,8 @@
                                         <div class="form-group">
                                             <label for="foto_ktp">Upload Foto KTP<span
                                                     style="color: red;">*</span></label>
-                                            <input type="file" class="form-control" id="foto_ktp" name="foto_ktp" required />
+                                            <input type="file" class="form-control" id="foto_ktp" name="foto_ktp"
+                                                required />
                                             <img id="preview-profil" height="100" width="100" class="mt-1"
                                                 src="/assets/images/AGT1.jpg" alt="Preview Image">
                                         </div>
@@ -434,8 +435,8 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="foto_profil">Upload Logo<span style="color: red;">*</span></label>
-                                            <input type="file" class="form-control" id="foto_logo"
-                                                name="foto_logo" required />
+                                            <input type="file" class="form-control" id="foto_logo" name="foto_logo"
+                                                required />
                                             <img id="preview-logo" height="100" width="100" class="mt-1"
                                                 src="/assets/images/AGT1.jpg" alt="Preview Image">
                                         </div>
@@ -703,7 +704,7 @@
                             buttons: true,
                         }).then((willOut) => {
                             if (willOut) {
-                                window.location.href = "/koperasi/"+ tingkatan_atas + '/'+ slug_url;
+                                window.location.href = "/koperasi/" + tingkatan_atas + '/' + slug_url;
                             } else {
                                 console.log("error");
                             }
@@ -729,7 +730,7 @@
                         buttons: true,
                     }).then((willOut) => {
                         if (willOut) {
-                            window.location.href = "/koperasi/"+ tingkatan_koperasi + '/'+ slug_url;
+                            window.location.href = "/koperasi/" + tingkatan_koperasi + '/' + slug_url;
                         } else {
                             console.log("error");
                         }
