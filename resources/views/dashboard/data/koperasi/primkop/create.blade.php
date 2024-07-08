@@ -2,8 +2,8 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="#">Data</a></li>
-    <li class="breadcrumb-item"><a href="#">Cooperative</a></li>
-    <li class="breadcrumb-item"><a href="#">Inkop</a></li>
+    <li class="breadcrumb-item"><a href="#">Koperasi</a></li>
+    <li class="breadcrumb-item"><a href="#">Primkop</a></li>
     <li class="breadcrumb-item active" aria-current="page">Create</li>
 
 @endsection
@@ -302,6 +302,7 @@
         getProvince();
     });
 </script>
+
 <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/function.js') }}"></script>
 <script src="{{ asset('assets/js/functions.js') }}"></script>
@@ -324,8 +325,8 @@
 
         window.addEventListener("load", () => {
             getProvince();
-            tingkatan_koperasi = "inkop"
-            id_koperasi = 1;
+            tingkatan_koperasi = "primkop"
+            id_koperasi = 3;
         });
 
         ktpInput.addEventListener('change', (event) => {

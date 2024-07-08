@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="#">Data</a></li>
-    <li class="breadcrumb-item"><a href="#">Cooperative</a></li>
+    <li class="breadcrumb-item"><a href="#">Koperasi</a></li>
     <li class="breadcrumb-item active" aria-current="page">Puskop</li>
 @endsection
 
