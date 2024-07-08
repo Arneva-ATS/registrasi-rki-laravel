@@ -276,9 +276,10 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 @endsection
 
+@push('js')
     <script src="{{ asset('assets/js/function.js') }}"></script>
     <script>
         let baseStringSelfie;
@@ -439,4 +440,4 @@
                 });
         }
     </script>
-
+@endpush
