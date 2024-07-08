@@ -4,11 +4,8 @@
             <div class="nav-logo">
                 <div class="nav-item theme-logo">
                     <a href="#!">
-                        <img src="{{ ('assets/img/rki.png') }}" class="navbar-logo" alt="logo">
+                        <img src="{{ ('assets/img/rki.png') }}" class="navbar-logo" width="100%" alt="logo">
                     </a>
-                </div>
-                <div class="nav-item theme-text">
-                    <a href="#!" class="nav-link"> RKI APP </a>
                 </div>
             </div>
             <div class="nav-item sidebar-toggle">

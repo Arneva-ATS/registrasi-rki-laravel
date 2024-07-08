@@ -23,7 +23,7 @@ class MailController extends Controller
                 'title' => 'Verifikasi Keanggotaan',
                 'content' => 'Selamat! Email Anda berhasil Terverifikasi',
                 'info' => 'Berikut akun keanggotaan yang bisa anda gunakan saat login',
-                'email' => $request->email,
+                'username' => $request->username,
                 'password' => $password
             ];
             $emailer = Mail::to($request->email)->send(new VerificationMail($details));
@@ -31,6 +31,7 @@ class MailController extends Controller
                 throw new \Exception('Email gagal terkirim!');
             }
             DB::commit();
+            // return response()->json(['response_code' => '00', 'response_message' => $details]);
             return response()->json(['response_code' => '00', 'response_message' => 'Berhasil verfikasi data!']);
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -50,7 +51,7 @@ class MailController extends Controller
                 'title' => 'Verifikasi Keanggotaan',
                 'content' => 'Selamat! Akun Koperasi Anda berhasil Terverifikasi',
                 'info' => 'Berikut akun koperasi yang bisa anda gunakan saat login',
-                'email' => $request->email,
+                'username' => $request->username,
                 'password' => $password
             ];
             $emailer = Mail::to($request->email)->send(new VerificationMail($details));

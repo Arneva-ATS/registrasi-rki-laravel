@@ -164,3 +164,11 @@ function createSlug(name) {
         .replace(/\s+/g, "-") // Mengganti semua spasi dengan strip (-)
         .replace(/[^\w\-]+/g, ""); // Menghapus karakter non-alphanumeric kecuali strip (-) dan underscore (_)
 }
+
+function createUsername(name) {
+    return name
+        .toLowerCase() // Mengubah semua huruf menjadi huruf kecil
+        .replace(/\s+/g, "") // Menghilangkan semua spasi
+        .replace(/[^\w]+/g, ""); // Menghapus karakter non-alphanumeric
+}
+
