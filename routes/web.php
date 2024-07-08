@@ -64,7 +64,9 @@ Route::get('/dashboard', function () {
         $puskop_count = DB::table('tbl_koperasi')->where('id_puskop', '!=', 0)->count();
         $primkop_count = DB::table('tbl_koperasi')->where('id_primkop', '!=', 0)->count();
         $anggota_count = DB::table('tbl_anggota')->where('id_koperasi', $id)->count();
-        return view('dashboard.overview.index', compact('id', 'username', 'password', 'tingkatan', 'inkop_count', 'puskop_count', 'primkop_count', 'anggota_count'));
+        $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
+        // return dd($koperasi);
+        return view('dashboard.overview.index', compact('id', 'username', 'password', 'tingkatan', 'inkop_count', 'puskop_count', 'primkop_count', 'anggota_count', 'koperasi'));
     } else {
         return redirect('/login');
     }
