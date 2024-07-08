@@ -470,7 +470,7 @@
     </div>
 @endsection
 
-@push('js')
+
     <script src="{{ asset('assets/js/function.js') }}"></script>
     <script>
         let baseStringKtp;
@@ -725,4 +725,4 @@
                 });
         }
     </script>
-@endpush
+
