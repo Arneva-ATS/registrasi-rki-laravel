@@ -917,7 +917,7 @@ body .navbar .dark-mode, body:not(.dark) .navbar .dark-mode {
   align-self: center;
 }
 #sidebar .theme-brand div.theme-logo img {
-  width: 40px;
+  width: 100%;
   height: 40px;
 }
 

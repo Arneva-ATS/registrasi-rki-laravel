@@ -13,11 +13,11 @@
         <title>Dahsboard - RKI</title>
 
         <!-- Favicons-->
-        <link rel="shortcut icon" href="{{ asset('assets/img/rki_icon.png') }}" type="image/x-icon" />
-        <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('assets/img/rki_icon.png') }}" />
-        <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('assets/img/rki_icon.png') }}" />
-        <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('assets/img/rki_icon.png') }}" />
-        <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('assets/img/rki_icon.png') }}" />
+        <link rel="shortcut icon" href="{{ asset('assets/img/logo-fav-icon.png') }}" type="image/x-icon" />
+        <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('assets/img/logo-fav-icon.png') }}" />
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('assets/img/logo-fav-icon.png') }}" />
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('assets/img/logo-fav-icon.png') }}" />
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('assets/img/logo-fav-icon.png') }}" />
 
         <!-- GOOGLE WEB FONT -->
         <link href="https://fonts.googleapis.com/css?family=Caveat|Poppins:300,400,500,600,700&display=swap" rel="stylesheet" />
@@ -43,7 +43,7 @@
             <div class="container">
                 <div class="row style-padding">
                     <div class="col-md-12 text-left">
-                        <img class="mb-5" height="50%" src="{{ asset('assets/auth/images/rki_login.png') }}" alt="Company Logo">
+                        <img class="mb-5" width="20%" src="{{ asset('assets/img/logo-white-yellow.png') }}" alt="Logo">
                     </div>
                     <div class="col-12 col-md-6 text-left">
                         <h1 class="welcoming">Welcome!</h1>
