@@ -111,7 +111,7 @@ class AnggotaController extends Controller
         $koperasi = Session::get('nama_koperasi');
         $nama_koperasi = $koperasi;
         $id_koperasi = $id ;
-        return view('dashboard.auth.tambah_anggota',compact('id','username','password','tingkatan','id_koperasi','nama_koperasi'));
+        return view('dashboard.data.koperasi.anggota.create',compact('id','username','password','tingkatan','id_koperasi','nama_koperasi'));
     }
 }
 
