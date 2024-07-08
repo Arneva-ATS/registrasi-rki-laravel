@@ -153,7 +153,7 @@ Route::get('/list_anggota', function () {
     $id_puskop = Session::get('id_puskop');
     $id_primkop = Session::get('id_primkop');
     $primkop_anggota = DB::table('tbl_anggota')->where('id_koperasi', $id)->get();
-    return view('dashboard.auth.anggota', compact('id', 'username', 'password', 'tingkatan', 'primkop_anggota'));
+    return view('dashboard.data.koperasi.anggota.index',compact('id','username','password','tingkatan','primkop_anggota'));
 })->name('view-anggota');
 
 Route::get('/list_anggota_primkop/{id}', function ($id) {
