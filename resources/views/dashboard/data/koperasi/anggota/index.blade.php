@@ -34,22 +34,15 @@
                                 <td>{{ $data->nomor_hp }}</td>
                                 <td>
                                     @if ($data->approval)
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
-                                            </div>
-                                            <div class="col-6">
-                                                <button class="btn" disabled>Verified</button>
-                                            </div>
-                                        </div>
+                                            <button class="btn" disabled>Verified</button>
                                     @else
                                         <div class="row">
                                             <div class="col-6">
-                                                <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
-                                            </div>
+                                                <button onclick="rejectBtn({{ $data->id }}, '{{ $data->email }}')"
+                                                    class="btn btn-danger"> Reject </button>                                            </div>
                                             <div class="col-6">
                                                 <button onclick="approveBtn({{ $data->id }}, '{{ $data->email }}', '{{ $data->username }}')"
-                                                    class="btn btn-danger"> Approve </button>
+                                                    class="btn btn-warning"> Approve </button>
                                             </div>
                                         </div>
                                     @endif
@@ -79,7 +72,7 @@
                 dangerMode: true,
             }).then((willOut) => {
                 if (willOut) {
-                    fetch(`/api/send-mail/anggota/${id}`, {
+                    fetch(`/api/approve/send-mail/anggota/${id}`, {
                             headers: {
                                 'Access-Control-Allow-Origin': '*',
                                 'Content-Type': 'application/json'
@@ -107,6 +100,66 @@
                             });
                         });
 
+                } else {
+
+                }
+            }).catch(err => {
+                swal("Gagal approve data!\nCoba lagi", {
+                    icon: "error",
+                });
+            });
+        }
+
+        function rejectBtn(id, email) {
+            let data = {
+                email,
+            };
+            swal({
+                title: "Reject",
+                text: 'Apakah anda yakin menolak keanggotaan?',
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willOut) => {
+                if (willOut) {
+                    swal({
+                        text: 'Berikan alasan',
+                        content: "input",
+                        button: {
+                            text: "Submit",
+                            closeModal: false,
+                        },
+                    }).then((value) => {
+                        data['alasan'] = value
+                        console.log(data);
+                        fetch(`/api/reject/send-mail/anggota/${id}`, {
+                            headers: {
+                                'Access-Control-Allow-Origin': '*',
+                                'Content-Type': 'application/json'
+                            },
+                            method: "DELETE",
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data)
+                            if (data.response_code == '00') {
+                                swal("Berhasil Reject!", {
+                                    icon: "success",
+                                });
+                                window.location = '/list_anggota'
+                            } else {
+                                swal("Gagal Reject!", {
+                                    icon: "info",
+                                });
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                            swal("Gagal Reject!", {
+                                icon: "info",
+                            });
+                        });
+                    });
                 } else {
 
                 }

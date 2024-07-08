@@ -37,5 +37,7 @@ Route::prefix('wilayah')->group(function () {
     Route::get('/kecamatan/{id_kota}', [WilayahController::class, 'district']);
     Route::get('/kelurahan/{id_kecamatan}', [WilayahController::class, 'subdistrict']);
 })->name('wilayah');
-Route::post('/send-mail/anggota/{id}', [MailController::class, 'sendMailAnggota']);
-Route::post('/send-mail/koperasi/{id}', [MailController::class, 'sendMailKoperasi']);
+Route::post('/approve/send-mail/anggota/{id}', [MailController::class, 'sendMailApproveAnggota']);
+Route::post('/approve/send-mail/koperasi/{id}', [MailController::class, 'sendMailApproveKoperasi']);
+Route::delete('/reject/send-mail/anggota/{id}', [MailController::class, 'sendMailRejectAnggota']);
+Route::delete('/reject/send-mail/koperasi/{id}', [MailController::class, 'sendMailRejectKoperasi']);

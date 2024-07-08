@@ -16,11 +16,11 @@ class AnggotaController extends Controller
 
         try {
             $request->validate([
-                'no_anggota' => 'required',
+                // 'no_anggota' => 'required',
                 'nik' => 'required',
                 'nama_lengkap' => 'required',
                 'tempat_lahir' => 'required',
-                'username'=>'required',
+                'username' => 'required',
                 'tanggal_lahir' => 'required|date',
                 'jenis_kelamin' => 'required',
                 'kelurahan' => 'required',
@@ -63,7 +63,7 @@ class AnggotaController extends Controller
             $selfieUrl = $selfie_folder . $selfie_name;
             $ktpUrl = $ktp_folder . $ktp_name;
             $anggotaData = [
-                'no_anggota' => $request->no_anggota,
+                // 'no_anggota' => $request->no_anggota,
                 'nik' => $request->nik,
                 'nama_lengkap' => $request->nama_lengkap,
                 'username' => $request->username,
@@ -117,7 +117,7 @@ class AnggotaController extends Controller
         $id_primkop = Session::get('id_primkop');
         $koperasi = Session::get('nama_koperasi');
         $nama_koperasi = $koperasi;
-        $id_koperasi = $id ;
-        return view('dashboard.data.koperasi.anggota.create',compact('id','username','password','tingkatan','id_koperasi','nama_koperasi'));
+        $id_koperasi = $id;
+        return view('dashboard.data.koperasi.anggota.create', compact('id', 'username', 'password', 'tingkatan', 'id_koperasi', 'nama_koperasi'));
     }
 }
