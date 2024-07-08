@@ -45,7 +45,7 @@ class VerificationMail extends Mailable
                 'title' => $this->details['title'],
                 'content' => $this->details['content'],
                 'info' => $this->details['info'],
-                'email' => $this->details['email'],
+                'username' => $this->details['username'],
                 'password' => $this->details['password'],
             ]
         );

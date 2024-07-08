@@ -22,6 +22,7 @@ class KoperasiController extends Controller
                 'nama_koperasi' => 'required',
                 'singkatan_koperasi' => 'required',
                 'email' => 'required|email',
+                'username' => 'required',
                 'no_telp' => 'required',
                 'no_wa' => 'required',
                 'no_fax' => 'required',
@@ -47,8 +48,6 @@ class KoperasiController extends Controller
                 'masa_berlaku_skdu' => 'required|date',
                 'no_npwp' => 'required',
                 'no_pkp' => 'required',
-                'bpjs_kesehatan' => 'required',
-                'bpjs_ketenagakerjaan' => 'required',
                 'no_sertifikat' => 'required',
             ]);
 
@@ -87,6 +86,7 @@ class KoperasiController extends Controller
                 'nama_koperasi' => $request->nama_koperasi,
                 'singkatan_koperasi' => $request->singkatan_koperasi,
                 'email_koperasi' => $request->email,
+                'username'=>$request->username,
                 'no_phone' => $request->no_telp,
                 'hp_wa' => $request->no_wa,
                 'hp_fax' => $request->no_fax,
@@ -176,10 +176,9 @@ class KoperasiController extends Controller
                 'nama_koperasi' => 'required',
                 'singkatan_koperasi' => 'required',
                 'email' => 'required|email',
+                'username'=>'required',
                 'no_telp' => 'required',
                 'no_wa' => 'required',
-                'no_fax' => 'required',
-                'web' => 'required|url',
                 'bidang_koperasi' => 'required',
                 'alamat' => 'required',
                 'kelurahan' => 'required',
@@ -201,8 +200,6 @@ class KoperasiController extends Controller
                 'masa_berlaku_skdu' => 'required|date',
                 'no_npwp' => 'required',
                 'no_pkp' => 'required',
-                'bpjs_kesehatan' => 'required',
-                'bpjs_ketenagakerjaan' => 'required',
                 'no_sertifikat' => 'required',
             ]);
 
@@ -242,6 +239,7 @@ class KoperasiController extends Controller
                     'nama_koperasi' => $request->nama_koperasi,
                     'singkatan_koperasi' => $request->singkatan_koperasi,
                     'email_koperasi' => $request->email,
+                    'username'=>$request->username,
                     'no_phone' => $request->no_telp,
                     'hp_wa' => $request->no_wa,
                     'hp_fax' => $request->no_fax,
@@ -267,8 +265,6 @@ class KoperasiController extends Controller
                     'masa_berlaku_sk_domisili' => $request->masa_berlaku_skdu,
                     'no_npwp' => $request->no_npwp,
                     'no_pkp' => $request->no_pkp,
-                    'no_bpjs_kesehatan' => $request->bpjs_kesehatan,
-                    'no_bpjs_tenaga_kerja' => $request->bpjs_ketenagakerjaan,
                     'no_sertifikat_koperasi' => $request->no_sertifikat,
                     'image_logo' => $logoUrl,
                     'ktp' => $ktpUrl,
@@ -282,6 +278,7 @@ class KoperasiController extends Controller
                     'nama_koperasi' => $request->nama_koperasi,
                     'singkatan_koperasi' => $request->singkatan_koperasi,
                     'email_koperasi' => $request->email,
+                    'username'=>$request->username,
                     'no_phone' => $request->no_telp,
                     'hp_wa' => $request->no_wa,
                     'hp_fax' => $request->no_fax,
@@ -307,8 +304,6 @@ class KoperasiController extends Controller
                     'masa_berlaku_sk_domisili' => $request->masa_berlaku_skdu,
                     'no_npwp' => $request->no_npwp,
                     'no_pkp' => $request->no_pkp,
-                    'no_bpjs_kesehatan' => $request->bpjs_kesehatan,
-                    'no_bpjs_tenaga_kerja' => $request->bpjs_ketenagakerjaan,
                     'no_sertifikat_koperasi' => $request->no_sertifikat,
                     'image_logo' => $logoUrl,
                     'ktp' => $ktpUrl,
@@ -371,7 +366,7 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.data.cooperative.primkop.create',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.koperasi.primkop.create',compact('id','username','password','tingkatan'));
     }
 
     public function puskop(){
@@ -382,7 +377,7 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.data.cooperative.puskop.create',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.koperasi.puskop.create',compact('id','username','password','tingkatan'));
     }
 
     public function inkop(){
@@ -393,6 +388,6 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.data.cooperative.inkop.create',compact('id','username','password','tingkatan'));
+        return view('dashboard.data.koperasi.inkop.create',compact('id','username','password','tingkatan'));
     }
 }
