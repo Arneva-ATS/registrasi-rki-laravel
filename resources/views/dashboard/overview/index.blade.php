@@ -232,6 +232,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="50 mt-2"><input type="hidden" id="linkInkop2"
+                            value="https://registrasi.rkicoop.co.id/koperasi/"><button onclick="copyLink2('inkop')"
+                            class="btn btn-info">Link Daftar
+                            Puskop</button>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -340,6 +345,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="50 mt-2"><input type="hidden" id="linkPuskop2"
+                                value="https://registrasi.rkicoop.co.id/koperasi/"><button onclick="copyLink2('puskop')"
+                                class="btn btn-info">Link Daftar
+                                Primkop</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -394,6 +404,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="50 mt-2"><input type="hidden" id="linkAnggota"
+                                value="https://registrasi.rkicoop.co.id/anggota/"><button onclick="copyLink2('anggota')"
+                                class="btn btn-info">Link Daftar
+                                Anggota</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -425,7 +440,7 @@
                 document.body.removeChild(tempInput);
 
 
-            }   else if (tingkatan == 'puskop') {
+            } else if (tingkatan == 'puskop') {
                 copyText = document.getElementById("linkPuskop").value;
                 let tempInput = document.createElement("input");
                 tempInput.type = "text";
@@ -449,6 +464,72 @@
                 let tempInput = document.createElement("input");
                 tempInput.type = "text";
                 tempInput.value = copyText;
+                document.body.appendChild(tempInput);
+                // Select the text field
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999);
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(tempInput.value).then(() => {
+                    // Alert the copied text
+                    swal("Good!", "Sukses Copy Link!", "success");
+                    // alert("Copied the text: " + tempInput.value);
+                });
+                // Remove the temporary input element
+                document.body.removeChild(tempInput);
+            }
+        }
+
+        function copyLink2(tingkatan) {
+            console.log(tingkatan)
+            let copyText;
+            if (tingkatan == 'anggota') {
+                let object = @json($koperasi);
+                let slug_url = object['slug'];
+                copyText = document.getElementById("linkAnggota").value;
+                let tempInput = document.createElement("input");
+                tempInput.type = "text";
+                tempInput.value = copyText + 'primkop/' + slug_url;
+                document.body.appendChild(tempInput);
+                // Select the text field
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(tempInput.value).then(() => {
+                    // Alert the copied text
+                    swal("Good!", "Sukses Copy Link!", "success");
+                    // alert("Copied the text: " + tempInput.value);
+                });
+                // Remove the temporary input element
+                document.body.removeChild(tempInput);
+            } else if (tingkatan == 'puskop') {
+                let object = @json($koperasi);
+                let slug_url = object['slug'];
+                copyText = document.getElementById("linkPuskop2").value;
+                let tempInput = document.createElement("input");
+                tempInput.type = "text";
+                tempInput.value = copyText + tingkatan + '/' + slug_url;
+                document.body.appendChild(tempInput);
+                // Select the text field
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(tempInput.value).then(() => {
+                    // Alert the copied text
+                    swal("Good!", "Sukses Copy Link!", "success");
+                    // alert("Copied the text: " + tempInput.value);
+                });
+                // Remove the temporary input element
+                document.body.removeChild(tempInput);
+            } else if (tingkatan == 'inkop') {
+                let object = @json($koperasi);
+                let slug_url = object['slug'];
+                copyText = document.getElementById("linkInkop2").value;
+                let tempInput = document.createElement("input");
+                tempInput.type = "text";
+                tempInput.value = copyText + tingkatan + '/' + slug_url;
                 document.body.appendChild(tempInput);
                 // Select the text field
                 tempInput.select();
