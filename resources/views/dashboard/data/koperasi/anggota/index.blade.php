@@ -7,9 +7,9 @@
 @endsection
 
 @section('content')
-<div class="row">
+    <div class="row">
         <p class="mt-2">
-            <a href="/tambah_anggota" class="btn btn-primary"> Tambah Anggota </a> || [ https://registrasi.rkicoop.id/anggota/primkop/{name_koperasi} ]
+            <a href="/tambah_anggota" class="btn btn-primary"> Tambah Anggota </a>
         </p>
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-8">
@@ -25,91 +25,95 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($primkop_anggota as $data)
-                        <tr>
-                            <td>#{{$data->id}}</td>
-                            <td>{{$data->no_anggota}}</td>
-                            <td>{{$data->nik}}</td>
-                            <td>{{$data->nama_lengkap}}</td>
-                            <td>{{$data->nomor_hp}}</td>
-                            <td>
+                        @foreach ($primkop_anggota as $data)
+                            <tr>
+                                <td>#{{ $data->id }}</td>
+                                <td>{{ $data->no_anggota }}</td>
+                                <td>{{ $data->nik }}</td>
+                                <td>{{ $data->nama_lengkap }}</td>
+                                <td>{{ $data->nomor_hp }}</td>
+                                <td>
                                     @if ($data->approval)
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="btn" disabled>Verified</button>
+                                            </div>
                                         </div>
-                                        <div class="col-6">
-                                            <button class="btn py-3" disabled>Verified</button>
+                                    @else
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
+                                            </div>
+                                            <div class="col-6">
+                                                <button onclick="approveBtn({{ $data->id }}, '{{ $data->email }}')"
+                                                    class="btn btn-danger"> Approve </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                        @else
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <a href="/edit_anggota" class="btn btn-warning"> Edit Anggota </a>
-                                        </div>
-                                        <div class="col-6">
-                                            <button onclick="approveBtn({{$data->id}}, '{{$data->email}}')" class="btn btn-danger py-3"> Approve </button>                                                    </div>
-                                    </div>
                                     @endif
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-</div>
+    </div>
 @endsection
 
 @push('js')
-<script>
-    function approveBtn(id, email){
-        let data = {email};
-        swal({
-            title: "Approve",
-            text: 'Apakah data sudah benar?',
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willOut) => {
-            if (willOut) {
-                fetch(`/api/send-mail/anggota/${id}`, {
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    if (data.response_code == '00') {
-                        swal("Berhasil Approve!", {
-                            icon: "success",
+    <script>
+        function approveBtn(id, email) {
+            let data = {
+                email
+            };
+            swal({
+                title: "Approve",
+                text: 'Apakah data sudah benar?',
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willOut) => {
+                if (willOut) {
+                    fetch(`/api/send-mail/anggota/${id}`, {
+                            headers: {
+                                'Access-Control-Allow-Origin': '*',
+                                'Content-Type': 'application/json'
+                            },
+                            method: "POST",
+                            body: JSON.stringify(data)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data)
+                            if (data.response_code == '00') {
+                                swal("Berhasil Approve!", {
+                                    icon: "success",
+                                });
+                                window.location.href = '/list_anggota'
+                            } else {
+                                swal("Gagal Approve!", {
+                                    icon: "info",
+                                });
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                            swal("Gagal Approve!", {
+                                icon: "info",
+                            });
                         });
-                        window.location.href= '/list_anggota'
-                    } else {
-                        swal("Gagal Approve!", {
-                            icon: "info",
-                        });
-                    }
-                }).catch(err => {
-                    console.log(err);
-                    swal("Gagal Approve!", {
-                         icon: "info",
-                    });
-                });
 
-            } else {
+                } else {
 
-            }
-        }).catch(err=>{
-            swal("Gagal approve data!\nCoba lagi", {
-                icon: "error",
+                }
+            }).catch(err => {
+                swal("Gagal approve data!\nCoba lagi", {
+                    icon: "error",
                 });
-        });
-    }
-</script>
+            });
+        }
+    </script>
 @endpush

@@ -41,11 +41,13 @@
                                         <a href="/list_primkop_puskop/{{ $data->id }}" class="btn btn-info"> Primkop
                                         </a>
                                     @else
-                                    <button type="button" class="btn btn-warning"
-                                    onclick="modalBtn({{ json_encode($data) }})" data-bs-toggle="modal"
-                                    data-bs-target="#modalInkop">Detail </button>                                        <a href="/list_primkop_puskop/{{ $data->id }}" class="btn btn-warning"> Primkop
+                                        <button type="button" class="btn btn-warning"
+                                            onclick="modalBtn({{ json_encode($data) }})" data-bs-toggle="modal"
+                                            data-bs-target="#modalInkop">Detail </button>
+                                        <a href="/list_primkop_puskop/{{ $data->id }}" class="btn btn-warning"> Primkop
                                         </a>
-                                        <button onclick="approveBtn({{ $data->id }}, '{{ $data->username }}')"
+                                        <button
+                                            onclick="approveBtn({{ $data->id }}, '{{ $data->username }}','{{ $data->email_koperasi }}'))"
                                             class="btn btn-danger"> Approve </button>
                                     @endif
                                 </td>
@@ -206,9 +208,10 @@
             document.getElementById('no_sertifikat').innerText = data.no_sertifikat_koperasi
         }
 
-        function approveBtn(id, username) {
+        function approveBtn(id, username, email) {
             let data = {
-                username
+                username,
+                email
             };
             swal({
                 title: "Approve",
