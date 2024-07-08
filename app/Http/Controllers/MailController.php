@@ -26,10 +26,8 @@ class MailController extends Controller
                 'username' => $request->username,
                 'password' => $password
             ];
-            $emailer = Mail::to($request->email)->send(new VerificationMail($details));
-            if (!$emailer) {
-                throw new \Exception('Email gagal terkirim!');
-            }
+            Mail::to($request->email)->send(new VerificationMail($details));
+
             DB::commit();
             // return response()->json(['response_code' => '00', 'response_message' => $details]);
             return response()->json(['response_code' => '00', 'response_message' => 'Berhasil verfikasi data!']);
@@ -54,10 +52,8 @@ class MailController extends Controller
                 'username' => $request->username,
                 'password' => $password
             ];
-            $emailer = Mail::to($request->email)->send(new VerificationMail($details));
-            if (!$emailer) {
-                throw new \Exception('Email gagal terkirim!');
-            }
+           Mail::to($request->email)->send(new VerificationMail($details));
+
             DB::commit();
             return response()->json(['response_code' => '00', 'response_message' => 'Berhasil verfikasi data!']);
         } catch (\Throwable $th) {

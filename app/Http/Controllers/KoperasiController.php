@@ -25,8 +25,6 @@ class KoperasiController extends Controller
                 'username' => 'required',
                 'no_telp' => 'required',
                 'no_wa' => 'required',
-                'no_fax' => 'required',
-                'web' => 'required|url',
                 'bidang_koperasi' => 'required',
                 'alamat' => 'required',
                 'kelurahan' => 'required',
