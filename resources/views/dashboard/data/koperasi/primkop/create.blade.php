@@ -135,6 +135,21 @@
                             class="form-control" placeholder="Masukan no_ktp_pengawas" />
                 </div>
 
+                
+
+                <div class="col-md-6 position-relative">
+                    <label for="validationTooltip04" class="form-label">Foto KTP Pengawas</label>
+                        <input type="file" name="image_ktp_pengawas" id="image_ktp_pengawas"
+                            class="form-control" placeholder="Masukan image_ktp_pengawas" />
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label for="validationTooltip04" class="form-label">Foto KTP Ketua</label>
+                        <input type="file" name="image_ktp_ketua" id="image_ktp_ketua"
+                            class="form-control" placeholder="Masukan image_ktp_ketua" />
+                </div>
+                
+
                 <div class="col-md-6 position-relative">
                     <label for="validationTooltip04" class="form-label">No Anggota Pengawas</label>
                         <input type="text" name="no_anggota_pengawas" id="no_anggota_pengawas"
@@ -259,30 +274,47 @@
                         placeholder="Masukan Nomor" />
                 </div>
 
+                
                 <div class="col-md-6 position-relative">
-                    <label for="validationTooltip04" class="form-label">Upload Foto KTP<span
-                    style="color: red;">*</span></label>
-                        <input type="file" class="form-control" id="foto_ktp" name="foto_ktp" />
-                        <img id="preview-profil" height="100" width="100" class="mt-1"
-                            src="/assets/images/default.jpg" alt="Preview Image">
+                    <label for="validationTooltip04" class="form-label">No. Sertifikat Koperasi</label>
+                        <input type="text" name="no_sertifikat" id="doc_sertifikat_koperasi" class="form-control w-100"
+                        placeholder="Masukan Nomor" />
                 </div>
 
                 <div class="col-md-6 position-relative">
                     <label for="validationTooltip04" class="form-label">Upload Logo<span style="color: red;">*</span></label>
                         <input type="file" class="form-control" id="foto_logo"
                             name="foto_logo" />
-                        <img id="preview-logo" height="100" width="100" class="mt-1"
-                            src="/assets/images/default.jpg" alt="Preview Image">
                 </div>
 
                 <div class="col-md-6 position-relative">
-                    <label for="validationTooltip04" class="form-label">Upload Dokumen<span style="color: red;">*</span></label>
-                    <input type="file" class="form-control" id="dokumen" name="dokumen" />
-                        <p><span style="color: red;">*)</span> Satukan semua dokumen dalam bentuk ZIP </p>
-                        <p><span style="color: red;">*)</span> Dokumen yang diupload yakni Akta pendirian, SK
-                            Kemenkumham, Surat Pengesahan Koperasi, Akta Perubahan, SIUP/NIB, Surat Keterangan
-                            Domisili
-                            Usaha, BPJS Kesehatan dan Ketenagakerjaan </p>
+                    <label for="validationTooltip04" class="form-label">Upload Dokumen Siup<span style="color: red;">*</span></label>
+                    <input type="file" class="form-control" id="dokumen_siup" name="dokumen_siup" />
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label for="validationTooltip04" class="form-label">Upload Dokumen SK Kemenkumham<span style="color: red;">*</span></label>
+                    <input type="file" class="form-control" id="dokumen_sk_kemenkumham" name="dokumen_sk_kemenkumham" />
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label for="validationTooltip04" class="form-label">Upload Dokumen Akta Perubahan <span style="color: red;">*</span></label>
+                    <input type="file" class="form-control" id="dokumen_akta_perubahan" name="dokumen_akta_perubahan" />
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label for="validationTooltip04" class="form-label">Upload Dokumen Akta Pendirian <span style="color: red;">*</span></label>
+                    <input type="file" class="form-control" id="dokumen_akta_pendirian" name="dokumen_akta_pendirian" />
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label for="validationTooltip04" class="form-label">Upload Dokumen SPKUM <span style="color: red;">*</span></label>
+                    <input type="file" class="form-control" id="dokumen_spkum" name="dokumen_spkum" />
+                </div>
+
+                <div class="col-md-6 position-relative">
+                    <label for="validationTooltip04" class="form-label">Upload Dokumen Domisili <span style="color: red;">*</span></label>
+                    <input type="file" class="form-control" id="dokumen_sk_domisili" name="dokumen_sk_domisili" />
                 </div>
 
                 <div class="col-12">
@@ -310,18 +342,35 @@
 <script>
         let baseStringKtp;
         let baseStringLogo;
-        let baseStringDokumen;
+        let baseStringPengawas;
+        let baseStringSiup;
+        let baseStringSkKemenkumham;
+        let baseStringAktaPerubahan;
+        let baseStringAktaPendirian;
+        let baseStringSpkum;
+        let baseStringDomisili;
         let type1;
         let type2;
         let type3;
+        let type4;
+        let type5;
+        let type6;
+        let type7;
+        let type8;
+        let type9;
+        let type10;
         let tingkatan_koperasi;
         let koperasi;
         let id_koperasi;
-        const ktpInput = document.getElementById('foto_ktp');
+        const ktpInput = document.getElementById('image_ktp_ketua');
+        const ktpPengawas = document.getElementById('image_ktp_pengawas');
         const logoInput = document.getElementById('foto_logo');
-        const dokumenInput = document.getElementById('dokumen');
-        const previewProfil = document.getElementById('preview-profil');
-        const previewLogo = document.getElementById('preview-logo');
+        const dokumenSiup = document.getElementById('dokumen_siup');
+        const dokumenSkKemenkumham = document.getElementById('dokumen_sk_kemenkumham');
+        const dokumenAktaPerubahan = document.getElementById('dokumen_akta_perubahan');
+        const dokumenAktaPendirian = document.getElementById('dokumen_akta_pendirian');
+        const dokumenSpkum = document.getElementById('dokumen_spkum');
+        const dokumenDomisili = document.getElementById('dokumen_sk_domisili');
 
         window.addEventListener("load", () => {
             getProvince();
@@ -343,6 +392,18 @@
             }
         });
 
+        ktpPengawas.addEventListener('change', (event) => {
+            const files = event.target.files[0];
+            if (files) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringPengawas = e.target.result;
+                    type4 = files.type.split('/')[1];
+                }
+                reader.readAsDataURL(files);
+            }
+        });
+
         logoInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
@@ -356,17 +417,80 @@
             }
         });
 
-        dokumenInput.addEventListener('change', () => {
-            const file = dokumenInput.files[0];
+        dokumenSiup.addEventListener('change', () => {
+            const file = dokumenSiup.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    baseStringDokumen = e.target.result;
-                    type3 = file.type.split('/')[1];
+                    baseStringSiup = e.target.result;
+                    type5 = file.type.split('/')[1];
                 }
                 reader.readAsDataURL(file);
             }
         });
+
+        dokumenSkKemenkumham.addEventListener('change', () => {
+            const file = dokumenSkKemenkumham.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringSkKemenkumham = e.target.result;
+                    type6 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+
+        dokumenAktaPerubahan.addEventListener('change', () => {
+            const file = dokumenAktaPerubahan.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringAktaPerubahan = e.target.result;
+                    type7 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        dokumenAktaPendirian.addEventListener('change', () => {
+            const file = dokumenAktaPendirian.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringAktaPendirian = e.target.result;
+                    type8 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        
+        dokumenSpkum.addEventListener('change', () => {
+            const file = dokumenSpkum.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringSpkum = e.target.result;
+                    type9 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        dokumenDomisili.addEventListener('change', () => {
+            const file = dokumenDomisili.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringDomisili = e.target.result;
+                    type10 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
 
         async function saveData() {
             const nama_koperasi = document.getElementById("nama_koperasi").value;
@@ -412,7 +536,13 @@
             const no_sertifikat = document.getElementById("no_sertifikat").value;
             const image_ktp = baseStringKtp;
             const image_logo = baseStringLogo;
-            const doc_dokumen = baseStringDokumen;
+            const doc_dokumen = baseStringSiup;
+            const image_ktp_pengawas = baseStringPengawas;
+            const sk_kemenkumham = baseStringSkKemenkumham;
+            const akta_perubahan = dokumenAktaPerubahan;
+            const akta_pendirian = dokumenAktaPendirian;
+            const doc_spkum = dokumenSpkum;
+            const doc_domilisi = dokumenDomisili;
             const slug = createSlug(nama_koperasi);
             const validKtp = ktpInput.files[0];
             const validLogo = logoInput.files[0];
@@ -477,9 +607,15 @@
                 // bpjs_kesehatan,
                 // bpjs_ketenagakerjaan,
                 no_sertifikat,
-                ktp: image_ktp,
-                logo: image_logo,
-                dokumen: doc_dokumen,
+                image_ktp_ketua: image_ktp,
+                image_logo: image_logo,
+                doc_siup: doc_dokumen,
+                image_ktp_pengawas : image_ktp_pengawas,
+                doc_sk_kemenkumham : sk_kemenkumham,
+                doc_akta_perubahan : akta_perubahan,
+                doc_akta_pendirian : akta_pendirian,
+                doc_spkum : doc_spkum,
+                doc_sk_domisili : doc_domilisi,
                 type1,
                 type2,
                 type3
