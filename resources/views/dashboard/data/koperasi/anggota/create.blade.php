@@ -14,11 +14,11 @@
             <form class="row g-3 needs-validation" novalidate enctype="multipart/for-data">
                 <input type="hidden" name="koperasi_name" id="koperasi_name" />
                     <div class="col-md-6 position-relative">
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label for="no_anggota">No Anggota</label>
                             <input type="text" name="no_anggota" id="no_anggota" class="form-control"
                                 placeholder="masukan no_anggota" required />
-                        </div> --}}
+                        </div>
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="nik">NIK</label>
@@ -216,7 +216,7 @@ window.addEventListener("load", () => {
         }
 
         function saveData() {
-            // var no_anggota = document.getElementById("no_anggota").value;
+            var no_anggota = document.getElementById("no_anggota").value;
             var nik = document.getElementById("nik").value;
             var nama_lengkap = document.getElementById("nama_lengkap").value;
             var tempat_lahir = document.getElementById("tempat_lahir").value;
@@ -255,7 +255,7 @@ window.addEventListener("load", () => {
             });
             var jsondata = {
                 slug_url,
-                // no_anggota,
+                no_anggota,
                 nik: nik,
                 username,
                 nama_lengkap: nama_lengkap,

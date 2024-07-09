@@ -36,13 +36,13 @@
 
                                 <div class="row">
                                     <input type="hidden" name="koperasi_name" id="koperasi_name" />
-                                    {{-- <div class="col-12">
+                                    <div class="col-12">
                                         <div class="form-group">
                                             <label for="no_anggota">No Anggota</label>
                                             <input type="text" name="no_anggota" id="no_anggota" class="form-control"
                                                 placeholder="masukan no_anggota" required />
                                         </div>
-                                    </div> --}}
+                                    </div>
 
                                     <div class="col-12">
                                         <div class="form-group">
@@ -318,7 +318,7 @@
         }
 
         function saveData() {
-            // var no_anggota = document.getElementById("no_anggota").value;
+            var no_anggota = document.getElementById("no_anggota").value;
             var nik = document.getElementById("nik").value;
             var nama_lengkap = document.getElementById("nama_lengkap").value;
             var tempat_lahir = document.getElementById("tempat_lahir").value;
@@ -358,7 +358,7 @@
             });
             var jsondata = {
                 slug_url,
-                // no_anggota,
+                no_anggota,
                 username,
                 nik: nik,
                 nama_lengkap: nama_lengkap,

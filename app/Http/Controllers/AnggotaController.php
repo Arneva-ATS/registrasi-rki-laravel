@@ -16,7 +16,7 @@ class AnggotaController extends Controller
 
         try {
             $request->validate([
-                // 'no_anggota' => 'required',
+                'no_anggota' => 'required',
                 'nik' => 'required',
                 'nama_lengkap' => 'required',
                 'tempat_lahir' => 'required',
@@ -63,7 +63,7 @@ class AnggotaController extends Controller
             $selfieUrl = $selfie_folder . $selfie_name;
             $ktpUrl = $ktp_folder . $ktp_name;
             $anggotaData = [
-                // 'no_anggota' => $request->no_anggota,
+                'no_anggota' => $request->no_anggota,
                 'nik' => $request->nik,
                 'nama_lengkap' => $request->nama_lengkap,
                 'username' => $request->username,
