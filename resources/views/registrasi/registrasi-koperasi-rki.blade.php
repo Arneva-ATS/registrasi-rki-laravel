@@ -26,24 +26,38 @@
                                 <h3 class="main_question">
                                     <strong>1 of 12</strong>Data Koperasi
                                 </h3>
-                                <div class="form-group">
-                                    <label for="nama_koperasi">Nama Koperasi</label>
-                                    <input type="text" name="nama_koperasi" id="nama_koperasi" class="form-control"
-                                        placeholder="Masukan Nama Koperasi" required />
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="nama_koperasi">Nama Koperasi</label>
+                                            <input type="text" name="nama_koperasi" id="nama_koperasi" class="form-control"
+                                                placeholder="Masukan Nama Koperasi" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="singkatan_koperasi">Nama Singkat Koperasi</label>
+                                            <input type="text" name="singkatan_koperasi" id="singkatan_koperasi"
+                                                class="form-control" placeholder="Masukan Singkatan Koperasi" required />
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="singkatan_koperasi">Nama Singkat Koperasi</label>
-                                    <input type="text" name="singkatan_koperasi" id="singkatan_koperasi"
-                                        class="form-control" placeholder="Masukan Singkatan Koperasi" required />
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="email">Email Koperasi</label>
+                                            <input type="email" name="email" id="email" class="form-control"
+                                                placeholder="Masukan Nama Lengkap" required />
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="bidang_koperasi">Bidang Koperasi</label>
+                                            <input type="text" name="bidang_koperasi" id="bidang_koperasi" class="form-control"
+                                                placeholder="Masukan Bidang Koperasi" required />
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="email">Email Koperasi</label>
-                                    <input type="email" name="email" id="email" class="form-control"
-                                        placeholder="Masukan Nama Lengkap" required />
-                                </div>
-
                                 <div class="row">
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
@@ -60,7 +74,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
@@ -77,12 +90,15 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="bidang_koperasi">Bidang Koperasi</label>
-                                    <input type="text" name="bidang_koperasi" id="bidang_koperasi" class="form-control"
-                                        placeholder="Masukan Bidang Koperasi" required />
+                                    <label for="foto_profil">Upload Logo<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="foto_logo"
+                                        name="foto_logo" required />
+                                    <img id="preview-logo" height="100" width="100" class="mt-1"
+                                        src="/assets/images/default.jpg" alt="Preview Image">
                                 </div>
+
+
                             </div>
                             <!-- /step 1-->
 
@@ -174,18 +190,26 @@
                                     <input type="text" name="no_anggota_pengurus" id="no_anggota_pengurus"
                                         class="form-control" placeholder="Masukan no_anggota" required/>
                                 </div>
-{{--
+                                <div class="form-group">
+                                    <label for="no_wa_pengurus">No Wa Ketua</label>
+                                    <input type="text" name="no_wa_pengurus" id="no_wa_pengurus" class="form-control"
+                                        placeholder="Masukan no_wa_pengurus" required/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foto_ktp_ketua">Upload KTP Ketua<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="foto_ktp_ketua" name="foto_ktp_ketua" required />
+                                    <img id="preview-ktp-ketua" height="100" width="100" class="mt-1"
+                                        src="/assets/images/default.jpg" alt="Preview Image">
+                                </div>
+                                {{--
                                 <div class="form-group">
                                     <label for="jabatan_pengurus" hidden>Jabatan Ketua</label>
                                     <input type="text" name="jabatan_pengurus" id="jabatan_pengurus" value="1"
                                         class="form-control" placeholder="Masukan Jabatan" hidden />
                                 </div> --}}
 
-                                <div class="form-group">
-                                    <label for="no_wa_pengurus">No Wa</label>
-                                    <input type="text" name="no_wa_pengurus" id="no_wa_pengurus" class="form-control"
-                                        placeholder="Masukan no_wa_pengurus" required/>
-                                </div>
+
                             </div>
                             <!-- /step 3-->
 
@@ -211,7 +235,7 @@
                                     <input type="text" name="no_anggota_pengawas" id="no_anggota_pengawas"
                                         class="form-control" placeholder="Masukan Nomor Anggota" required/>
                                 </div>
-{{--
+                                {{--
                                 <div class="form-group">
                                     <label for="jabatan_pengawas" hidden>Jabatan Pengawas</label>
                                     <input type="text" name="jabatan_pengawas" id="jabatan_pengawas" value="3"
@@ -219,9 +243,16 @@
                                 </div> --}}
 
                                 <div class="form-group">
-                                    <label for="no_wa_pengawas">No Wa</label>
+                                    <label for="no_wa_pengawas">No Wa Pengawas</label>
                                     <input type="text" name="no_wa_pengawas" id="no_wa_pengawas" class="form-control"
                                         placeholder="Masukan Nomor WA" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="foto_ktp_pengawas">Upload KTP Pengawas<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="foto_ktp_pengawas" name="foto_ktp_pengawas" required />
+                                    <img id="preview-ktp-pengawas" height="100" width="100" class="mt-1"
+                                        src="/assets/images/default.jpg" alt="Preview Image">
                                 </div>
                             </div>
                             <!-- /step 4-->
@@ -245,6 +276,11 @@
                                                 id="tanggal_akta" placeholder="Masukan Tanggal Akta" required/>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="doc_akta_pendirian">Upload Dokumen Akta<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_akta_pendirian" name="doc_akta_pendirian" required />
+                                    <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
 
                                 <!-- /row -->
@@ -289,6 +325,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="doc_sk_kemenkumham">Upload Dokumen SK Kemenkumham<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_sk_kemenkumham" name="doc_sk_kemenkumham" required />
+                                    <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
+                                </div>
                             </div>
                             <!-- /step 6-->
 
@@ -311,6 +352,11 @@
                                                 id="tanggal_spkk" placeholder="Masukan Tanggal Surat Pengesahan" required/>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="doc_spkk">Upload Dokumen Surat Pengesahan<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_spkk" name="doc_spkk" required />
+                                    <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
                             </div>
                             <!-- /step 7-->
@@ -335,6 +381,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="doc_akta_perubahan">Upload Dokumen Akta Perubahan<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_akta_perubahan" name="doc_akta_perubahan" required />
+                                    <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
+                                </div>
                             </div>
 
                             <!-- /step 8-->
@@ -357,6 +408,11 @@
                                                 id="masa_berlaku_siup" placeholder="Masukan Masa Berlaku" required />
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="doc_siup">Upload Dokumen SIUP<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_siup" name="doc_siup" required />
+                                    <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
                             </div>
                             <!-- /step 9-->
@@ -399,6 +455,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="doc_skdu">Upload Dokumen SKDU<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_skdu" name="doc_skdu" required />
+                                    <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foto_npwp">Upload NPWP<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="foto_npwp" name="foto_npwp" required />
+                                    <img id="preview-npwp" height="100" width="100" class="mt-1"
+                                        src="/assets/images/default.jpg" alt="Preview Image">
+                                </div>
                             </div>
                             <!-- /step 10-->
 
@@ -411,6 +479,11 @@
                                     <input type="text" name="no_sertifikat" id="no_sertifikat"
                                         placeholder="Masukan Sertifikat" @required(true) />
                                 </div>
+                                <div class="form-group">
+                                    <label for="doc_sertifikat_koperasi">Upload Dokumen Sertifikat<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_sertifikat_koperasi" name="doc_sertifikat_koperasi" required />
+                                    <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
+                                </div>
                             </div>
                             <!-- /step 11-->
 
@@ -421,34 +494,14 @@
 
                                 <div class="row">
                                     <div class="col-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="foto_ktp">Upload Foto KTP<span
-                                                    style="color: red;">*</span></label>
-                                            <input type="file" class="form-control" id="foto_ktp" name="foto_ktp" required />
-                                            <img id="preview-profil" height="100" width="100" class="mt-1"
-                                                src="/assets/images/AGT1.jpg" alt="Preview Image">
-                                        </div>
+
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="foto_profil">Upload Logo<span style="color: red;">*</span></label>
-                                            <input type="file" class="form-control" id="foto_logo"
-                                                name="foto_logo" required />
-                                            <img id="preview-logo" height="100" width="100" class="mt-1"
-                                                src="/assets/images/AGT1.jpg" alt="Preview Image">
-                                        </div>
+
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="foto_profil">Upload Dokumen<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="dokumen" name="dokumen" required />
-                                    <p><span style="color: red;">*)</span> Satukan semua dokumen dalam bentuk ZIP </p>
-                                    <p><span style="color: red;">*)</span> Dokumen yang diupload yakni Akta pendirian, SK
-                                        Kemenkumham, Surat Pengesahan Koperasi, Akta Perubahan, SIUP/NIB, Surat Keterangan
-                                        Domisili
-                                        Usaha, BPJS Kesehatan dan Ketenagakerjaan </p>
-                                </div>
+
                             </div>
                         </div>
 
@@ -473,20 +526,40 @@
 @push('js')
     <script src="{{ asset('assets/js/function.js') }}"></script>
     <script>
-        let baseStringKtp;
+        let baseStringKtpKetua;
+        let baseStringKtpPengawas;
         let baseStringLogo;
-        let baseStringDokumen;
+        let baseStringNpwp;
+        let baseStringDokumenAktaPendirian;
+        let baseStringDokumenAktaPerubahan;
+        let baseStringDokumenSKK;
+        let baseStringDokumenSKDU;
+        let baseStringDokumenSIUP;
+        let baseStringDokumenSPKK;
+        let baseStringDokumenSertifikat;
         let type1;
         let type2;
         let type3;
+        let type4;
+        let type5;
         let tingkatan_koperasi;
         let koperasi;
         let id_koperasi;
-        const ktpInput = document.getElementById('foto_ktp');
+        const ktpKetuaInput = document.getElementById('foto_ktp_ketua');
+        const npwpInput = document.getElementById('foto_npwp');
+        const ktpPengawasInput = document.getElementById('foto_ktp_pengawas');
         const logoInput = document.getElementById('foto_logo');
-        const dokumenInput = document.getElementById('dokumen');
-        const previewProfil = document.getElementById('preview-profil');
+        const documentSKK = document.getElementById('doc_sk_kemenkumham');
+        const documentAktaPendirian = document.getElementById('doc_akta_pendirian');
+        const documentAktaPerubahan = document.getElementById('doc_akta_perubahan');
+        const documentSKDU = document.getElementById('doc_skdu');
+        const documentSIUP = document.getElementById('doc_siup');
+        const documentSertifikat = document.getElementById('doc_sertifikat_koperasi');
+        const documentSPKK = document.getElementById('doc_spkk');
+        const previewKtpKetua = document.getElementById('preview-ktp-ketua');
+        const previewKtpPengawas = document.getElementById('preview-ktp-pengawas');
         const previewLogo = document.getElementById('preview-logo');
+        const previewNpwp = document.getElementById('preview-npwp');
 
         window.addEventListener("load", () => {
             getProvince();
@@ -519,19 +592,30 @@
             }
         });
 
-        ktpInput.addEventListener('change', (event) => {
+        ktpKetuaInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    previewProfil.src = e.target.result;
-                    baseStringKtp = e.target.result;
+                    previewKtpKetua.src = e.target.result;
+                    baseStringKtpKetua = e.target.result;
                     type1 = file.type.split('/')[1];
                 }
                 reader.readAsDataURL(file);
             }
         });
-
+        ktpPengawasInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewKtpPengawas.src = e.target.result;
+                    baseStringKtpPengawas = e.target.result;
+                    type2 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
         logoInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
@@ -539,19 +623,99 @@
                 reader.onload = (e) => {
                     previewLogo.src = e.target.result;
                     baseStringLogo = e.target.result;
-                    type2 = file.type.split('/')[1];
+                    type3 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        npwpInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewNpwp.src = e.target.result;
+                    baseStringNpwp = e.target.result;
+                    type4 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        documentSKK.addEventListener('change', () => {
+            const file = documentSKK.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringDokumenSKK = e.target.result;
+                    type4 = file.type.split('/')[1];
                 }
                 reader.readAsDataURL(file);
             }
         });
 
-        dokumenInput.addEventListener('change', () => {
-            const file = dokumenInput.files[0];
+        documentAktaPendirian.addEventListener('change', () => {
+            const file = documentAktaPendirian.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    baseStringDokumen = e.target.result;
-                    type3 = file.type.split('/')[1];
+                    baseStringDokumenAktaPendirian = e.target.result;
+                    type4 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        documentAktaPerubahan.addEventListener('change', () => {
+            const file = documentAktaPerubahan.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringDokumenAktaPerubahan = e.target.result;
+                    type4 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        documentSIUP.addEventListener('change', () => {
+            const file = documentSIUP.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringDokumenSIUP = e.target.result;
+                    type4 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        documentSPKK.addEventListener('change', () => {
+            const file = documentSPKK.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringDokumenSPKK = e.target.result;
+                    type4 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        documentSKDU.addEventListener('change', () => {
+            const file = documentSKDU.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringDokumenSKDU = e.target.result;
+                    type4 = file.type.split('/')[1];
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        documentSertifikat.addEventListener('change', () => {
+            const file = documentSertifikat.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    baseStringDokumenSertifikat = e.target.result;
+                    type4 = file.type.split('/')[1];
                 }
                 reader.readAsDataURL(file);
             }
@@ -597,16 +761,25 @@
             const no_npwp = document.getElementById("no_npwp").value;
             const no_pkp = document.getElementById("no_pkp").value;
             const no_sertifikat = document.getElementById("no_sertifikat").value;
-            const image_ktp = baseStringKtp;
+            const image_ktp_ketua = baseStringKtpKetua;
+            const image_ktp_pengawas = baseStringKtpPengawas;
             const image_logo = baseStringLogo;
-            const doc_dokumen = baseStringDokumen;
+            const image_npwp = baseStringNpwp;
+            const doc_skk = baseStringDokumenSKK;
+            const doc_spkk = baseStringDokumenSPKK;
+            const doc_siup = baseStringDokumenSIUP;
+            const doc_skdu = baseStringDokumenSKDU;
+            const doc_akta_pendirian = baseStringDokumenAktaPendirian;
+            const doc_akta_perubahan = baseStringDokumenAktaPerubahan;
+            const doc_sertifikat = baseStringDokumenSertifikat;
             const slug = createSlug(singkatan_koperasi);
-            const validKtp = ktpInput.files[0];
+            const validKtpKetua = ktpKetuaInput.files[0];
+            const validKtpPengawas = ktpPengawasInput.files[0];
             const validLogo = logoInput.files[0];
             const validDokumen = dokumenInput.files[0];
             const username = createUsername(singkatan_koperasi)
 
-            if (!validKtp || !validLogo || !validDokumen ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
+            if (!validKtpKetua || !validKtpPengawas ||  !validLogo || !validDokumen ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
                 alert("Pastikan Data Terisi Semua!");
                 return false;
             }
@@ -662,12 +835,21 @@
                 no_npwp,
                 no_pkp,
                 no_sertifikat,
-                ktp: image_ktp,
+                ktpKetua: image_ktp_ketua,
+                ktpPengawas: image_ktp_pengawas,
+                doc_skk,
+                doc_spkk,
+                doc_siup,
+                doc_skdu,
+                doc_akta_pendirian,
+                doc_akta_perubahan,
+                doc_sertifikat,
                 logo: image_logo,
-                dokumen: doc_dokumen,
+                npwp: image_npwp,
                 type1,
                 type2,
-                type3
+                type3,
+                type4,
             };
 
             await fetch(`/api/register/rki/insert-koperasi/${id_koperasi}`, {
