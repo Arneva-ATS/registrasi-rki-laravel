@@ -641,7 +641,62 @@
                             }
                         });
                     });
-            }
+            } else {
+                    await fetch(`/api/register/koperasi/insert-koperasi/${id_koperasi}/1`, {
+                            headers: {
+                                'Access-Control-Allow-Origin': '*',
+                                'Content-Type': 'application/json'
+                            },
+                            method: "POST",
+                            body: JSON.stringify(jsondata)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            swal.close();
+                            console.log(data)
+                            if (data.response_code == '00') {
+                                swal({
+                                    title: "Status Registrasi",
+                                    text: data?.response_message,
+                                    icon: "success",
+                                    buttons: true,
+                                }).then((willOut) => {
+                                    if (willOut) {
+                                        window.location.href = "/list_primkop";
+                                        console.log("success")
+                                    } else {
+                                        console.log("error");
+                                    }
+                                });
+                            } else {
+                                swal({
+                                    title: "Status Registrasi",
+                                    text: data?.response_message,
+                                    icon: "error",
+                                    buttons: true,
+                                }).then((willOut) => {
+                                    if (willOut) {} else {
+                                        console.log("error");
+                                    }
+                                });
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                            swal.close();
+                            swal({
+                                title: "Status Registrasi",
+                                text: err,
+                                icon: "info",
+                                buttons: true,
+                            }).then((willOut) => {
+                                if (willOut) {
+                                    //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
+                                } else {
+                                    console.log("error");
+                                }
+                            });
+                        });
+                }
         }
     </script>
 @endpush
