@@ -24,7 +24,7 @@
                         <div id="middle-wizard">
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>1 of 12</strong>Data Koperasi
+                                    <strong>1 of 11</strong>Data Koperasi
                                 </h3>
                                 <div class="row">
                                     <div class="col-12 col-md-6">
@@ -104,7 +104,7 @@
 
                             <div class="step">
                                 <h3 class="main_question mb-4">
-                                    <strong>2 of 12</strong>Alamat Koperasi
+                                    <strong>2 of 11</strong>Alamat Koperasi
                                 </h3>
 
                                 <div class="form-group">
@@ -170,7 +170,7 @@
 
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>3 of 12</strong>Ketua Koperasi
+                                    <strong>3 of 11</strong>Ketua Koperasi
                                 </h3>
 
                                 <div class="form-group">
@@ -215,7 +215,7 @@
 
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>4 of 12</strong>Pengawas Koperasi
+                                    <strong>4 of 11</strong>Pengawas Koperasi
                                 </h3>
 
                                 <div class="form-group">
@@ -259,7 +259,7 @@
 
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>5 of 12</strong>Akta Pendirian
+                                    <strong>5 of 11</strong>Akta Pendirian
                                 </h3>
 
                                 <div class="row">
@@ -307,7 +307,7 @@
 
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>6 of 12</strong>SK. Kemenkumham
+                                    <strong>6 of 11</strong>SK. Kemenkumham
                                 </h3>
 
                                 <div class="row">
@@ -335,7 +335,7 @@
 
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>7 of 12</strong> Surat Pengesahan Koperasi dari Kemenkop & UKM
+                                    <strong>7 of 11</strong> Surat Pengesahan Koperasi dari Kemenkop & UKM
                                 </h3>
 
                                 <div class="row">
@@ -363,7 +363,7 @@
 
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>8 of 12</strong> Akta Perubahan
+                                    <strong>8 of 11</strong> Akta Perubahan
                                 </h3>
                                 <div class="row">
                                     <div class="col-12 col-md-6">
@@ -391,7 +391,7 @@
                             <!-- /step 8-->
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>9 of 12</strong>SIUP/NIB
+                                    <strong>9 of 11</strong>SIUP/NIB
                                 </h3>
 
                                 <div class="row">
@@ -419,7 +419,7 @@
 
                             <div class="step">
                                 <h3 class="main_question">
-                                    <strong>10 of 12</strong>Surat Keterangan Domisili Usaha
+                                    <strong>10 of 11</strong>Surat Keterangan Domisili Usaha
                                 </h3>
 
                                 <div class="row">
@@ -456,16 +456,23 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="doc_skdu">Upload Dokumen SIUP<span style="color: red;">*</span></label>
+                                    <label for="doc_skdu">Upload Dokumen SKDU<span style="color: red;">*</span></label>
                                     <input type="file" class="form-control" id="doc_skdu" name="doc_skdu" required />
                                     <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="foto_npwp">Upload NPWP<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="foto_npwp" name="foto_npwp" required />
+                                    <img id="preview-npwp" height="100" width="100" class="mt-1"
+                                        src="/assets/images/default.jpg" alt="Preview Image">
                                 </div>
                             </div>
                             <!-- /step 10-->
 
-                            <div class="step">
+                            <div class="submit step">
                                 <h3 class="main_question">
-                                    <strong>11 of 12</strong>No Sertifikat Koperasi
+                                    <strong>11 of 11</strong>No Sertifikat Koperasi
                                 </h3>
                                 <div class="form-group">
                                     <label for="no_sertifikat">No. Sertifikat Koperasi</label>
@@ -480,22 +487,6 @@
                             </div>
                             <!-- /step 11-->
 
-                            <div class="submit step">
-                                <h3 class="main_question">
-                                    <strong>12 of 12</strong>Dokumentasi
-                                </h3>
-
-                                <div class="row">
-                                    <div class="col-12 col-md-6">
-
-                                    </div>
-                                    <div class="col-12 col-md-6">
-
-                                    </div>
-                                </div>
-
-
-                            </div>
                         </div>
                         <div id="bottom-wizard">
                             <button type="button" name="backward" class="backward">
@@ -535,7 +526,9 @@
         let type4;
         let type5;
         let tingkatan_koperasi;
+        let id_tingkat;
         let koperasi;
+        let slug_url;
         let id_koperasi;
         const ktpKetuaInput = document.getElementById('foto_ktp_ketua');
         const npwpInput = document.getElementById('foto_npwp');
@@ -753,24 +746,32 @@
             const image_logo = baseStringLogo;
             const image_npwp = baseStringNpwp;
             const doc_skk = baseStringDokumenSKK;
-            const doc_spkk = baseStringDokumenSPKK;
+            const doc_spkum = baseStringDokumenSPKK;
             const doc_siup = baseStringDokumenSIUP;
-            const doc_skdu = baseStringDokumenSKDU;
+            const doc_sk_domisili = baseStringDokumenSKDU;
             const doc_akta_pendirian = baseStringDokumenAktaPendirian;
             const doc_akta_perubahan = baseStringDokumenAktaPerubahan;
-            const doc_sertifikat = baseStringDokumenSertifikat;
+            const doc_sertifikat_koperasi = baseStringDokumenSertifikat;
             const slug = createSlug(singkatan_koperasi);
             const validKtpKetua = ktpKetuaInput.files[0];
             const validKtpPengawas = ktpPengawasInput.files[0];
             const validLogo = logoInput.files[0];
-            const validDokumen = dokumenInput.files[0];
+            // const validDokumen = dokumenInput.files[0];
             const username = createUsername(singkatan_koperasi)
 
-            if (!validKtpKetua || !validKtpPengawas ||  !validLogo || !validDokumen ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
+            if (!validKtpKetua || !validKtpPengawas ||  !validLogo  ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
                 alert("Pastikan Data Terisi Semua!");
                 return false;
             }
-
+            swal({
+                title: "Please wait",
+                text: "Submitting data...",
+                // icon: "/assets/images/loading.gif",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                className: "swal-loading",
+            });
             const jsondata = {
                 singkatan_koperasi,
                 nama_koperasi,
@@ -813,31 +814,23 @@
                 no_npwp,
                 no_pkp,
                 no_sertifikat,
-                ktpKetua: image_ktp_ketua,
-                ktpPengawas: image_ktp_pengawas,
+                image_ktp_ketua: image_ktp_ketua,
+                image_ktp_pengawas: image_ktp_pengawas,
                 doc_skk,
-                doc_spkk,
+                doc_spkum,
                 doc_siup,
-                doc_skdu,
+                doc_sk_domisili,
                 doc_akta_pendirian,
                 doc_akta_perubahan,
-                doc_sertifikat,
+                doc_sertifikat_koperasi,
                 logo: image_logo,
-                npwp: image_npwp,
+                image_npwp: image_npwp,
                 type1,
                 type2,
                 type3,
                 type4,
             };
-            swal({
-                title: "Please wait",
-                text: "Submitting data...",
-                // icon: "/assets/images/loading.gif",
-                button: false,
-                closeOnClickOutside: false,
-                closeOnEsc: false,
-                className: "swal-loading",
-            });
+
             fetch(`/api/register/koperasi/insert-koperasi/${id_koperasi}/${id_tingkat}`, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',

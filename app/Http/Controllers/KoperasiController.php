@@ -48,7 +48,6 @@ class KoperasiController extends Controller
                 'no_pkp' => 'required',
                 'no_sertifikat' => 'required',
             ]);
-
             // Simpan logo
             $logo_base64 = $request->logo;
             $logo_extension = 'png';
@@ -58,28 +57,111 @@ class KoperasiController extends Controller
             // $logo_path = public_path().'/images' public_path($logo_folder . $logo_name);
             file_put_contents($logo_path, base64_decode($logo_base64));
 
-            // Simpan KTP
-            $ktp_base64 = $request->ktp;
-            $ktp_extension = 'png';
-            $ktp_name = time() . '_ktp.' . $ktp_extension;
-            $ktp_folder = '/koperasi/ktp/';
-            // $ktp_path = public_path($ktp_folder . $ktp_name);
-            $ktp_path = public_path() . $ktp_folder . $ktp_name;
-            file_put_contents($ktp_path, base64_decode($ktp_base64));
+            // Simpan KTP Ketua
+            $ktp_ketua_base64 = $request->image_ktp_ketua;
+            $ktp_ketua_extension = 'png';
+            $ktp_ketua_name = time() . '_ktp.' . $ktp_ketua_extension;
+            $ktp_ketua_folder = '/koperasi/ktp_ketua/';
+            // $ktp_ketua_path = public_path($ktp_ketua_folder . $ktp_ketua_name);
+            $ktp_ketua_path = public_path() . $ktp_ketua_folder . $ktp_ketua_name;
+            file_put_contents($ktp_ketua_path, base64_decode($ktp_ketua_base64));
 
-            // Simpan dokumen PDF
-            $dokumen_base64 = $request->dokumen;
-            $dokumen_extension = 'pdf';
-            $dokumen_name = time() . '_dokumen.' . $dokumen_extension;
-            $dokumen_folder = '/koperasi/dokumen/';
-            // $dokumen_path = public_path($dokumen_folder . $dokumen_name);
-            $dokumen_path = public_path() . $dokumen_folder . $dokumen_name;
-            file_put_contents($dokumen_path, base64_decode($dokumen_base64));
+            // Simpan KTP Pengawas
+            $ktp_pengawas_base64 = $request->image_ktp_pengawas;
+            $ktp_pengawas_extension = 'png';
+            $ktp_pengawas_name = time() . '_ktp.' . $ktp_pengawas_extension;
+            $ktp_pengawas_folder = '/koperasi/ktp_pengawas/';
+            // $ktp_pengawas_path = public_path($ktp_pengawas_folder . $ktp_pengawas_name);
+            $ktp_pengawas_path = public_path() . $ktp_pengawas_folder . $ktp_pengawas_name;
+            file_put_contents($ktp_pengawas_path, base64_decode($ktp_pengawas_base64));
+
+            // Simpan NPWP
+            $npwp_base64 = $request->image_npwp;
+            $npwp_extension = 'png';
+            $npwp_name = time() . '_npwp.' . $npwp_extension;
+            $npwp_folder = '/koperasi/npwp/';
+            // $npwp_path = public_path($npwp_folder . $npwp_name);
+            $npwp_path = public_path() . $npwp_folder . $npwp_name;
+            file_put_contents($npwp_path, base64_decode($npwp_base64));
+
+            // Simpan dokumen PDF Akta Pendirian
+            $dokumen_akta_pendirian_base64 = $request->doc_akta_pendirian;
+            $dokumen_akta_pendirian_extension = 'pdf';
+            $dokumen_akta_pendirian_name = time() . '_dokumen.' . $dokumen_akta_pendirian_extension;
+            $dokumen_akta_pendirian_folder = '/koperasi/akta_pendirian/';
+            // $dokumen_akta_pendirian_path = public_path($dokumen_akta_pendirian_folder . $dokumen_akta_pendirian_name);
+            $dokumen_akta_pendirian_path = public_path() . $dokumen_akta_pendirian_folder . $dokumen_akta_pendirian_name;
+            file_put_contents($dokumen_akta_pendirian_path, base64_decode($dokumen_akta_pendirian_base64));
+
+
+            // Simpan dokumen PDF Akta Perubahan
+            $dokumen_akta_perubahan_base64 = $request->doc_akta_perubahan;
+            $dokumen_akta_perubahan_extension = 'pdf';
+            $dokumen_akta_perubahan_name = time() . '_dokumen.' . $dokumen_akta_perubahan_extension;
+            $dokumen_akta_perubahan_folder = '/koperasi/akta_perubahan/';
+            // $dokumen_akta_perubahan_path = public_path($dokumen_akta_perubahan_folder . $dokumen_akta_perubahan_name);
+            $dokumen_akta_perubahan_path = public_path() . $dokumen_akta_perubahan_folder . $dokumen_akta_perubahan_name;
+            file_put_contents($dokumen_akta_perubahan_path, base64_decode($dokumen_akta_perubahan_base64));
+
+            // Simpan dokumen PDF SIUP
+            $dokumen_siup_base64 = $request->doc_siup;
+            $dokumen_siup_extension = 'pdf';
+            $dokumen_siup_name = time() . '_dokumen.' . $dokumen_siup_extension;
+            $dokumen_siup_folder = '/koperasi/siup/';
+            // $dokumen_siup_path = public_path($dokumen_siup_folder . $dokumen_siup_name);
+            $dokumen_siup_path = public_path() . $dokumen_siup_folder . $dokumen_siup_name;
+            file_put_contents($dokumen_siup_path, base64_decode($dokumen_siup_base64));
+
+            // Simpan dokumen PDF SK Kemenkumham
+            $dokumen_skk_base64 = $request->doc_sk_kemenkumham;
+            $dokumen_skk_extension = 'pdf';
+            $dokumen_skk_name = time() . '_dokumen.' . $dokumen_skk_extension;
+            $dokumen_skk_folder = '/koperasi/sk_kemenkumham/';
+            // $dokumen_skk_path = public_path($dokumen_skk_folder . $dokumen_skk_name);
+            $dokumen_skk_path = public_path() . $dokumen_skk_folder . $dokumen_skk_name;
+            file_put_contents($dokumen_skk_path, base64_decode($dokumen_skk_base64));
+
+            // Simpan dokumen PDF SPKUM
+            $dokumen_spkum_base64 = $request->doc_spkum;
+            $dokumen_spkum_extension = 'pdf';
+            $dokumen_spkum_name = time() . '_dokumen.' . $dokumen_spkum_extension;
+            $dokumen_spkum_folder = '/koperasi/spkum/';
+            // $dokumen_spkum_path = public_path($dokumen_spkum_folder . $dokumen_spkum_name);
+            $dokumen_spkum_path = public_path() . $dokumen_spkum_folder . $dokumen_spkum_name;
+            file_put_contents($dokumen_spkum_path, base64_decode($dokumen_spkum_base64));
+
+
+            // Simpan dokumen PDF SK Domisili
+            $dokumen_sk_domisili_base64 = $request->doc_sk_domisili;
+            $dokumen_sk_domisili_extension = 'pdf';
+            $dokumen_sk_domisili_name = time() . '_dokumen.' . $dokumen_sk_domisili_extension;
+            $dokumen_sk_domisili_folder = '/koperasi/sk_domisili/';
+            // $dokumen_sk_domisili_path = public_path($dokumen_sk_domisili_folder . $dokumen_sk_domisili_name);
+            $dokumen_sk_domisili_path = public_path() . $dokumen_sk_domisili_folder . $dokumen_sk_domisili_name;
+            file_put_contents($dokumen_sk_domisili_path, base64_decode($dokumen_sk_domisili_base64));
+
+            // Simpan dokumen PDF Sertifikat Koperasi
+            $dokumen_sertifikat_base64 = $request->doc_sertifikat_koperasi;
+            $dokumen_sertifikat_extension = 'pdf';
+            $dokumen_sertifikat_name = time() . '_dokumen.' . $dokumen_sertifikat_extension;
+            $dokumen_sertifikat_folder = '/koperasi/sertifikat_koperasi/';
+            // $dokumen_sertifikat_path = public_path($dokumen_sertifikat_folder . $dokumen_sertifikat_name);
+            $dokumen_sertifikat_path = public_path() . $dokumen_sertifikat_folder . $dokumen_sertifikat_name;
+            file_put_contents($dokumen_sertifikat_path, base64_decode($dokumen_sertifikat_base64));
 
             // URL untuk disimpan di database
             $logoUrl = $logo_folder . $logo_name;
-            $ktpUrl = $ktp_folder . $ktp_name;
-            $dokumenUrl = $dokumen_folder . $dokumen_name;
+            $ktpPengawasUrl = $ktp_pengawas_folder . $ktp_pengawas_name;
+            $ktpKetuaUrl = $ktp_ketua_folder . $ktp_ketua_name;
+            $npwpUrl = $npwp_folder . $npwp_name;
+            $dokumenSIUPUrl = $dokumen_siup_folder . $dokumen_siup_name;
+            $dokumenAktaPendirianUrl = $dokumen_akta_pendirian_folder . $dokumen_akta_pendirian_name;
+            $dokumenAktaPerubahanUrl = $dokumen_akta_perubahan_folder . $dokumen_akta_perubahan_name;
+            $dokumenSKKUrl = $dokumen_skk_folder . $dokumen_skk_name;
+            $dokumenSPKUMUrl = $dokumen_spkum_folder . $dokumen_spkum_name;
+            $dokumenSKDomisiliUrl = $dokumen_sk_domisili_folder . $dokumen_sk_domisili_name;
+            $dokumenSertifikatUrl = $dokumen_sertifikat_folder . $dokumen_sertifikat_name;
+
             $koperasiData = [
                 'nama_koperasi' => $request->nama_koperasi,
                 'singkatan_koperasi' => $request->singkatan_koperasi,
@@ -110,13 +192,19 @@ class KoperasiController extends Controller
                 'masa_berlaku_sk_domisili' => $request->masa_berlaku_skdu,
                 'no_npwp' => $request->no_npwp,
                 'no_pkp' => $request->no_pkp,
-                // 'no_bpjs_kesehatan' => $request->bpjs_kesehatan,
-                // 'no_bpjs_tenaga_kerja' => $request->bpjs_ketenagakerjaan,
                 'no_sertifikat_koperasi' => $request->no_sertifikat,
                 'image_logo' => $logoUrl,
-                'ktp' => $ktpUrl,
+                'image_ktp_ketua' => $ktpKetuaUrl,
+                'image_ktp_pengawas' => $ktpPengawasUrl,
+                'image_npwp' => $npwpUrl,
                 'id_tingkatan_koperasi' => $id_tingkat,
-                'doc_url' => $dokumenUrl,
+                'doc_siup' => $dokumenSIUPUrl,
+                'doc_akta_pendirian' => $dokumenAktaPendirianUrl,
+                'doc_akta_perubahan' => $dokumenAktaPerubahanUrl,
+                'doc_sk_kemenkumham' => $dokumenSKKUrl,
+                'doc_spkum' => $dokumenSPKUMUrl,
+                'doc_sk_domisili' => $dokumenSKDomisiliUrl,
+                'doc_sertifikat_koperasi' => $dokumenSertifikatUrl,
                 'slug' => $request->slug,
             ];
 
@@ -201,7 +289,6 @@ class KoperasiController extends Controller
                 'no_pkp' => 'required',
                 'no_sertifikat' => 'required',
             ]);
-
             // Simpan logo
             $logo_base64 = $request->logo;
             $logo_extension = 'png';
@@ -211,28 +298,110 @@ class KoperasiController extends Controller
             // $logo_path = public_path().'/images' public_path($logo_folder . $logo_name);
             file_put_contents($logo_path, base64_decode($logo_base64));
 
-            // Simpan KTP
-            $ktp_base64 = $request->ktp;
-            $ktp_extension = 'png';
-            $ktp_name = time() . '_ktp.' . $ktp_extension;
-            $ktp_folder = '/koperasi/ktp/';
-            // $ktp_path = public_path($ktp_folder . $ktp_name);
-            $ktp_path = public_path() . $ktp_folder . $ktp_name;
-            file_put_contents($ktp_path, base64_decode($ktp_base64));
+            // Simpan KTP Ketua
+            $ktp_ketua_base64 = $request->image_ktp_ketua;
+            $ktp_ketua_extension = 'png';
+            $ktp_ketua_name = time() . '_ktp.' . $ktp_ketua_extension;
+            $ktp_ketua_folder = '/koperasi/ktp_ketua/';
+            // $ktp_ketua_path = public_path($ktp_ketua_folder . $ktp_ketua_name);
+            $ktp_ketua_path = public_path() . $ktp_ketua_folder . $ktp_ketua_name;
+            file_put_contents($ktp_ketua_path, base64_decode($ktp_ketua_base64));
 
-            // Simpan dokumen PDF
-            $dokumen_base64 = $request->dokumen;
-            $dokumen_extension = 'pdf';
-            $dokumen_name = time() . '_dokumen.' . $dokumen_extension;
-            $dokumen_folder = '/koperasi/dokumen/';
-            // $dokumen_path = public_path($dokumen_folder . $dokumen_name);
-            $dokumen_path = public_path() . $dokumen_folder . $dokumen_name;
-            file_put_contents($dokumen_path, base64_decode($dokumen_base64));
+            // Simpan KTP Pengawas
+            $ktp_pengawas_base64 = $request->image_ktp_pengawas;
+            $ktp_pengawas_extension = 'png';
+            $ktp_pengawas_name = time() . '_ktp.' . $ktp_pengawas_extension;
+            $ktp_pengawas_folder = '/koperasi/ktp_pengawas/';
+            // $ktp_pengawas_path = public_path($ktp_pengawas_folder . $ktp_pengawas_name);
+            $ktp_pengawas_path = public_path() . $ktp_pengawas_folder . $ktp_pengawas_name;
+            file_put_contents($ktp_pengawas_path, base64_decode($ktp_pengawas_base64));
+
+            // Simpan NPWP
+            $npwp_base64 = $request->image_npwp;
+            $npwp_extension = 'png';
+            $npwp_name = time() . '_npwp.' . $npwp_extension;
+            $npwp_folder = '/koperasi/npwp/';
+            // $npwp_path = public_path($npwp_folder . $npwp_name);
+            $npwp_path = public_path() . $npwp_folder . $npwp_name;
+            file_put_contents($npwp_path, base64_decode($npwp_base64));
+
+            // Simpan dokumen PDF Akta Pendirian
+            $dokumen_akta_pendirian_base64 = $request->doc_akta_pendirian;
+            $dokumen_akta_pendirian_extension = 'pdf';
+            $dokumen_akta_pendirian_name = time() . '_dokumen.' . $dokumen_akta_pendirian_extension;
+            $dokumen_akta_pendirian_folder = '/koperasi/akta_pendirian/';
+            // $dokumen_akta_pendirian_path = public_path($dokumen_akta_pendirian_folder . $dokumen_akta_pendirian_name);
+            $dokumen_akta_pendirian_path = public_path() . $dokumen_akta_pendirian_folder . $dokumen_akta_pendirian_name;
+            file_put_contents($dokumen_akta_pendirian_path, base64_decode($dokumen_akta_pendirian_base64));
+
+
+            // Simpan dokumen PDF Akta Perubahan
+            $dokumen_akta_perubahan_base64 = $request->doc_akta_perubahan;
+            $dokumen_akta_perubahan_extension = 'pdf';
+            $dokumen_akta_perubahan_name = time() . '_dokumen.' . $dokumen_akta_perubahan_extension;
+            $dokumen_akta_perubahan_folder = '/koperasi/akta_perubahan/';
+            // $dokumen_akta_perubahan_path = public_path($dokumen_akta_perubahan_folder . $dokumen_akta_perubahan_name);
+            $dokumen_akta_perubahan_path = public_path() . $dokumen_akta_perubahan_folder . $dokumen_akta_perubahan_name;
+            file_put_contents($dokumen_akta_perubahan_path, base64_decode($dokumen_akta_perubahan_base64));
+
+            // Simpan dokumen PDF SIUP
+            $dokumen_siup_base64 = $request->doc_siup;
+            $dokumen_siup_extension = 'pdf';
+            $dokumen_siup_name = time() . '_dokumen.' . $dokumen_siup_extension;
+            $dokumen_siup_folder = '/koperasi/siup/';
+            // $dokumen_siup_path = public_path($dokumen_siup_folder . $dokumen_siup_name);
+            $dokumen_siup_path = public_path() . $dokumen_siup_folder . $dokumen_siup_name;
+            file_put_contents($dokumen_siup_path, base64_decode($dokumen_siup_base64));
+
+            // Simpan dokumen PDF SK Kemenkumham
+            $dokumen_skk_base64 = $request->doc_sk_kemenkumham;
+            $dokumen_skk_extension = 'pdf';
+            $dokumen_skk_name = time() . '_dokumen.' . $dokumen_skk_extension;
+            $dokumen_skk_folder = '/koperasi/sk_kemenkumham/';
+            // $dokumen_skk_path = public_path($dokumen_skk_folder . $dokumen_skk_name);
+            $dokumen_skk_path = public_path() . $dokumen_skk_folder . $dokumen_skk_name;
+            file_put_contents($dokumen_skk_path, base64_decode($dokumen_skk_base64));
+
+            // Simpan dokumen PDF SPKUM
+            $dokumen_spkum_base64 = $request->doc_spkum;
+            $dokumen_spkum_extension = 'pdf';
+            $dokumen_spkum_name = time() . '_dokumen.' . $dokumen_spkum_extension;
+            $dokumen_spkum_folder = '/koperasi/spkum/';
+            // $dokumen_spkum_path = public_path($dokumen_spkum_folder . $dokumen_spkum_name);
+            $dokumen_spkum_path = public_path() . $dokumen_spkum_folder . $dokumen_spkum_name;
+            file_put_contents($dokumen_spkum_path, base64_decode($dokumen_spkum_base64));
+
+
+            // Simpan dokumen PDF SK Domisili
+            $dokumen_sk_domisili_base64 = $request->doc_sk_domisili;
+            $dokumen_sk_domisili_extension = 'pdf';
+            $dokumen_sk_domisili_name = time() . '_dokumen.' . $dokumen_sk_domisili_extension;
+            $dokumen_sk_domisili_folder = '/koperasi/sk_domisili/';
+            // $dokumen_sk_domisili_path = public_path($dokumen_sk_domisili_folder . $dokumen_sk_domisili_name);
+            $dokumen_sk_domisili_path = public_path() . $dokumen_sk_domisili_folder . $dokumen_sk_domisili_name;
+            file_put_contents($dokumen_sk_domisili_path, base64_decode($dokumen_sk_domisili_base64));
+
+            // Simpan dokumen PDF Sertifikat Koperasi
+            $dokumen_sertifikat_base64 = $request->doc_sertifikat_koperasi;
+            $dokumen_sertifikat_extension = 'pdf';
+            $dokumen_sertifikat_name = time() . '_dokumen.' . $dokumen_sertifikat_extension;
+            $dokumen_sertifikat_folder = '/koperasi/sertifikat_koperasi/';
+            // $dokumen_sertifikat_path = public_path($dokumen_sertifikat_folder . $dokumen_sertifikat_name);
+            $dokumen_sertifikat_path = public_path() . $dokumen_sertifikat_folder . $dokumen_sertifikat_name;
+            file_put_contents($dokumen_sertifikat_path, base64_decode($dokumen_sertifikat_base64));
 
             // URL untuk disimpan di database
             $logoUrl = $logo_folder . $logo_name;
-            $ktpUrl = $ktp_folder . $ktp_name;
-            $dokumenUrl = $dokumen_folder . $dokumen_name;
+            $ktpPengawasUrl = $ktp_pengawas_folder . $ktp_pengawas_name;
+            $ktpKetuaUrl = $ktp_ketua_folder . $ktp_ketua_name;
+            $npwpUrl = $npwp_folder . $npwp_name;
+            $dokumenSIUPUrl = $dokumen_siup_folder . $dokumen_siup_name;
+            $dokumenAktaPendirianUrl = $dokumen_akta_pendirian_folder . $dokumen_akta_pendirian_name;
+            $dokumenAktaPerubahanUrl = $dokumen_akta_perubahan_folder . $dokumen_akta_perubahan_name;
+            $dokumenSKKUrl = $dokumen_skk_folder . $dokumen_skk_name;
+            $dokumenSPKUMUrl = $dokumen_spkum_folder . $dokumen_spkum_name;
+            $dokumenSKDomisiliUrl = $dokumen_sk_domisili_folder . $dokumen_sk_domisili_name;
+            $dokumenSertifikatUrl = $dokumen_sertifikat_folder . $dokumen_sertifikat_name;
             if ($id_tingkat == 2) {
                 $koperasiData = [
                     'nama_koperasi' => $request->nama_koperasi,
@@ -266,10 +435,18 @@ class KoperasiController extends Controller
                     'no_pkp' => $request->no_pkp,
                     'no_sertifikat_koperasi' => $request->no_sertifikat,
                     'image_logo' => $logoUrl,
-                    'ktp' => $ktpUrl,
+                    'image_ktp_ketua' => $ktpKetuaUrl,
+                    'image_ktp_pengawas' => $ktpPengawasUrl,
+                    'image_npwp' => $npwpUrl,
                     'id_inkop' => $id_koperasi,
                     'id_tingkatan_koperasi' => $id_tingkat,
-                    'doc_url' => $dokumenUrl,
+                    'doc_siup' => $dokumenSIUPUrl,
+                    'doc_akta_pendirian' => $dokumenAktaPendirianUrl,
+                    'doc_akta_perubahan' => $dokumenAktaPerubahanUrl,
+                    'doc_sk_kemenkumham' => $dokumenSKKUrl,
+                    'doc_spkum' => $dokumenSPKUMUrl,
+                    'doc_sk_domisili' => $dokumenSKDomisiliUrl,
+                    'doc_sertifikat_koperasi' => $dokumenSertifikatUrl,
                     'slug' => $request->slug,
                 ];
             } else if ($id_tingkat == 3) {
@@ -305,10 +482,18 @@ class KoperasiController extends Controller
                     'no_pkp' => $request->no_pkp,
                     'no_sertifikat_koperasi' => $request->no_sertifikat,
                     'image_logo' => $logoUrl,
-                    'ktp' => $ktpUrl,
+                    'image_ktp_ketua' => $ktpKetuaUrl,
+                    'image_ktp_pengawas' => $ktpPengawasUrl,
+                    'image_npwp' => $npwpUrl,
                     'id_puskop' => $id_koperasi,
                     'id_tingkatan_koperasi' => $id_tingkat,
-                    'doc_url' => $dokumenUrl,
+                    'doc_siup' => $dokumenSIUPUrl,
+                    'doc_akta_pendirian' => $dokumenAktaPendirianUrl,
+                    'doc_akta_perubahan' => $dokumenAktaPerubahanUrl,
+                    'doc_sk_kemenkumham' => $dokumenSKKUrl,
+                    'doc_spkum' => $dokumenSPKUMUrl,
+                    'doc_sk_domisili' => $dokumenSKDomisiliUrl,
+                    'doc_sertifikat_koperasi' => $dokumenSertifikatUrl,
                     'slug' => $request->slug,
                 ];
             }
