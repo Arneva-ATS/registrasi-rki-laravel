@@ -3,15 +3,15 @@
         <div class="col-5">
             @if (Route::currentRouteName() == 'anggota.primkop')
                 <a href="{{ route('anggota.primkop', ['name' => request()->route('name')]) }}">
-                    <img src="{{ asset('assets/img/rki.png') }}" alt="" width="130" />
+                    <img src="{{ asset('assets/img/rki_icon.png') }}" alt="" width="130" />
                 </a>
             @elseif (Route::currentRouteName() == 'koperasi.rki')
                 <a href="{{ route('koperasi.rki', ['tingkat' => request()->route('tingkat')]) }}">
-                    <img src="{{ asset('assets/img/rki.png') }}" alt="" width="130" />
+                    <img src="{{ asset('assets/img/rki_icon.png') }}" alt="" width="130" />
                 </a>
             @elseif (Route::currentRouteName() == 'koperasi')
                 <a href="{{ route('koperasi', ['tingkat' => request()->route('tingkat'), 'name'=>request()->route('name')]) }}">
-                    <img src="{{ asset('assets/img/rki.png') }}" alt="" width="130" />
+                    <img src="{{ asset('assets/img/rki_icon.png') }}" alt="" width="130" />
                 </a>
             @endif
         </div>
