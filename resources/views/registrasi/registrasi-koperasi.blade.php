@@ -762,7 +762,6 @@
             var validSKDU = document.getElementById("doc_skdu").files[0];
             var validSIUP = document.getElementById("doc_siup").files[0];
             var validSertifikat = document.getElementById("doc_sertifikat_koperasi").files[0];
-            var validSertifikat = document.getElementById("doc_sertifikat_koperasi").files[0];
             var validSPKK = document.getElementById("doc_spkk").files[0];
             var validAktaPendirian = document.getElementById("doc_akta_pendirian").files[0];
             var validAktaPerubahan = document.getElementById("doc_akta_perubahan").files[0];
