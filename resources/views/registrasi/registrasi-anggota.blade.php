@@ -351,7 +351,6 @@
                     buttons: true,
                 });
                 return false;
-            }                return false;
             }
             swal({
                 title: "Please wait",
@@ -446,6 +445,6 @@
                         }
                     });
                 });
-        }
+            }
     </script>
 @endpush
