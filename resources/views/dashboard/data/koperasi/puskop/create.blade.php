@@ -519,14 +519,29 @@
             const no_npwp = document.getElementById("no_npwp").value;
             const no_pkp = document.getElementById("no_pkp").value;
             const no_sertifikat = document.getElementById("no_sertifikat").value;
-
+            const validKtpKetua = ktpKetua.files[0];
+            const validKtpPengawas = ktpPengawas.files[0];
+            const validLogo = logoInput.files[0];
             const slug = createSlug(singkatan_koperasi);
             const username = createUsername(singkatan_koperasi);
-            // if (!validKtp || !validLogo || !validDokumen || provinsi == '00' || kota == '00' || kecamatan == '00' ||
-            //     kelurahan == '00') {
-            //     alert("Pastikan Data Terisi Semua!");
-            //     return false;
-            // }
+            var validSKK = dokumenSkKemenkumham.files[0];
+            var validSKDU = dokumenDomisili.files[0];
+            var validSIUP = dokumenSiup.files[0];
+            var validSertifikat = documentSertifikat.files[0];
+            var validSPKK = dokumenSpkum.files[0];
+            var validAktaPendirian = dokumenAktaPendirian.files[0];
+            var validAktaPerubahan = dokumenAktaPerubahan.files[0];
+            if (!validKtpKetua || !validKtpPengawas || !validLogo || !validAktaPendirian || !validAktaPerubahan || !
+                validSIUP || !validSKDU || !validSKK || !validSPKK || !validSertifikat || provinsi == '00' || kota ==
+                '00' || kecamatan == '00' || kelurahan == '00') {
+                swal({
+                    title: "Perhatian!",
+                    text: "Pastikan semua data terisi!",
+                    icon: "info",
+                    buttons: true,
+                });
+                return false;
+            }
             // Show loading dialog
             swal({
                 title: "Please wait",
