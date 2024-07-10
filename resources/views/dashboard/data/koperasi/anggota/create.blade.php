@@ -330,7 +330,7 @@ window.addEventListener("load", () => {
                     console.log(error)
                     swal({
                         title: "Status Registrasi",
-                        text: err,
+                        text: error,
                         icon: "info",
                         buttons: true,
                     }).then((willOut) => {
