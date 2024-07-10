@@ -30,8 +30,8 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="nama_koperasi">Nama Koperasi</label>
-                                            <input type="text" name="nama_koperasi" id="nama_koperasi" class="form-control"
-                                                placeholder="Masukan Nama Koperasi" required />
+                                            <input type="text" name="nama_koperasi" id="nama_koperasi"
+                                                class="form-control" placeholder="Masukan Nama Koperasi" required />
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
@@ -53,8 +53,8 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="bidang_koperasi">Bidang Koperasi</label>
-                                            <input type="text" name="bidang_koperasi" id="bidang_koperasi" class="form-control"
-                                                placeholder="Masukan Bidang Koperasi" required />
+                                            <input type="text" name="bidang_koperasi" id="bidang_koperasi"
+                                                class="form-control" placeholder="Masukan Bidang Koperasi" required />
                                         </div>
                                     </div>
                                 </div>
@@ -63,14 +63,14 @@
                                         <div class="form-group">
                                             <label for="no_telp">No Telp</label>
                                             <input type="text" class="form-control w-100" name="no_telp" id="no_telp"
-                                                placeholder="no_telp" required/>
+                                                placeholder="no_telp" required />
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="no_wa">No WA</label>
                                             <input type="text" class="form-control w-100" name="no_wa" id="no_wa"
-                                                placeholder="no_wa" required/>
+                                                placeholder="no_wa" required />
                                         </div>
                                     </div>
                                 </div>
@@ -92,8 +92,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="foto_profil">Upload Logo<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="foto_logo"
-                                        name="foto_logo" required />
+                                    <input type="file" class="form-control" id="foto_logo" name="foto_logo" required />
                                     <img id="preview-logo" height="100" width="100" class="mt-1"
                                         src="/assets/images/default.jpg" alt="Preview Image">
                                 </div>
@@ -109,7 +108,8 @@
 
                                 <div class="form-group">
                                     <label for="alamat">Alamat Lengkap</label>
-                                    <textarea name="alamat" id="alamat" class="form-control" style="height: 120px" onkeyup="getVals(this, 'alamat');" required></textarea>
+                                    <textarea name="alamat" id="alamat" class="form-control" style="height: 120px"
+                                        onkeyup="getVals(this, 'alamat');" required></textarea>
                                 </div>
 
                                 <!-- /review_block-->
@@ -118,8 +118,7 @@
                                         <div class="form-group">
                                             {{-- <label for="provinsi">Provinsi</label> --}}
                                             <p class="mb-1">Provinsi</p>
-                                            <select id="provinsi" class="form-control"
-                                                required>
+                                            <select id="provinsi" class="form-control" required>
                                                 <option value="00" hidden selected>Pilih Provinsi</option>
                                             </select>
                                             <div id="provinsi-error" class="text-danger mt-1 hidden"></div>
@@ -130,9 +129,8 @@
                                         <div class="form-group">
                                             {{-- <label for="kabupaten">Kabupaten/Kota</label> --}}
                                             <p class="mb-1">Kabupaten/Kota</p>
-                                            <select id="kota" class="form-control"
-                                                        required>
-                                                        <option value="00" hidden selected>Pilih Kabuptaen/Kota</option>
+                                            <select id="kota" class="form-control" required>
+                                                <option value="00" hidden selected>Pilih Kabuptaen/Kota</option>
                                             </select>
                                             <div id="kota-error" class="text-danger mt-1 hidden"></div>
                                         </div>
@@ -163,7 +161,7 @@
                                 <div class="form-group">
                                     <label for="kode_pos">Kode Pos</label>
                                     <input type="text" name="kode_pos" id="kode_pos" class="form-control"
-                                        placeholder="Masukan kode_pos" required/>
+                                        placeholder="Masukan kode_pos" required />
                                 </div>
                             </div>
                             <!-- /step 2-->
@@ -176,29 +174,29 @@
                                 <div class="form-group">
                                     <label for="nama_pengurus">Nama Ketua</label>
                                     <input type="text" name="nama_pengurus" id="nama_pengurus" class="form-control"
-                                        placeholder="Masukan nama_pengurus" required/>
+                                        placeholder="Masukan nama_pengurus" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="no_ktp_pengurus">No KTP Ketua</label>
                                     <input type="text" name="no_ktp_pengurus" id="no_ktp_pengurus"
-                                        class="form-control" placeholder="Masukan no_ktp_pengurus" required/>
+                                        class="form-control" placeholder="Masukan no_ktp_pengurus" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="no_anggota_pengurus">No Anggota Ketua</label>
                                     <input type="text" name="no_anggota_pengurus" id="no_anggota_pengurus"
-                                        class="form-control" placeholder="Masukan no_anggota" required/>
+                                        class="form-control" placeholder="Masukan no_anggota" required />
                                 </div>
                                 <div class="form-group">
                                     <label for="no_wa_pengurus">No Wa Ketua</label>
                                     <input type="text" name="no_wa_pengurus" id="no_wa_pengurus" class="form-control"
-                                        placeholder="Masukan no_wa_pengurus" required/>
+                                        placeholder="Masukan no_wa_pengurus" required />
                                 </div>
                                 <div class="form-group">
-                                    <label for="foto_ktp_ketua">Upload KTP Ketua<span
-                                            style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="foto_ktp_ketua" name="foto_ktp_ketua" required />
+                                    <label for="foto_ktp_ketua">Upload KTP Ketua<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="foto_ktp_ketua" name="foto_ktp_ketua"
+                                        required />
                                     <img id="preview-ktp-ketua" height="100" width="100" class="mt-1"
                                         src="/assets/images/default.jpg" alt="Preview Image">
                                 </div>
@@ -227,13 +225,13 @@
                                 <div class="form-group">
                                     <label for="no_ktp_pengawas">No KTP Pengawas</label>
                                     <input type="text" name="no_ktp_pengawas" id="no_ktp_pengawas"
-                                        class="form-control" placeholder="Masukan no_ktp_pengawas" required/>
+                                        class="form-control" placeholder="Masukan no_ktp_pengawas" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="no_anggota_pengawas">No Anggota Pengawas</label>
                                     <input type="text" name="no_anggota_pengawas" id="no_anggota_pengawas"
-                                        class="form-control" placeholder="Masukan Nomor Anggota" required/>
+                                        class="form-control" placeholder="Masukan Nomor Anggota" required />
                                 </div>
                                 {{--
                                 <div class="form-group">
@@ -250,7 +248,8 @@
                                 <div class="form-group">
                                     <label for="foto_ktp_pengawas">Upload KTP Pengawas<span
                                             style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="foto_ktp_pengawas" name="foto_ktp_pengawas" required />
+                                    <input type="file" class="form-control" id="foto_ktp_pengawas"
+                                        name="foto_ktp_pengawas" required />
                                     <img id="preview-ktp-pengawas" height="100" width="100" class="mt-1"
                                         src="/assets/images/default.jpg" alt="Preview Image">
                                 </div>
@@ -267,41 +266,43 @@
                                         <div class="form-group">
                                             <label for="no_akta">Nomor Akta Pendirian</label>
                                             <input type="text" class="form-control w-100" name="no_akta"
-                                                id="no_akta" placeholder="Masukan Nomor" required/>
+                                                id="no_akta" placeholder="Masukan Nomor" required />
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <input type="date" class="form-control w-100" name="tanggal_akta"
-                                                id="tanggal_akta" placeholder="Masukan Tanggal Akta" required/>
+                                                id="tanggal_akta" placeholder="Masukan Tanggal Akta" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="doc_akta_pendirian">Upload Dokumen Akta<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="doc_akta_pendirian" name="doc_akta_pendirian" required />
+                                    <label for="doc_akta_pendirian">Upload Dokumen Akta<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_akta_pendirian"
+                                        name="doc_akta_pendirian" required />
                                     <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
 
                                 <!-- /row -->
                                 <!-- <div class="form-group terms">
-                                            <label class="container_check"
-                                            >Please accept our
-                                            <a
-                                                href="#"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#terms-txt"
-                                                style="color: #fff; text-decoration: underline"
-                                                >Terms and conditions</a
-                                            >
-                                            <input
-                                                type="checkbox"
-                                                name="terms"
-                                                value="Yes"
-                                                class="required" />
-                                            <span class="checkmark"></span>
-                                            </label>
-                                        </div> -->
+                                                    <label class="container_check"
+                                                    >Please accept our
+                                                    <a
+                                                        href="#"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#terms-txt"
+                                                        style="color: #fff; text-decoration: underline"
+                                                        >Terms and conditions</a
+                                                    >
+                                                    <input
+                                                        type="checkbox"
+                                                        name="terms"
+                                                        value="Yes"
+                                                        class="required" />
+                                                    <span class="checkmark"></span>
+                                                    </label>
+                                                </div> -->
                             </div>
                             <!-- /step 5-->
 
@@ -315,19 +316,21 @@
                                         <div class="form-group">
                                             <label for="no_skk">Nomor SK Kemenkumham</label>
                                             <input type="text" class="form-control w-100" name="no_skk"
-                                                id="no_skk" placeholder="Masukan Nomor" required/>
+                                                id="no_skk" placeholder="Masukan Nomor" required />
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <input type="date" class="form-control w-100" name="tanggal_skk"
-                                                id="tanggal_skk" placeholder="Masukan Tanggal SK" required/>
+                                                id="tanggal_skk" placeholder="Masukan Tanggal SK" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="doc_sk_kemenkumham">Upload Dokumen SK Kemenkumham<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="doc_sk_kemenkumham" name="doc_sk_kemenkumham" required />
+                                    <label for="doc_sk_kemenkumham">Upload Dokumen SK Kemenkumham<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_sk_kemenkumham"
+                                        name="doc_sk_kemenkumham" required />
                                     <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
                             </div>
@@ -343,19 +346,22 @@
                                         <div class="form-group">
                                             <label for="no_spkk">Nomor Surat Pengesahan</label>
                                             <input type="text" class="form-control w-100" name="no_spkk"
-                                                id="no_spkk" placeholder="Masukan Nomor" required/>
+                                                id="no_spkk" placeholder="Masukan Nomor" required />
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <input type="date" class="form-control w-100" name="tanggal_spkk"
-                                                id="tanggal_spkk" placeholder="Masukan Tanggal Surat Pengesahan" required/>
+                                                id="tanggal_spkk" placeholder="Masukan Tanggal Surat Pengesahan"
+                                                required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="doc_spkk">Upload Dokumen Surat Pengesahan<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="doc_spkk" name="doc_spkk" required />
+                                    <label for="doc_spkk">Upload Dokumen Surat Pengesahan<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_spkk" name="doc_spkk"
+                                        required />
                                     <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
                             </div>
@@ -370,7 +376,7 @@
                                         <div class="form-group">
                                             <label for="no_akta_perubahan">Nomor Akta Perubahan</label>
                                             <input type="text" class="form-control w-100" name="no_akta_perubahan"
-                                                id="no_akta_perubahan" placeholder="Masukan Nomor" required/>
+                                                id="no_akta_perubahan" placeholder="Masukan Nomor" required />
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
@@ -382,8 +388,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="doc_akta_perubahan">Upload Dokumen Akta Perubahan<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="doc_akta_perubahan" name="doc_akta_perubahan" required />
+                                    <label for="doc_akta_perubahan">Upload Dokumen Akta Perubahan<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_akta_perubahan"
+                                        name="doc_akta_perubahan" required />
                                     <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
                             </div>
@@ -411,7 +419,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="doc_siup">Upload Dokumen SIUP<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="doc_siup" name="doc_siup" required />
+                                    <input type="file" class="form-control" id="doc_siup" name="doc_siup"
+                                        required />
                                     <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
                             </div>
@@ -457,13 +466,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="doc_skdu">Upload Dokumen SKDU<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="doc_skdu" name="doc_skdu" required />
+                                    <input type="file" class="form-control" id="doc_skdu" name="doc_skdu"
+                                        required />
                                     <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="foto_npwp">Upload NPWP<span
-                                            style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="foto_npwp" name="foto_npwp" required />
+                                    <label for="foto_npwp">Upload NPWP<span style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="foto_npwp" name="foto_npwp"
+                                        required />
                                     <img id="preview-npwp" height="100" width="100" class="mt-1"
                                         src="/assets/images/default.jpg" alt="Preview Image">
                                 </div>
@@ -480,8 +490,10 @@
                                         placeholder="Masukan Sertifikat" @required(true) />
                                 </div>
                                 <div class="form-group">
-                                    <label for="doc_sertifikat_koperasi">Upload Dokumen Sertifikat<span style="color: red;">*</span></label>
-                                    <input type="file" class="form-control" id="doc_sertifikat_koperasi" name="doc_sertifikat_koperasi" required />
+                                    <label for="doc_sertifikat_koperasi">Upload Dokumen Sertifikat<span
+                                            style="color: red;">*</span></label>
+                                    <input type="file" class="form-control" id="doc_sertifikat_koperasi"
+                                        name="doc_sertifikat_koperasi" required />
                                     <p><span style="color: red;">*)</span>Buat dalam bentuk PDF </p>
                                 </div>
                             </div>
@@ -544,6 +556,7 @@
         const previewKtpPengawas = document.getElementById('preview-ktp-pengawas');
         const previewLogo = document.getElementById('preview-logo');
         const previewNpwp = document.getElementById('preview-npwp');
+
 
         window.addEventListener("load", () => {
             getProvince();
@@ -762,9 +775,23 @@
             const validLogo = logoInput.files[0];
             // const validDokumen = dokumenInput.files[0];
             const username = createUsername(singkatan_koperasi)
-
-            if (!validKtpKetua || !validKtpPengawas ||  !validLogo  ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
-                alert("Pastikan Data Terisi Semua!");
+            var validSKK = document.getElementById("doc_sk_kemenkumham").files[0];
+            var validSKDU = document.getElementById("doc_skdu").files[0];
+            var validSIUP = document.getElementById("doc_siup").files[0];
+            var validSertifikat = document.getElementById("doc_sertifikat_koperasi").files[0];
+            var validSertifikat = document.getElementById("doc_sertifikat_koperasi").files[0];
+            var validSPKK = document.getElementById("doc_spkk").files[0];
+            var validAktaPendirian = document.getElementById("doc_akta_pendirian").files[0];
+            var validAktaPerubahan = document.getElementById("doc_akta_perubahan").files[0];
+            if (!validKtpKetua || !validKtpPengawas || !validLogo || !validAktaPendirian || !validAktaPerubahan || !
+                validSIUP || !validSKDU || !validSKK || !validSPKK || !validSertifikat || provinsi == '00' || kota ==
+                '00' || kecamatan == '00' || kelurahan == '00') {
+                swal({
+                    title: "Perhatian!",
+                    text: "Pastikan semua data terisi!",
+                    icon: "info",
+                    buttons: true,
+                });
                 return false;
             }
             // Show loading dialog

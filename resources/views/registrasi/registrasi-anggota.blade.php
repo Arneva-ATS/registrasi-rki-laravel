@@ -344,8 +344,14 @@
             const username = createUsername(nama_lengkap);
 
             if ( validselfie == "" || validktp == "" || provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
-                alert("Pastikan Data Terisi Semua !");
+                swal({
+                    title: "Perhatian!",
+                    text: "Pastikan semua data terisi!",
+                    icon: "info",
+                    buttons: true,
+                });
                 return false;
+            }                return false;
             }
             swal({
                 title: "Please wait",

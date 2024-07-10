@@ -758,9 +758,24 @@
             const validLogo = logoInput.files[0];
             // const validDokumen = dokumenInput.files[0];
             const username = createUsername(singkatan_koperasi)
+            var validSKK = document.getElementById("doc_sk_kemenkumham").files[0];
+            var validSKDU = document.getElementById("doc_skdu").files[0];
+            var validSIUP = document.getElementById("doc_siup").files[0];
+            var validSertifikat = document.getElementById("doc_sertifikat_koperasi").files[0];
+            var validSertifikat = document.getElementById("doc_sertifikat_koperasi").files[0];
+            var validSPKK = document.getElementById("doc_spkk").files[0];
+            var validAktaPendirian = document.getElementById("doc_akta_pendirian").files[0];
+            var validAktaPerubahan = document.getElementById("doc_akta_perubahan").files[0];
 
-            if (!validKtpKetua || !validKtpPengawas ||  !validLogo  ||  provinsi == '00' || kota == '00' || kecamatan =='00' || kelurahan == '00') {
-                alert("Pastikan Data Terisi Semua!");
+            if (!validKtpKetua || !validKtpPengawas || !validLogo || !validAktaPendirian || !validAktaPerubahan || !
+                validSIUP || !validSKDU || !validSKK || !validSPKK || !validSertifikat || provinsi == '00' || kota ==
+                '00' || kecamatan == '00' || kelurahan == '00') {
+                swal({
+                    title: "Perhatian!",
+                    text: "Pastikan semua data terisi!",
+                    icon: "info",
+                    buttons: true,
+                });
                 return false;
             }
             swal({
