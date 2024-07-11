@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KoperasiController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,3 +42,7 @@ Route::post('/approve/send-mail/anggota/{id}', [MailController::class, 'sendMail
 Route::post('/approve/send-mail/koperasi/{id}', [MailController::class, 'sendMailApproveKoperasi']);
 Route::delete('/reject/send-mail/anggota/{id}', [MailController::class, 'sendMailRejectAnggota']);
 Route::delete('/reject/send-mail/koperasi/{id}', [MailController::class, 'sendMailRejectKoperasi']);
+Route::prefix('products')->group(function () {
+    Route::get('/get-products/{id}', [ProductController::class, 'get_product']);
+    Route::get('/insert-product/{id}', [ProductController::class, 'insert']);
+})->name('wilayah');
