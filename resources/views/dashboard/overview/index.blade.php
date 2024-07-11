@@ -10,53 +10,55 @@
                             <div class="w-info">
                                 <h6 class="value">INKOP</h6>
                             </div>
-                        </div>
-                        <div class="task-action">
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" href="#" role="button" id="expenses"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="feather feather-more-horizontal">
-                                        <circle cx="12" cy="12" r="1"></circle>
-                                        <circle cx="19" cy="12" r="1"></circle>
-                                        <circle cx="5" cy="12" r="1"></circle>
-                                    </svg>
-                                </a>
+                            <div class="task-action">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle" href="#" role="button" id="expenses"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-more-horizontal">
+                                            <circle cx="12" cy="12" r="1"></circle>
+                                            <circle cx="19" cy="12" r="1"></circle>
+                                            <circle cx="5" cy="12" r="1"></circle>
+                                        </svg>
+                                    </a>
 
-                                <div class="dropdown-menu left" aria-labelledby="expenses" style="will-change: transform;">
-                                    <a class="dropdown-item" href="javascript:void(0);">This Week</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Last Week</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                                    <div class="dropdown-menu left" aria-labelledby="expenses"
+                                        style="will-change: transform;">
+                                        <a class="dropdown-item" href="javascript:void(0);">This Week</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Last Week</a>
+                                        <a class="dropdown-item" href="javascript:void(0);">Last Month</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="w-content">
+                        <div class="w-content">
 
-                        <div class="w-info">
-                            {{ $inkop_count }}
-                        </div>
-
-                    </div>
-
-                    <div class="w-progress-stats">
-                        <div class="progress">
+                            <div class="w-info">
+                                {{ $inkop_count }}
+                            </div>
 
                         </div>
 
-                        <div class="">
-                            <div class="w-icon">
+                        <div class="w-progress-stats">
+                            <div class="progress">
 
                             </div>
+
+                            <div class="">
+                                <div class="w-icon">
+
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                    <div class="75 mt-2"><input type="hidden" id="linkInkop"
+                        <div class="75 mt-2"><input type="hidden" id="linkInkop"
                             value="https://registrasi.rkicoop.co.id/koperasi/rki/inkop"><button onclick="copyLink('inkop')"
                             class="btn btn-info">Link Daftar
                             Inkop</button>
+                        </div>
                     </div>
                 </div>
             </div>
