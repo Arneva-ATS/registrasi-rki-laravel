@@ -332,6 +332,33 @@ if (config('app.env') === 'production') {
         return view('dashboard.data.koperasi.primkop.index', compact('id', 'username', 'password', 'tingkatan', 'primkop'));
     })->name('view-primkop');
 
+
+    Route::get('/list_kategori_produk', function () {
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+
+        $kategori = DB::table('tbl_kategori_produk')->where('id_koperasi', $id)->get();
+        return view('dashboard.data.produk.kategori.index', compact('id', 'username', 'password', 'tingkatan', 'kategori'));
+    })->name('view-kategori');
+
+    Route::get('/list_produk', function () {
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        $categories = DB::table('tbl_kategori_produk')->where('id_koperasi', $id)->get();
+        $products = DB::table('tbl_produk')->where('id_koperasi', $id)->get();
+        return view('dashboard.data.produk.inventory.index', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories'));
+    })->name('view-product');
+
     Route::get('/list_primkop_puskop/{id}', function ($id) {
         $id_pus = Session::get('id_koperasi');
         $username = Session::get('username');

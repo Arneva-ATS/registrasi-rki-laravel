@@ -50,7 +50,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </a>
-                <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'show' : '' }}" id="side-data" data-bs-parent="#accordionExample" style="">
+                <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota', 'view-kategori','view-produk']) ? 'show' : '' }}" id="side-data" data-bs-parent="#accordionExample" style="">
                     <li>
                         <a href="#side-cooperative" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle"> Koperasi <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
                         <ul class="list-unstyled sub-submenu collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'show' : '' }}" id="side-cooperative" data-bs-parent="#pages" style="">
@@ -80,7 +80,48 @@
                         </ul>
                     </li>
                 </ul>
+                <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota', 'view-kategori','view-produk']) ? 'show' : '' }}" id="side-data" data-bs-parent="#accordionExample" style="">
+                    <li>
+                        <a href="#product-cooperative" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-kategori', 'view-produk']) ? 'true' : 'false' }}" class="dropdown-toggle"> Produk <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
+                        <ul class="list-unstyled sub-submenu collapse {{ request()->routeIs(['view-kategori', 'view-produk']) ? 'show' : '' }}" id="product-cooperative" data-bs-parent="#pages" style="">
+                            <li class="{{ request()->routeIs('view-kategori') ? 'active' : '' }}">
+                                <a href="/list_kategori_produk"> Category </a>
+                            </li>
+
+                            <li class="{{ request()->routeIs('view-produk') ? 'active' : '' }}">
+                                <a href="/list_produk"> Inventory Products </a>
+                            </li>
+                            <li class="{{ request()->routeIs('view-primkop') ? 'active' : '' }}">
+                                <a href="/riwayat_stok"> History Stock </a>
+                            </li>
+                            <li class="{{ request()->routeIs('view-primkop') ? 'active' : '' }}">
+                                <a href="/laporan_stok"> Report Stock </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </li>
+            @if($tingkatan != 'rki')
+            <li class="menu {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'active' : '' }}">
+                <a href="#sales-data" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        <span>Sales</span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                </a>
+                <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'show' : '' }}" id="sales-data" data-bs-parent="#accordionExample" style="">
+                    <li>
+                        <a href="#side-cooperative" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle"> Koperasi <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
+                        <ul class="list-unstyled sub-submenu collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'show' : '' }}" id="side-cooperative" data-bs-parent="#pages" style="">
+
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            @endif
         </ul>
     </nav>
 </div>

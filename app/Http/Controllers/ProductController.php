@@ -23,9 +23,10 @@ class ProductController extends Controller
     public function insert(Request $request, $id){
         try{
             $request->validate([
-                'product_name'=>'required',
-                'price'=>'required',
-                'stock'=>'required',
+                'nama_produk'=>'required',
+                'harga'=>'required',
+                'stok'=>'required',
+                'kategori'=>'required',
             ]);
 
             // Simpan foto selfie
