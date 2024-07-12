@@ -85,18 +85,18 @@
                                         <div class="form-group mt-3">
                                             <label class="text-white" for="uom">Units</label>
                                             <input type="text" name="uom" id="uom" class="form-control"
-                                            placeholder="Per Unit" required />
+                                                placeholder="Per Unit" required />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-3">
                                     <label class="text-white" for="kategori">Kategori</label>
-                                    <select type="text" name="kategori" id="kategori" class="form-control"
-                                        placeholder="masukan kategori" required />
-                                        @foreach ($categories as $data_kategori)
-                                        <option value="{{ $data_kategori->id }}">{{ $data_kategori->nama_kategori }}</option>
-                                        @endforeach
+                                    <select type="text" name="kategori" id="kategori" class="form-control" required />
+                                    @foreach ($categories as $data_kategori)
+                                        <option value="{{ $data_kategori->id }}">{{ $data_kategori->nama_kategori }}
+                                        </option>
+                                    @endforeach
                                     </select>
                                 </div>
                             </form>
@@ -133,6 +133,7 @@
                 reader.readAsDataURL(file);
             }
         });
+
         function deleteBtn(id) {
             swal({
                     title: "Hapus Data!",
@@ -203,10 +204,12 @@
                 reader.readAsDataURL(file);
             }
         });
+
         function saveData() {
             const nama_produk = document.getElementById("nama_produk").value;
             const harga = document.getElementById("harga").value;
             const stok = document.getElementById("stok").value;
+            const uom = document.getElementById("uom").value;
             const kategori = document.getElementById("kategori").value;
             const image_produk = baseStringProduk;
 
@@ -223,6 +226,7 @@
                 nama_produk,
                 harga,
                 stok,
+                uom,
                 kategori,
                 image_produk
             };

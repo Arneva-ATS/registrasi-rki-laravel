@@ -27,21 +27,23 @@ class ProductController extends Controller
                 'harga'=>'required',
                 'stok'=>'required',
                 'kategori'=>'required',
+                'uom' => 'required',
             ]);
 
             // Simpan foto selfie
-            $product_base64 = $request->product_image;
+            $product_base64 = $request->image_produk;
             $product_extension = 'png';
-            $product_name = time() . 'anggota.' . $product_extension;
-            $product_folder = '/anggota/product/';
-            $product_path = public_path() . $product_folder . $product_name;
+            $product_name = time() . '_produk.' . $product_extension;
+            $product_folder = "/produk/image/";
+            $product_path =  public_path()  . $product_folder . $product_name;
             file_put_contents($product_path, base64_decode($product_base64));
-            $products = DB::table('tbl_products')->where('id_koperasi', $id)->insert([
-                'product_name'=>$request->product_name,
-                'price'=>$request->price,
-                'stock'=>$request->stock,
-                'product_image'=>$request->$product_path,
-                'id_koperasi'=>$request->$id
+            $products = DB::table('tbl_produk')->where('id_koperasi', $id)->insert([
+                'nama_produk'=>$request->nama_produk,
+                'harga'=>$request->harga,
+                'stok'=>$request->stok,
+                'uom'=>$request->uom,
+                'image_produk'=>$product_path,
+                'id_koperasi'=>$id,
             ]);
             if(!$products){
                 throw new \Exception('Gagal Tambah!');

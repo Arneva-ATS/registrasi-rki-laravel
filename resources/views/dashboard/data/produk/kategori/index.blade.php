@@ -48,25 +48,23 @@
                         </div>
                         <div class="modal-body">
                             <form class="g-3 needs-validation" novalidate enctype="multipart/for-data">
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <label class="text-white" for="nama_kategori">Nama Kategori</label>
                                     <input type="text" name="nama_kategori" id="nama_kategori" class="form-control"
                                         placeholder="masukan nama_kategori" required />
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mt-3">
                                     <label class="text-white" for="deskripsi_kategori">Deskripsi</label>
                                     <input type="text" name="deskripsi_kategori" id="deskripsi_kategori"
                                         class="form-control" placeholder="masukan deskripsi_kategori" required />
                                 </div>
-                                <div class="mt-5">
-                                    <button type="button" name="process" id="button-submit" class="btn btn-primary"
-                                        onclick="saveData()">
-                                        Simpan
-                                    </button>
-                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
+                            <button type="button" name="process" id="button-submit" class="btn btn-primary"
+                            onclick="saveData()">
+                            Simpan
+                        </button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
