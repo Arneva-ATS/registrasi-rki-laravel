@@ -23,12 +23,13 @@
                             <th>Stok</th>
                             <th>Units</th>
                             <th>Kategori</th>
+                            <th>Barcode</th>
                             <th class="no-content">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($products as $data)
-                            <tr id="row-{{ $data->id_produk }}">
+                            <tr class="text-center">
                                 <td>#{{ $data->id_produk }}</td>
                                 <td>{{ $data->nama_produk }}</td>
                                 <td><img width="50" height="50"
@@ -39,10 +40,17 @@
                                 <td>{{ $data->uom }}</td>
                                 <td>{{ $data->nama_kategori }}</td>
                                 <td>
+                                    <button data-bs-toggle="modal" data-bs-target="#modalBarcode"
+                                        onclick="setBarcodeId({{ $data->id_produk }})" class="btn">
+                                        <h2 id="generate_barcode" class="generate_barcode">{{ $data->barcode }}</h2>
+                                        <p id="generate_barcode" class="generate_barcode">{{ $data->barcode }}</p>
+                                    </button>
+                                </td>
+                                <td>
                                     <button data-bs-toggle="modal" data-bs-target="#modalEdit" class="btn btn btn-warning"
                                         onclick="editModal({{ $data->id_produk }})">
                                         Edit </button>
-                                    <button onclick="deleteBtn({{ $data->id }})" class="btn btn-danger"> Delete
+                                    <button onclick="deleteBtn({{ $data->id_produk }})" class="btn btn-danger"> Delete
                                     </button>
                                 </td>
                             </tr>
@@ -94,10 +102,15 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="form-group mt-3">
+                                    <label class="text-white" for="barcode">Barcode</label>
+                                    <input type="number" name="barcode" id="barcode" class="form-control"
+                                        placeholder="masukan barcode" required />
+                                </div>
                                 <div class="form-group mt-3">
                                     <label class="text-white" for="kategori">Kategori</label>
-                                    <select type="text" name="kategori" id="kategori" class="form-control" required />
+                                    <select type="text" name="kategori" id="kategori" class="form-control"
+                                        required />
                                     @foreach ($categories as $data_kategori)
                                         <option value="{{ $data_kategori->id }}">{{ $data_kategori->nama_kategori }}
                                         </option>
@@ -116,6 +129,33 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal Input Jumlah Barcode -->
+            <div class="modal fade" id="modalBarcode" tabindex="-1" aria-labelledby="modalBarcodeLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-white" id="modalBarcodeLabel">Cetak Barcode</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="g-3 needs-validation" novalidate>
+                                <div class="form-group">
+                                    <label class="text-white" for="barcode_qty">Jumlah Barcode</label>
+                                    <input type="number" name="barcode_qty" id="barcode_qty" class="form-control"
+                                        placeholder="Masukkan jumlah barcode" required />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" onclick="printBarcode()">Cetak</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Edit Produk -->
             <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -126,6 +166,8 @@
                         </div>
                         <div class="modal-body">
                             <form class="g-3 needs-validation" novalidate enctype="multipart/for-data">
+                                <input type="text" name="edit_id_produk" id="edit_id_produk" class="form-control"
+                                    hidden required />
                                 <div class="form-group">
                                     <label class="text-white" for="edit_nama_produk">Nama Produk</label>
                                     <input type="text" name="edit_nama_produk" id="edit_nama_produk"
@@ -160,7 +202,11 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="form-group mt-3">
+                                    <label class="text-white" for="edit_barcode">Barcode</label>
+                                    <input type="number" name="edit_barcode" id="edit_barcode" class="form-control"
+                                        placeholder="masukan stok" required />
+                                </div>
                                 <div class="form-group mt-3">
                                     <label class="text-white" for="edit_kategori">Kategori</label>
                                     <select type="text" name="edit_kategori" id="edit_kategori" class="form-control"
@@ -175,13 +221,17 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" name="process" id="button-submit" class="btn btn-primary"
-                                onclick="saveData()">
+                                onclick="updateData()">
                                 Simpan
                             </button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- Div untuk menampung barcode -->
+            <div style="display: none">
+                <div id="barcodeContainer"></div>
             </div>
         </div>
     </div>
@@ -194,6 +244,8 @@
         let previewProduk = document.getElementById("preview-gambar")
         let previewEditProduk = document.getElementById("preview-edit-gambar")
         let type;
+        let selectedProductId;
+
         window.addEventListener("load", () => {
             const url = new URL(window.location.href);
             const path = url.pathname.split("/");
@@ -210,6 +262,86 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        function setBarcodeId(id) {
+            selectedProductId = id;
+        }
+
+        function printBarcode() {
+            const qty = document.getElementById('barcode_qty').value;
+
+            if (!qty || qty <= 0) {
+                alert('Masukkan jumlah barcode yang valid');
+                return;
+            }
+
+            fetch(`/api/products/detail-products/${id_koperasi}/${selectedProductId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.response_code === '00') {
+                        const barcodeValue = data.response_message[0].barcode;
+                        console.log(barcodeValue)
+                        generateBarcodePage(barcodeValue, qty);
+                        printElement(document.getElementById('barcodeContainer'));
+                    } else {
+                        alert('Gagal mendapatkan data barcode');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan');
+                });
+        }
+
+        function generateBarcodePage(barcodeValue, qty) {
+            const barcodesPerPage = 40;
+            const rowsPerPage = 10;
+            const colsPerPage = 4;
+            const totalPages = Math.ceil(qty / barcodesPerPage);
+            const barcodeContainer = document.getElementById('barcodeContainer');
+            barcodeContainer.innerHTML = '';
+            let html = '<link href="https://fonts.googleapis.com/css?family=Libre Barcode 128" rel="stylesheet">'
+            html +=
+                '<style> td h2 {font-family: "Libre Barcode 128";font-size: 10em;text-align: center; margin: 10px;} table { width: 100%; margin-top:2em;} td { padding: 10px;border:2px solid; } td p { text-align: center; margin: 0; }</style>'
+            for (let page = 0; page < totalPages; page++) {
+                html += '<div style="page-break-after: always;">';
+                html += '<table>';
+
+                for (let row = 0; row < rowsPerPage; row++) {
+                    html += '<tr>';
+
+                    for (let col = 0; col < colsPerPage; col++) {
+                        const index = page * barcodesPerPage + row * colsPerPage + col;
+                        if (index >= qty) break;
+                        html += '<td class="barcode"><h2>' + barcodeValue + '</h2><p class="text-center">' + barcodeValue + '</p></td>';
+                    }
+
+                    html += '</tr>';
+                }
+
+                html += '</table>';
+                html += '</div>';
+            }
+
+            barcodeContainer.innerHTML = html;
+            // barcodeContainer.style.display = 'block';
+        }
+
+        function printElement(elem) {
+            const domClone = elem.cloneNode(true);
+            const printSection = document.createElement('div');
+            printSection.id = 'printSection';
+            printSection.appendChild(domClone);
+            document.body.appendChild(printSection);
+            const style = document.createElement('style');
+            style.innerHTML =
+                '@media print { body * { visibility: hidden; } #printSection, #printSection * { visibility: visible; } #printSection { position: absolute; left: 0; top: 0; } }';
+            document.head.appendChild(style);
+            window.print();
+            document.body.removeChild(printSection);
+            document.head.removeChild(style);
+        }
+
 
         function deleteBtn(id) {
             swal({
@@ -312,6 +444,9 @@
                         document.getElementById('edit_harga').value = dataProduct[0].harga
                         document.getElementById('edit_stok').value = dataProduct[0].stok
                         document.getElementById('edit_uom').value = dataProduct[0].uom
+                        document.getElementById("edit_id_produk").value = dataProduct[0].id
+                        previewEditProduk.src = 'http://127.0.0.1:8000' + dataProduct[0].image_produk;
+                        document.getElementById("edit_barcode").value = dataProduct[0].barcode;
                         let kategoriSelect = document.getElementById('edit_kategori');
                         let kategoriId = dataProduct[0].id_kategori;
 
@@ -337,6 +472,7 @@
             const uom = document.getElementById("uom").value;
             const kategori = document.getElementById("kategori").value;
             const image_produk = baseStringProduk;
+            const barcode = document.getElementById("barcode").value;
 
             swal({
                 title: "Please wait",
@@ -353,6 +489,7 @@
                 stok,
                 uom,
                 kategori,
+                barcode,
                 type,
                 image_produk: image_produk?.split(",")[1]
             };
@@ -406,75 +543,82 @@
                 });
         }
 
-        // function editRow(id) {
-        //     const row = document.getElementById(`row-${id}`);
-        //     const cells = row.getElementsByTagName('td');
-        //     console.log(cells[6].innerText)
+        function updateData() {
+            const nama_produk = document.getElementById("edit_nama_produk").value;
+            const id_produk = document.getElementById("edit_id_produk").value;
+            const harga = document.getElementById("edit_harga").value;
+            const stok = document.getElementById("edit_stok").value;
+            const uom = document.getElementById("edit_uom").value;
+            const kategori = document.getElementById("edit_kategori").value;
+            const image_produk = baseStringEditProduk;
 
-        //     if (row.getAttribute('data-editing') === 'true') {
+            swal({
+                title: "Please wait",
+                text: "Submitting data...",
+                // icon: "/assets/images/loading.gif",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                className: "swal-loading",
+            });
+            const jsondata = {
+                nama_produk,
+                harga,
+                stok,
+                uom,
+                kategori,
+                type,
+                image_produk: image_produk?.split(",")[1]
+            };
+            console.log(jsondata)
 
-        //         // Save changes
-        //         const updatedData = {
-        //             id: id,
-        //             nama_produk: cells[1].getElementsByTagName('input')[0].value,
-        //             image_produk: cells[2].getElementsByTagName('input')[0].value,
-        //             harga: cells[3].getElementsByTagName('input')[0].value,
-        //             stok: cells[4].getElementsByTagName('input')[0].value,
-        //             uom: cells[5].getElementsByTagName('input')[0].value,
-        //             nama_kategori: cells[6].getElementsByTagName('select')[0].value,
-        //         };
-        //         cells[1].innerHTML = updatedData.nama_produk;
-        //         cells[2].innerHTML = `<img width="50" height="50" src="${updatedData.image_produk}" alt="Gambar produk">`;
-        //         cells[3].innerHTML = updatedData.harga;
-        //         cells[4].innerHTML = updatedData.stok;
-        //         cells[5].innerHTML = updatedData.uom;
-        //         cells[6].innerHTML = updatedData.nama_kategori;
-        //         row.setAttribute('data-editing', 'false');
-        //         cells[7].getElementsByTagName('button')[0].innerText = 'Edit';
-        // Example of sending updatedData to the server (you need to implement the endpoint)
-        // fetch(`/api/products/update-product/${id}`, {
-        //     headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Content-Type": "application/json",
-        //     },
-        //     method: "POST",
-        //     body: JSON.stringify(updatedData),
-        // }).then((response) => response.json()).then((data) => {
-        //     console.log(data);
-        //     if (data.response_code == "00") {
-        //         // Update the row with new data
-        //         cells[1].innerHTML = updatedData.nama_produk;
-        //         cells[2].innerHTML =
-        //             `<img width="50" height="50" src="${updatedData.image_produk}" alt="Gambar produk">`;
-        //         cells[3].innerHTML = updatedData.harga;
-        //         cells[4].innerHTML = updatedData.stok;
-        //         cells[5].innerHTML = updatedData.uom;
-        //         cells[6].innerHTML = updatedData.nama_kategori;
+            // console.log(jsondata)
 
-        //         // Switch back to edit mode
-        //         row.setAttribute('data-editing', 'false');
-        //         cells[7].getElementsByTagName('button')[0].innerText = 'Edit';
-        //     } else {
-        //         console.error('Failed to update product');
-        //     }
-        // }).catch((error) => {
-        //     console.error('Error:', error);
-        // });
-        // } else {
-        // Edit mode
-        //         cells[1].innerHTML = `<input class="form-stock w-75" type="text" value="${cells[1].innerText}">`;
-        //         cells[2].innerHTML =
-        //             `<input  class="form-stock" type="file" value="${cells[2].getElementsByTagName('img')[0].src}">`;
-        //         cells[3].innerHTML = `<input  class="form-stock" type="text" value="${cells[3].innerText}">`;
-        //         cells[4].innerHTML =
-        //             `<button class="btn btn-primary">-</button><input class="form-stock" type="text" value="${cells[4].innerText}"><button class="btn btn-primary">+</button>`;
-        //         cells[5].innerHTML = `<input  class="form-stock" type="text" value="${cells[5].innerText}">`;
-        //         cells[6].innerHTML = `<select>
-    //             ${cells[6].innerText}</select>`;
-
-        //         row.setAttribute('data-editing', 'true');
-        //         cells[7].getElementsByTagName('button')[0].innerText = 'Save';
-        //     }
-        // }
+            fetch(`/api/products/update-produk/${id_produk}`, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                    method: "PATCH",
+                    body: JSON.stringify(jsondata),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data)
+                    swal.close();
+                    if (data.response_code == "00") {
+                        swal({
+                            title: "Status",
+                            text: data?.response_message,
+                            icon: "success",
+                            buttons: true,
+                        }).then((willOut) => {
+                            if (willOut) {
+                                window.location = "/list_produk";
+                                console.log("success")
+                            } else {
+                                console.log("error");
+                            }
+                        });
+                    } else {
+                        swal({
+                            title: "Status",
+                            text: data?.response_message,
+                            icon: "error",
+                            buttons: true,
+                        })
+                    }
+                })
+                .catch((error) => {
+                    swal.close();
+                    console.log(error)
+                    swal({
+                        title: "Status",
+                        text: error,
+                        icon: "info",
+                        buttons: true,
+                    })
+                });
+        }
     </script>
 @endsection

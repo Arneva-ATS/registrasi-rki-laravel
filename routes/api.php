@@ -50,9 +50,8 @@ Route::prefix('products')->group(function () {
     Route::post('/insert-kategori/{id}', [ProductCategoryController::class, 'store']);
     Route::delete('/delete-kategori/{id}', [ProductCategoryController::class, 'destroy']);
     Route::delete('/delete-produk/{id}', [ProductController::class, 'destroy']);
-
-
-})->name('wilayah');
+    Route::patch('/update-produk/{id}', [ProductController::class, 'update']);
+})->name('products');
 
 // ============ Pengajuan Registrasi ================
 Route::post('/approve/send-mail/pengajuan/{id}', [MailController::class, 'sendMailApprovePengajuan']);
