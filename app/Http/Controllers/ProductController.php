@@ -32,7 +32,7 @@ class ProductController extends Controller
 
             // Simpan foto selfie
             $product_base64 = $request->image_produk;
-            $product_extension = 'png';
+            $product_extension = $request->type;
             $product_name = time() . '_produk.' . $product_extension;
             $product_folder = "/produk/image/";
             $product_path =  public_path()  . $product_folder . $product_name;

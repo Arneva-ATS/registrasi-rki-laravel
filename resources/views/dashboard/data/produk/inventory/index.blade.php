@@ -30,7 +30,7 @@
                             <tr>
                                 <td>#{{ $data->id }}</td>
                                 <td>{{ $data->nama_produk }}</td>
-                                <td><img width="50" height="50" src="{{ $data->image_produk }}" alt="Gambar produk">
+                                <td><img width="50" height="50" src="{{ 'http://127.0.0.1:8000' . $data->image_produk }}" alt="Gambar produk">
                                 </td>
                                 <td>{{ $data->harga }}</td>
                                 <td>{{ $data->stok }}</td>
@@ -118,6 +118,7 @@
         let baseStringProduk;
         let produkImage = document.getElementById("gambar_produk");
         let previewProduk = document.getElementById("preview-gambar")
+        let type;
         window.addEventListener("load", () => {
             const url = new URL(window.location.href);
             const path = url.pathname.split("/");
@@ -129,6 +130,7 @@
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     previewProduk.src = e.target.result;
+                    type = file.type.split('/')[1];
                 }
                 reader.readAsDataURL(file);
             }
@@ -228,6 +230,7 @@
                 stok,
                 uom,
                 kategori,
+                type,
                 image_produk
             };
 
