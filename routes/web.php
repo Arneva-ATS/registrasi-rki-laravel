@@ -358,7 +358,7 @@ if (config('app.env') === 'production') {
         $edit_state = false;
         $products = DB::table('tbl_produk')->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_produk.id_koperasi', $id)->select('*', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori')->get();
         return view('dashboard.data.produk.inventory.index', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state'));
-    })->name('view-product');
+    })->name('view-produk');
 
     Route::get('/list_primkop_puskop/{id}', function ($id) {
         $id_pus = Session::get('id_koperasi');
