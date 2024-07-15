@@ -398,6 +398,16 @@ if (config('app.env') === 'production') {
         return view('dashboard.data.koperasi.anggota.index', compact('id_prim', 'username', 'password', 'tingkatan', 'primkop_anggota'));
     })->name('view-anggota-primkop');
 
+    Route::get('/list_pengajuan', function () {
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+
+        $list_pengajuan =  DB::table('tbl_pengajuan')->get();
+        return view('dashboard.data.pengajuan.index', compact('id', 'username', 'password', 'tingkatan', 'list_pengajuan'));
+    })->name('view-pengajuan');
+
     Route::get('/', function () {
         return redirect()->route('login');
     })->name('home');

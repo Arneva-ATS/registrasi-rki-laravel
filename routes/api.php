@@ -53,3 +53,9 @@ Route::prefix('products')->group(function () {
 
 
 })->name('wilayah');
+
+// ============ Pengajuan Registrasi ================
+Route::post('/approve/send-mail/pengajuan/{id}', [MailController::class, 'sendMailApprovePengajuan']);
+Route::delete('/reject/send-mail/pengajuan/{id}', [MailController::class, 'sendMailRejectPengajuan']);
+// ============ End Pengajuan Registrasi ================
+

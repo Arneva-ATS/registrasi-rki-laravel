@@ -79,6 +79,17 @@
                             @endif
                         </ul>
                     </li>
+
+                    @if($tingkatan == 'rki')
+                    <li>
+                        <a href="#side-pengajuan" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs('view-pengajuan') ? 'true' : 'false' }}" class="dropdown-toggle"> Pengajuan <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
+                        <ul class="list-unstyled sub-submenu collapse {{ request()->routeIs('view-pengajuan') ? 'show' : '' }}" id="side-pengajuan" data-bs-parent="#pages" style="">
+                            <li class="{{ request()->routeIs('view-pengajuan') ? 'active' : '' }}">
+                                <a href="{{ route('view-pengajuan') }}"> Pengajuan </a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
                 </ul>
                 <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota', 'view-kategori','view-produk']) ? 'show' : '' }}" id="side-data" data-bs-parent="#accordionExample" style="">
                     <li>
