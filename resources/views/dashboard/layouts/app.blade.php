@@ -6,7 +6,20 @@
         <meta name="description" content="Dashboard Koperasi RKI" />
         <meta name="author" content="RKIAPP" />
         <title>Dashboard - RKI</title>
+        <style>
+        .form-stock {
+            text-align: center;
+            padding: 0.5em;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
 
+        .form-stock:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        </style>
         @include('dashboard.layouts.partials.head')
     </head>
 

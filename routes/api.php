@@ -45,8 +45,11 @@ Route::delete('/reject/send-mail/anggota/{id}', [MailController::class, 'sendMai
 Route::delete('/reject/send-mail/koperasi/{id}', [MailController::class, 'sendMailRejectKoperasi']);
 Route::prefix('products')->group(function () {
     Route::get('/get-products/{id}', [ProductController::class, 'get_product']);
+    Route::get('/detail-products/{id_koperasi}/{id_produk}', [ProductController::class, 'detail_product']);
     Route::post('/insert-product/{id}', [ProductController::class, 'insert']);
     Route::post('/insert-kategori/{id}', [ProductCategoryController::class, 'store']);
     Route::delete('/delete-kategori/{id}', [ProductCategoryController::class, 'destroy']);
+    Route::delete('/delete-produk/{id}', [ProductController::class, 'destroy']);
+
 
 })->name('wilayah');

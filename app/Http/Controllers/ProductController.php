@@ -16,11 +16,24 @@ class ProductController extends Controller
             }
             return response()->json(['response_code'=>'00', 'response_message'=>$products],200);
         }catch(\Throwable $th){
-            return response()->json(['response_code'=>'00', 'response_message'=>$th->getMessage()],200);
+            return response()->json(['response_code'=>'00', 'response_message'=>$th->getMessage()],500);
+        }
+    }
+    public function detail_product($id_koperasi, $id_produk){
+        try{
+            $products = DB::table('tbl_produk')->where('id_koperasi', $id_koperasi)->where('id', $id_produk)->get();
+            if(!$products){
+                throw new \Exception('Gagal Mendapatkan Produk');
+            }
+            return response()->json(['response_code'=>'00', 'response_message'=>$products],200);
+        }catch(\Throwable $th){
+            return response()->json(['response_code'=>'00', 'response_message'=>$th->getMessage()],500);
         }
     }
 
     public function insert(Request $request, $id){
+        DB::beginTransaction();
+
         try{
             $request->validate([
                 'nama_produk'=>'required',
@@ -43,14 +56,42 @@ class ProductController extends Controller
                 'stok'=>$request->stok,
                 'uom'=>$request->uom,
                 'image_produk'=>$product_path,
+                'id_kategori'=>$request->kategori,
                 'id_koperasi'=>$id,
             ]);
             if(!$products){
                 throw new \Exception('Gagal Tambah!');
             }
+            DB::commit();
             return response()->json(['response_code'=>'00', 'response_message'=>'Berhasil Tambah Produk!'],200);
         }catch(\Throwable $th){
-            return response()->json(['response_code'=>'00', 'response_message'=>$th->getMessage()],200);
+            DB::rollBack();
+            return response()->json(['response_code'=>'00', 'response_message'=>$th->getMessage()],500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $delete_category = DB::table('tbl_produk')->where('id', $id)->delete();
+
+            if (!$delete_category) {
+                throw new \Exception('Gagal delete!');
+            }
+            DB::commit();
+            return response()->json([
+                'response_code' => '00',
+                'response_message' => 'Berhasil hapus produk!',
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'response_code' => '01',
+                'response_message' => $th->getMessage(),
+            ]);
         }
     }
 }

@@ -50,7 +50,7 @@ class ProductCategoryController extends Controller
             $delete_category = DB::table('tbl_kategori_produk')->where('id', $id)->delete();
 
             if (!$delete_category) {
-                throw new \Exception('Gagal menambahkan kategori!');
+                throw new \Exception('Gagal delete kategori!');
             }
             DB::commit();
             return response()->json([
