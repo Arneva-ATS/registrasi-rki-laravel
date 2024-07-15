@@ -47,7 +47,7 @@
                                         <a href="/list_primkop_puskop/{{ $data->id }}" class="btn btn btn-info"> Primkop
                                         </a>
                                         <button onclick="rejectBtn({{ $data->id }}, '{{ $data->email_koperasi }}')"
-                                            class="btn btn-danger"> Reject </button>   
+                                            class="btn btn-danger"> Reject </button>
                                         <button
                                             onclick="approveBtn({{ $data->id }}, '{{ $data->username }}','{{ $data->email_koperasi }}')"
                                             class="btn btn-warning"> Approve </button>
