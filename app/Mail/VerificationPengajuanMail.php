@@ -46,6 +46,9 @@ class VerificationPengajuanMail extends Mailable
                 'content' => $this->details['content'],
                 'info' => $this->details['info'],
                 'link' => $this->details['link'],
+                'data' => $this->details['data'],
+                'logo_rki' => $this->details['logo_rki'],
+                'logo_background' => $this->details['logo_background'],
             ]
         );
     }
