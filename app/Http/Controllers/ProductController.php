@@ -11,7 +11,7 @@ class ProductController extends Controller
     public function get_product($id)
     {
         try {
-            $products = DB::table('tbl_products')->where('id_koperasi', $id)->get();
+            $products = DB::table('tbl_produk')->where('id_koperasi', $id)->get();
             if (!$products) {
                 throw new \Exception('Gagal Mendapatkan Produk');
             }
