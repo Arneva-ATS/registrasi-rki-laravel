@@ -3,10 +3,10 @@
 @section('content')
     <div class="row layout-top-spacing">
         <div class="w-50 mb-5" id="scan-form">
-            <input id="barcode-input" type="text" name="txt" placeholder="Scan Barcode" class="form-control" autofocus>
+            <input id="barcode-input" type="text" name="txt" placeholder="Scan Barcode" class="form-control">
         </div>
 
-        <div class="simple-pill col-lg-8">
+        <div class="simple-pill col-lg-7">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active btn btn-light" id="pills-home-tab" data-bs-toggle="pill"
@@ -338,7 +338,7 @@
 
 
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             <div class="invoice-container" style="background-color: white; padding: 20px; border-radius: 8px;">
                 <div class="invoice-inbox">
                     <div id="ct" class="">
@@ -348,26 +348,33 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-12 mr-auto">
                                             <div class="d-flex">
-                                                <img class="company-logo" src="../src/assets/img/cork-logo.png"
-                                                    alt="company">
+                                                <img class="company-logo" src="/assets/img/rki_icon.png"
+                                                    style="width:6em;background-color: #233668" alt="company">
                                                 <h3 class="in-heading align-self-center">{{ $username }}</h3>
                                             </div>
-                                            <p class="inv-street-addr mt-3">XYZ Delta Street</p>
-                                            <p class="inv-email-address">info@company.com</p>
-                                            <p class="inv-email-address">(120) 456 789</p>
+                                            <p class="inv-street-addr mt-3">{{ $koperasi->nama_koperasi }}</p>
+                                            <p class="inv-email-address">{{ $koperasi->email_koperasi }}</p>
+                                            <p class="inv-email-address">{{ $koperasi->no_phone }}</p>
+                                            <p class="inv-email-address">Masukan No Anggota:</p>
+                                            <p class="inv-email-address"><input type="text" id="no_anggota"
+                                                    name="no_anggota" class="form-control w-100" style="height: 2em;"
+                                                    placeholder="Masukan No Anggota"><input type="text"
+                                                    id="id_anggota" name="id_anggota" class="form-control w-100"
+                                                    style="height: 2em;" placeholder="" hidden></p>
+
                                         </div>
                                         <div class="col-sm-6 text-sm-end">
                                             <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4">
                                                 <span class="inv-title">Invoice : </span>
-                                                <span class="inv-number">#0001</span>
+                                                <span id="invoice-number" class="inv-number">#0001</span>
                                             </p>
                                             <p class="inv-created-date mt-sm-5 mt-3">
                                                 <span class="inv-title">Invoice Date : </span>
-                                                <span class="inv-date">20 Mar 2022</span>
+                                                <span id="invoice-date" class="inv-date"></span>
                                             </p>
                                             <p class="inv-due-date">
                                                 <span class="inv-title">Due Date : </span>
-                                                <span class="inv-date">26 Mar 2022</span>
+                                                <span id="due-date" class="inv-date"></span>
                                             </p>
                                         </div>
                                     </div>
@@ -383,17 +390,25 @@
                                             <h6 class="inv-title">Invoice From</h6>
                                         </div>
                                         <div class="col-xl-8 col-lg-7 col-md-6 col-sm-4">
-                                            <p class="inv-customer-name">Jesse Cory</p>
-                                            <p class="inv-street-addr">405 Mulberry Rd., NC, 28649</p>
-                                            <p class="inv-email-address">jcory@company.com</p>
-                                            <p class="inv-email-address">(128) 666 070</p>
+                                            <p class="inv-customer-name"><input type="text" id="nama_customer"
+                                                    name="nama_customer" class="form-control w-75" style="height: 1.5em;"
+                                                    placeholder="nama customer"></p>
+                                            <p class="inv-street-addr"><input type="text" id="alamat_customer"
+                                                    name="alamat_customer" class="form-control w-75"
+                                                    style="height: 1.5em;" placeholder="alamat customer"></p>
+                                            <p class="inv-email-address"><input type="text" id="email_customer"
+                                                    name="email_customer" class="form-control w-75"
+                                                    style="height: 1.5em;" placeholder="email customer"></p>
+                                            <p class="inv-email-address"><input type="text" id="no_telp_customer"
+                                                    name="no_telp_customer" class="form-control w-75"
+                                                    style="height: 1.5em;" placeholder="telp customer"></p>
                                         </div>
                                         <div
                                             class="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-12 order-sm-0 order-1 text-sm-end">
-                                            <p class="inv-customer-name">Oscar Garner</p>
-                                            <p class="inv-street-addr">2161 Ferrell Street, MN, 56545 </p>
-                                            <p class="inv-email-address">info@mail.com</p>
-                                            <p class="inv-email-address">(218) 356 9954</p>
+                                            <p class="inv-customer-name">{{ $koperasi->nama_koperasi }}</p>
+                                            <p class="inv-street-addr">{{ $koperasi->alamat }} </p>
+                                            <p class="inv-email-address">{{ $koperasi->email_koperasi }}</p>
+                                            <p class="inv-email-address">{{ $koperasi->no_phone }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -408,6 +423,7 @@
                                                     <th class="text-end" scope="col">Qty</th>
                                                     <th class="text-end" scope="col">Price</th>
                                                     <th class="text-end" scope="col">Amount</th>
+                                                    <th class="text-end" scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="invoice-table">
@@ -419,50 +435,49 @@
 
                                 <div class="inv--total-amounts">
                                     <div class="row mt-4">
-                                        <div class="col-sm-5 col-12 order-sm-0 order-1"></div>
-                                        <div class="col-sm-7 col-12 order-sm-1 order-0">
+                                        <div class="col-sm-2 col-12 order-sm-0 order-1"></div>
+                                        <div class="col-sm-10 col-12 order-sm-1 order-0">
                                             <div class="text-sm-end">
                                                 <div class="row">
                                                     <div class="col-sm-8 col-7">
                                                         <p class="">Sub Total :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p id="sub-total">$0</p>
+                                                        <p id="sub-total">Rp. 0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
-                                                        <p class="">Tax 10% :</p>
+                                                        <p class="">Tax 11% :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p id="tax">$0</p>
-                                                    </div>
-                                                    <div class="col-sm-8 col-7">
-                                                        <p class="discount-rate">Shipping :</p>
-                                                    </div>
-                                                    <div class="col-sm-4 col-5">
-                                                        <p id="shipping">$10</p>
+                                                        <p id="tax">Rp. 0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
                                                         <p class="discount-rate">Discount 5% :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p id="discount">$0</p>
+                                                        <p id="discount">Rp. 0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7 grand-total-title mt-3">
                                                         <h4 class="">Grand Total : </h4>
                                                     </div>
                                                     <div class="col-sm-4 col-5 grand-total-amount mt-3">
-                                                        <h4 id="grand-total">$0</h4>
+                                                        <h4 id="grand-total">Rp. 0</h4>
+                                                    </div>
+                                                    <div class="col-sm-4 col-5 mt-3">
                                                     </div>
                                                 </div>
+                                                <button class="btn btn-primary"
+                                                    onclick="checkoutItems()">Checkout</button>
+
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="inv--note">
-                                    <div class="row mt-4">
-                                        <div class="col-sm-12 col-12 order-sm-0 order-1">
-                                            <p>Note: Thank you for doing Business with us.</p>
+                                    <div class="inv--note">
+                                        <div class="row mt-4">
+                                            <div class="col-sm-12 col-12 order-sm-0 order-1">
+                                                <p>Note: Thank you for doing Business with us.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -471,105 +486,174 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
-    </div>
+        <script>
+            let listProduk = @json($products);
+            let id_koperasi;
+            let invoiceItems = [];
+            let invoiceDate;
+            let invoiceDue;
+            let invoice_id = 1; // Initial invoice_id
+            let tax;
+            let discount;
+            let grandTotal;
+            let subTotal;
 
-    <script>
-        let listProduk = @json($products);
-        let id_koperasi;
-        let invoiceItems = [];
+            window.addEventListener("load", () => {
+                const url = new URL(window.location.href);
+                const path = url.pathname.split("/");
+                id_koperasi = {{ $id }};
+                displayProducts(listProduk); // Display all products on load
+                setInvoiceDetails()
 
-        window.addEventListener("load", () => {
-            const url = new URL(window.location.href);
-            const path = url.pathname.split("/");
-            id_koperasi = {{ $id }};
-            displayProducts(listProduk); // Display all products on load
+            });
 
-        });
-
-        function searchBtn(value) {
-            const filteredProducts = listProduk.filter(product => product.nama_produk.toLowerCase().includes(value
-                .toLowerCase()));
-            displayProducts(filteredProducts);
-        }
-
-        function filterCategoryBtn(value) {
-            if (value === "00") {
-                displayProducts(listProduk); // Display all products if "All Category" is selected
-            } else {
-                const filteredProducts = listProduk.filter(product => product.id_kategori == value);
+            function searchBtn(value) {
+                const filteredProducts = listProduk.filter(product => product.nama_produk.toLowerCase().includes(value
+                    .toLowerCase()));
                 displayProducts(filteredProducts);
             }
-        }
 
-        document.getElementById('barcode-input').addEventListener('input', function(event) {
-            const barcodeValue = event.target.value;
-            searchByBarcode(barcodeValue);
-            event.target.value = ''; // Clear the input field for the next scan
-        });
+            function filterCategoryBtn(value) {
+                if (value === "00") {
+                    displayProducts(listProduk); // Display all products if "All Category" is selected
+                } else {
+                    const filteredProducts = listProduk.filter(product => product.id_kategori == value);
+                    displayProducts(filteredProducts);
+                }
+            }
 
-        function searchByBarcode(value) {
-            const product = listProduk.find(product => product.barcode === value);
-            if (product) {
+            document.getElementById('no_anggota').addEventListener('change', function(event) {
+                const no_anggota = event.target.value;
+                console.log(no_anggota)
+                fetch(`/api/anggota/list/${no_anggota}/${id_koperasi}`, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                        method: 'GET',
+                    }).then(response => response.json())
+                    .then(data => {
+                        let {
+                            response_code,
+                            response_message
+                        } = data
+                        console.log(data);
+                        if (response_code == '00') {
+                            document.getElementById('id_anggota').value = response_message.id
+                            document.getElementById('nama_customer').value = response_message.nama_lengkap;
+                            document.getElementById('alamat_customer').value = response_message.alamat;
+                            document.getElementById('email_customer').value = response_message.email;
+                            document.getElementById('no_telp_customer').value = response_message.nomor_hp;
+                            document.getElementById('nama_customer').disabled = true
+                            document.getElementById('alamat_customer').disabled = true;
+                            document.getElementById('email_customer').disabled = true
+                            document.getElementById('no_telp_customer').disabled = true;
+
+                        } else {
+                            alert(response_message);
+                        }
+                    })
+
+                event.target.value = no_anggota; // Clear the input field for the next scan
+            });
+
+            function setInvoiceDetails() {
+                const invoiceNumber = String(invoice_id).padStart(5, '0'); // Pad the invoice_id with leading zeros to 5 digits
+                document.getElementById('invoice-number').textContent = `#${invoiceNumber}`;
+                const invoiceDate = new Date(); // 17 June 2024 (Month is 0-indexed, so 5 means June)
+                const dueDate = new Date(invoiceDate);
+                dueDate.setDate(invoiceDate.getDate() + 7); // Set due date 7 days from invoice date
+
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                document.getElementById('invoice-date').textContent = invoiceDate.toLocaleDateString('id-ID', options);
+                document.getElementById('due-date').textContent = dueDate.toLocaleDateString('id-ID', options);
+            }
+            document.getElementById('barcode-input').addEventListener('change', function(event) {
+                const barcodeValue = event.target.value;
+                searchByBarcode(barcodeValue);
+                event.target.value = ''; // Clear the input field for the next scan
+            });
+
+            function searchByBarcode(value) {
+                const product = listProduk.find(product => product.barcode === value);
+                if (product) {
+                    addToInvoice(product);
+                } else {
+                    alert('Produk tidak ditemukan');
+                }
+            }
+
+            function addProduct(value) {
+                const product = listProduk.find(product => product.id_produk === value);
                 addToInvoice(product);
-            } else {
-                alert('Produk tidak ditemukan');
-            }
-        }
 
-        function addToInvoice(product) {
-            const existingItem = invoiceItems.find(item => item.id_produk === product.id_produk);
-            if (existingItem) {
-                existingItem.qty += 1;
-                existingItem.amount += product.harga;
-            } else {
-                invoiceItems.push({
-                    id: product.id_produk,
-                    name: product.nama_produk,
-                    qty: 1,
-                    price: product.harga,
-                    amount: product.harga
-                });
             }
-            console.log(invoiceItems)
-            displayInvoice();
-        }
 
-        function displayInvoice() {
-            let invoiceTableBody = document.querySelector('#invoice-table');
-            invoiceTableBody.innerHTML = '';
-            let subTotal = 0;
-            invoiceItems.forEach((item, index) => {
-                subTotal += item.amount;
-                let row = `
+            function deleteFromInvoice(productId) {
+                invoiceItems = invoiceItems.filter(item => item.id !== productId);
+                displayInvoice();
+            }
+
+            function addToInvoice(product) {
+                const existingItem = invoiceItems.find(item => item.id === product.id_produk);
+                if (existingItem) {
+                    existingItem.qty += 1;
+                    existingItem.amount += product.harga;
+                } else {
+                    invoiceItems.push({
+                        id: product.id_produk,
+                        name: product.nama_produk,
+                        qty: 1,
+                        price: product.harga,
+                        amount: product.harga
+                    });
+                }
+                console.log(invoiceItems)
+                displayInvoice();
+            }
+
+            function displayInvoice() {
+                let invoiceTableBody = document.querySelector('#invoice-table');
+                invoiceTableBody.innerHTML = '';
+                subTotal = 0;
+                invoiceItems.forEach((item, index) => {
+                    subTotal += item.amount;
+                    let row = `
             <tr>
                 <td>${index + 1}</td>
                 <td>${item.name}</td>
                 <td class="text-end">${item.qty}</td>
                 <td class="text-end">${item.price}</td>
                 <td class="text-end">${item.amount}</td>
+                <td class="text-end"><button class="btn btn-danger btn-sm" onclick="deleteFromInvoice(${item.id})">Delete</button></td>
+
             </tr>`;
-                invoiceTableBody.insertAdjacentHTML('beforeend', row);
-            });
+                    invoiceTableBody.insertAdjacentHTML('beforeend', row);
+                });
 
-            let tax = subTotal * 0.10;
-            let discount = subTotal * 0.05;
-            let shipping = 10;
-            let grandTotal = subTotal + tax + shipping - discount;
+                tax = subTotal * 0.11;
+                discount = subTotal * 0.05;
+                grandTotal = subTotal + tax - discount;
 
-            document.getElementById('sub-total').textContent = `Rp. ${subTotal.toFixed(2)}`;
-            document.getElementById('tax').textContent = `Rp. ${tax.toFixed(2)}`;
-            document.getElementById('discount').textContent = `Rp. ${discount.toFixed(2)}`;
-            document.getElementById('grand-total').textContent = `Rp. ${grandTotal.toFixed(2)}`;
-        }
+                document.getElementById('sub-total').textContent = `Rp. ${subTotal.toFixed(2)}`;
+                document.getElementById('tax').textContent = `Rp. ${tax.toFixed(2)}`;
+                document.getElementById('discount').textContent = `Rp. ${discount.toFixed(2)}`;
+                document.getElementById('grand-total').textContent = `Rp. ${grandTotal.toFixed(2)}`;
+            }
 
-        function displayProducts(products) {
-            let container = document.querySelector('.container-product');
-            container.innerHTML = '';
-            console.log(products);
-            products.forEach(product => {
-                let productCard = `
+            function displayProducts(products) {
+                let container = document.querySelector('.container-product');
+                container.innerHTML = '';
+                console.log(products);
+                products.forEach(product => {
+                    let productCard = `
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-4">
                     <div class="card p-3">
                         <img width="100px" height="100px" src="${product.image_produk}" class="card-img-top" alt="${product.nama_produk}">
@@ -577,13 +661,99 @@
                             <h5 class="card-title mb-3">${product.nama_produk}</h5>
                             <p>Rp. ${product.harga}</p>
                             <div class="media mt-4 mb-0 pt-1">
-                                <button class="btn btn-primary" type="button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="Shopping-Cart-Add--Streamline-Ultimate"><desc>Shopping Cart Add Streamline Icon: https://streamlinehq.com</desc><path d="M4.5 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M12 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m0.75 7.093 2.329 7.887a1.5 1.5 0 0 0 1.45 1.113h10.818A1.5 1.5 0 0 0 16.8 14.98l3.238 -12.154a2.249 2.249 0 0 1 2.174 -1.67h1.038" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m9.75 6.343 0 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m6.75 9.343 6 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg><span class="ml-2">Beli</span></button>
+                                <button onclick="addProduct(${product.id_produk})" class="btn btn-primary" type="button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="Shopping-Cart-Add--Streamline-Ultimate"><desc>Shopping Cart Add Streamline Icon: https://streamlinehq.com</desc><path d="M4.5 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M12 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m0.75 7.093 2.329 7.887a1.5 1.5 0 0 0 1.45 1.113h10.818A1.5 1.5 0 0 0 16.8 14.98l3.238 -12.154a2.249 2.249 0 0 1 2.174 -1.67h1.038" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m9.75 6.343 0 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m6.75 9.343 6 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg><span class="ml-2">Beli</span></button>
                             </div>
                         </div>
                     </div>
                 </div>`;
-                container.insertAdjacentHTML('beforeend', productCard);
+                    container.insertAdjacentHTML('beforeend', productCard);
+                });
+            }
+
+            function checkoutItems() {
+                let items = invoiceItems
+                let id_anggota = document.getElementById('id_anggota').value;
+                let data_customer;
+                let jsonData = {}
+                let nama_customer = document.getElementById('nama_customer').value
+                let email_customer = document.getElementById('email_customer').value
+                let alamat_customer = document.getElementById('alamat_customer').value
+                let no_telp_customer = document.getElementById('no_telp_customer').value
+
+
+                data_customer = {
+                    nama_customer,
+                    email_customer,
+                    alamat_customer,
+                    no_telp_customer,
+                }
+                jsonData = {
+                    items,
+                    id_anggota,
+                    id_koperasi,
+                    data_customer,
+                    subTotal,
+                    grandTotal,
+                    tax,
+                    discount,
+                }
+                console.log(jsonData)
+                swal({
+                title: "Please wait",
+                text: "Submitting data...",
+                // icon: "/assets/images/loading.gif",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                className: "swal-loading",
             });
-        }
-    </script>
-@endsection
+
+
+            fetch(`/api/pos/checkout`, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                    body: JSON.stringify(jsonData),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data)
+                    swal.close();
+                    if (data.response_code == "00") {
+                        swal({
+                            title: "Status",
+                            text: data?.response_message,
+                            icon: "success",
+                            buttons: true,
+                        }).then((willOut) => {
+                            if (willOut) {
+                                // window.location = "/list_produk";
+                                console.log("success")
+                            } else {
+                                console.log("error");
+                            }
+                        });
+                    } else {
+                        swal({
+                            title: "Status",
+                            text: data?.response_message,
+                            icon: "error",
+                            buttons: true,
+                        })
+                    }
+                })
+                .catch((error) => {
+                    swal.close();
+                    console.log(error)
+                    swal({
+                        title: "Status",
+                        text: error,
+                        icon: "info",
+                        buttons: true,
+                    })
+                });
+            }
+        </script>
+    @endsection

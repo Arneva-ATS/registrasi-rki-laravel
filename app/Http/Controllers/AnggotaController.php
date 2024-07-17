@@ -120,4 +120,26 @@ class AnggotaController extends Controller
         $id_koperasi = $id;
         return view('dashboard.data.koperasi.anggota.create', compact('id', 'username', 'password', 'tingkatan', 'id_koperasi', 'nama_koperasi'));
     }
+    public function show($no_anggota,$koperasi_id)
+    {
+        try {
+            $id = Session::get('id_koperasi');
+            $username = Session::get('username');
+            $password = Session::get('password');
+            $tingkatan = Session::get('tingkatan');
+            $id_inkop = Session::get('id_inkop');
+            $id_puskop = Session::get('id_puskop');
+            $id_primkop = Session::get('id_primkop');
+            $koperasi = Session::get('nama_koperasi');
+            $nama_koperasi = $koperasi;
+            $id_koperasi = $id;
+            $list_anggota = DB::table('tbl_anggota')->where('no_anggota', $no_anggota)->where('id_koperasi', $koperasi_id)->first();
+            if(!$list_anggota){
+                throw new \Exception('Tidak ditemukan data');
+            }
+            return response()->json(['response_code' => '00', 'response_message' => $list_anggota], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['response_code' => '01', 'response_message' => $th->getMessage()], 500);
+        }
+    }
 }
