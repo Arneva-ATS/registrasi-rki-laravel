@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KoperasiController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WilayahController;
@@ -53,6 +54,11 @@ Route::prefix('products')->group(function () {
     Route::patch('/update-produk/{id}', [ProductController::class, 'update']);
 })->name('products');
 
+Route::prefix('pos')->group(function () {
+    Route::post('/checkout', [PosController::class, 'insert_pos']);
+})->name('pos');
+
+Route::get('/anggota/list/{no_anggota}/{id_koperasi}', [AnggotaController::class, 'show']);
 // ============ Pengajuan Registrasi ================
 Route::post('/approve/send-mail/pengajuan/{id}', [MailController::class, 'sendMailApprovePengajuan']);
 Route::delete('/reject/send-mail/pengajuan/{id}', [MailController::class, 'sendMailRejectPengajuan']);
