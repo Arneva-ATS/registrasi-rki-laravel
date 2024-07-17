@@ -41,6 +41,7 @@
             </li>
 
             <li class="menu {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'active' : '' }}">
+                @if($tingkatan != 'anggota')
                 <a href="#side-data" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
@@ -50,6 +51,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </a>
+                @endif
                 <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota', 'view-kategori','view-produk']) ? 'show' : '' }}" id="side-data" data-bs-parent="#accordionExample" style="">
                     <li>
                         <a href="#side-cooperative" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle"> Koperasi <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
@@ -91,7 +93,7 @@
                     </li>
                     @endif
                 </ul>
-                @if($tingkatan != 'rki')
+                @if($tingkatan != 'rki' && $tingkatan != 'anggota')
 
                 <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota', 'view-kategori','view-produk']) ? 'show' : '' }}" id="side-data" data-bs-parent="#accordionExample" style="">
                     <li>
@@ -116,7 +118,7 @@
                 </ul>
                 @endif
             </li>
-            @if($tingkatan != 'rki')
+            @if($tingkatan != 'rki' && $tingkatan != 'anggota')
             <li class="menu {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'active' : '' }}">
                 <a href="#sales-data" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle">
                     <div class="">
@@ -135,6 +137,11 @@
                 </ul>
             </li>
             @endif
+
+            @if($tingkatan == 'anggota')
+
+            @endif
+            
         </ul>
     </nav>
 </div>
