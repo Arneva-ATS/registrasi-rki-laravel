@@ -20,7 +20,7 @@ class MemberController extends Controller
         $username = Session::get('username');
         $password = Session::get('password');
         $no_anggota = Session::get('no_anggota');
-        $tingkatan = 'anggota';
+        $tingkatan = Session::get('tingkatan');
         
         $profile =  DB::table('tbl_anggota')->where('no_anggota', '=', $no_anggota)->first();
         return view('member.dashboard', compact('id', 'no_anggota', 'profile', 'id_koperasi','username','tingkatan'));
@@ -39,7 +39,8 @@ class MemberController extends Controller
             Session::put('username', $data->username);
             Session::put('password', $data->password);
             Session::put('no_anggota', $data->no_anggota);
-            return redirect('/member');
+            Session::put('tingkatan', 'anggota');
+            return redirect('/member/dashboard');
         }     
     }
 
@@ -82,7 +83,6 @@ class MemberController extends Controller
     {
         //
     }
-
     public function logout(){
         Session::flush('id');
         Session::flush('id_koperasi');
@@ -90,5 +90,31 @@ class MemberController extends Controller
         Session::flush('password');
         Session::flush('no_anggota');
         return redirect('/member/login');
+    }
+
+    public function simpanan()
+    {
+        $id = Session::get('id');
+        $id_koperasi = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $no_anggota = Session::get('no_anggota');
+        $tingkatan = Session::get('tingkatan');
+        
+        $profile =  DB::table('tbl_anggota')->where('no_anggota', '=', $no_anggota)->first();
+        return view('member.simpanan', compact('id', 'no_anggota', 'profile', 'id_koperasi','username','tingkatan'));
+    }
+
+    public function pinjaman()
+    {
+        $id = Session::get('id');
+        $id_koperasi = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $no_anggota = Session::get('no_anggota');
+        $tingkatan = Session::get('tingkatan');
+        
+        $profile =  DB::table('tbl_anggota')->where('no_anggota', '=', $no_anggota)->first();
+        return view('member.pinjaman', compact('id', 'no_anggota', 'profile', 'id_koperasi','username','tingkatan'));
     }
 }

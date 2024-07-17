@@ -31,6 +31,7 @@
             <li class="menu menu-heading">
                 <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>MAIN MENU</span></div>
             </li>
+            @if($tingkatan != 'anggota')
             <li class="menu {{ request()->routeIs('overview') ? 'active' : '' }}">
                 <a href="{{ route('overview') }}" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -39,6 +40,16 @@
                     </div>
                 </a>
             </li>
+            @else
+            <li class="menu {{ request()->routeIs('overview') ? 'active' : '' }}">
+                <a href="{{ route('overview-member') }}" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        <span>Overview</span>
+                    </div>
+                </a>
+            </li>
+            @endif
 
             <li class="menu {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'active' : '' }}">
                 @if($tingkatan != 'anggota')
@@ -139,7 +150,30 @@
             @endif
 
             @if($tingkatan == 'anggota')
-
+            <li class="menu {{ request()->routeIs('view-pos') ? 'active' : '' }}">
+                <a href="{{ route('view-pos') }}" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        <span>Pos</span>
+                    </div>
+                </a>
+            </li>
+            <li class="menu {{ (Request::segment(2) == 'simpanan') ? 'active' : '' }}">
+                <a href="/member/simpanan" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        <span>Simpanan</span>
+                    </div>
+                </a>
+            </li>
+            <li class="menu {{ (Request::segment(2) == 'pinjaman') ? 'active' : '' }}">
+                <a href="/member/pinjaman" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                        <span>Pinjaman</span>
+                    </div>
+                </a>
+            </li>
             @endif
             
         </ul>

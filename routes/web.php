@@ -276,7 +276,9 @@ if (config('app.env') === 'production') {
 
     Route::get('/member/login', [MemberController::class, 'loginform']);
     Route::post('/member/dologin', [MemberController::class, 'loginprocess']);
-    Route::get('/member', [MemberController::class, 'dashboard']);
+    Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('overview-member');
+    Route::get('/member/simpanan', [MemberController::class, 'simpanan']);
+    Route::get('/member/pinjaman', [MemberController::class, 'pinjaman']);
     Route::get('/member/logout', [MemberController::class, 'logout']);
     
     Route::get('/list_inkop', function () {
@@ -366,19 +368,36 @@ if (config('app.env') === 'production') {
         return view('dashboard.data.produk.inventory.index', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state'));
     })->name('view-produk');
 
+
     Route::get('/pos', function () {
-        $id = Session::get('id_koperasi');
-        $username = Session::get('username');
-        $password = Session::get('password');
         $tingkatan = Session::get('tingkatan');
-        $id_inkop = Session::get('id_inkop');
-        $id_puskop = Session::get('id_puskop');
-        $id_primkop = Session::get('id_primkop');
-        $categories = DB::table('tbl_kategori_produk')->where('id_koperasi', $id)->get();
-        $edit_state = false;
-        $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
-        $products = DB::table('tbl_produk')->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_produk.id_koperasi', $id)->select('*', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori')->get();
-        return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state', 'koperasi'));
+        if($tingkatan == 'anggota'){
+            $id = Session::get('id');
+            $id_koperasi = Session::get('id_koperasi');
+            $username = Session::get('username');
+            $password = Session::get('password');
+            $no_anggota = Session::get('no_anggota');
+            $edit_state = false;
+            $categories = DB::table('tbl_kategori_produk')->where('id_koperasi', $id_koperasi)->get();
+            $profile =  DB::table('tbl_anggota')->where('no_anggota', '=', $no_anggota)->first();
+            $koperasi = DB::table('tbl_koperasi')->where('id', $id_koperasi)->first();
+            $products = DB::table('tbl_produk')->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_produk.id_koperasi', $id_koperasi)->select('*', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori')->get();
+            return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state', 'koperasi'));
+
+        }else{
+
+            $id = Session::get('id_koperasi');
+            $username = Session::get('username');
+            $password = Session::get('password');
+            $id_inkop = Session::get('id_inkop');
+            $id_puskop = Session::get('id_puskop');
+            $id_primkop = Session::get('id_primkop');
+            $categories = DB::table('tbl_kategori_produk')->where('id_koperasi', $id)->get();
+            $edit_state = false;
+            $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
+            $products = DB::table('tbl_produk')->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_produk.id_koperasi', $id)->select('*', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori')->get();
+            return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state', 'koperasi'));
+        }
     })->name('view-pos');
 
     Route::get('/list_primkop_puskop/{id}', function ($id) {
