@@ -104,12 +104,13 @@
                             <li class="{{ request()->routeIs('view-produk') ? 'active' : '' }}">
                                 <a href="/list_produk"> Inventori Produk </a>
                             </li>
-                            <li class="{{ request()->routeIs('view-primkop') ? 'active' : '' }}">
+
+                            {{-- <li class="{{ request()->routeIs('view-primkop') ? 'active' : '' }}">
                                 <a href="/riwayat_stok"> Laporan Stok </a>
                             </li>
                             <li class="{{ request()->routeIs('view-primkop') ? 'active' : '' }}">
                                 <a href="/riwayat_stok"> Mutasi Stok </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 </ul>
@@ -129,7 +130,7 @@
                 <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'show' : '' }}" id="sales-data" data-bs-parent="#accordionExample" style="">
                     <li>
                         <a href="pos" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle"> POS <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
-                       
+
                     </li>
                 </ul>
             </li>
