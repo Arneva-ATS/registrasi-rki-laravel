@@ -427,31 +427,31 @@
                                                         <p class="">Sub Total :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p class="">$3155</p>
+                                                        <p id="sub-total">$0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
                                                         <p class="">Tax 10% :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p class="">$315</p>
+                                                        <p id="tax">$0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
                                                         <p class="discount-rate">Shipping :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p class="">$10</p>
+                                                        <p id="shipping">$10</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
                                                         <p class="discount-rate">Discount 5% :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p class="">$150</p>
+                                                        <p id="discount">$0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7 grand-total-title mt-3">
                                                         <h4 class="">Grand Total : </h4>
                                                     </div>
                                                     <div class="col-sm-4 col-5 grand-total-amount mt-3">
-                                                        <h4 class="">$3480</h4>
+                                                        <h4 id="grand-total">$0</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -519,19 +519,20 @@
         }
 
         function addToInvoice(product) {
-            const existingItem = invoiceItems.find(item => item.id === product.id);
+            const existingItem = invoiceItems.find(item => item.id_produk === product.id_produk);
             if (existingItem) {
                 existingItem.qty += 1;
                 existingItem.amount += product.harga;
             } else {
                 invoiceItems.push({
-                    id: product.id,
+                    id: product.id_produk,
                     name: product.nama_produk,
                     qty: 1,
                     price: product.harga,
                     amount: product.harga
                 });
             }
+            console.log(invoiceItems)
             displayInvoice();
         }
 
@@ -557,12 +558,11 @@
             let shipping = 10;
             let grandTotal = subTotal + tax + shipping - discount;
 
-            document.getElementById('sub-total').textContent = `$${subTotal.toFixed(2)}`;
-            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('discount').textContent = `$${discount.toFixed(2)}`;
-            document.getElementById('grand-total').textContent = `$${grandTotal.toFixed(2)}`;
+            document.getElementById('sub-total').textContent = `Rp. ${subTotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `Rp. ${tax.toFixed(2)}`;
+            document.getElementById('discount').textContent = `Rp. ${discount.toFixed(2)}`;
+            document.getElementById('grand-total').textContent = `Rp. ${grandTotal.toFixed(2)}`;
         }
-
 
         function displayProducts(products) {
             let container = document.querySelector('.container-product');

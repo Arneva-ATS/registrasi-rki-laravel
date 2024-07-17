@@ -170,7 +170,6 @@
     </script>
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/function.js') }}"></script>
-    <script src="{{ asset('assets/js/functions.js') }}"></script>
     <script>
         let baseStringSelfie;
         let baseStringKtp;
@@ -237,7 +236,8 @@
                     text: 'Pastikan data terisi! Kecuali pas foto dan ktp',
                     icon: "info",
                     buttons: true,
-                }) return false;
+                })
+                return false;
             }
             swal({
                 title: "Please wait",
@@ -269,8 +269,8 @@
                 alamat: alamat,
                 nomor_hp: nomor_hp,
                 email: email,
-                selfie: image_selfie,
-                ktp: image_ktp,
+                selfie: image_selfie?.split(',')[1],
+                ktp: image_ktp?.split(',')[1],
                 koperasi_name: koperasi_name,
                 type1: type1,
                 type2: type2,
