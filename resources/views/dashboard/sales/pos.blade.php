@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="row layout-top-spacing">
+        <div class="w-50 mb-5" id="scan-form">
+            <input id="barcode-input" type="text" name="txt" placeholder="Scan Barcode" class="form-control" autofocus>
+        </div>
 
         <div class="simple-pill col-lg-8">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -407,35 +410,8 @@
                                                     <th class="text-end" scope="col">Amount</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Calendar App Customization</td>
-                                                    <td class="text-end">1</td>
-                                                    <td class="text-end">$120</td>
-                                                    <td class="text-end">$120</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Chat App Customization</td>
-                                                    <td class="text-end">1</td>
-                                                    <td class="text-end">$230</td>
-                                                    <td class="text-end">$230</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Laravel Integration</td>
-                                                    <td class="text-end">1</td>
-                                                    <td class="text-end">$405</td>
-                                                    <td class="text-end">$405</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>Backend UI Design</td>
-                                                    <td class="text-end">1</td>
-                                                    <td class="text-end">$2500</td>
-                                                    <td class="text-end">$2500</td>
-                                                </tr>
+                                            <tbody id="invoice-table">
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -451,31 +427,31 @@
                                                         <p class="">Sub Total :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p class="">$3155</p>
+                                                        <p id="sub-total">$0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
                                                         <p class="">Tax 10% :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p class="">$315</p>
+                                                        <p id="tax">$0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
                                                         <p class="discount-rate">Shipping :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p class="">$10</p>
+                                                        <p id="shipping">$10</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
                                                         <p class="discount-rate">Discount 5% :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
-                                                        <p class="">$150</p>
+                                                        <p id="discount">$0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7 grand-total-title mt-3">
                                                         <h4 class="">Grand Total : </h4>
                                                     </div>
                                                     <div class="col-sm-4 col-5 grand-total-amount mt-3">
-                                                        <h4 class="">$3480</h4>
+                                                        <h4 id="grand-total">$0</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -502,6 +478,8 @@
     <script>
         let listProduk = @json($products);
         let id_koperasi;
+        let invoiceItems = [];
+
         window.addEventListener("load", () => {
             const url = new URL(window.location.href);
             const path = url.pathname.split("/");
@@ -525,20 +503,81 @@
             }
         }
 
+        document.getElementById('barcode-input').addEventListener('input', function(event) {
+            const barcodeValue = event.target.value;
+            searchByBarcode(barcodeValue);
+            event.target.value = ''; // Clear the input field for the next scan
+        });
+
+        function searchByBarcode(value) {
+            const product = listProduk.find(product => product.barcode === value);
+            if (product) {
+                addToInvoice(product);
+            } else {
+                alert('Produk tidak ditemukan');
+            }
+        }
+
+        function addToInvoice(product) {
+            const existingItem = invoiceItems.find(item => item.id_produk === product.id_produk);
+            if (existingItem) {
+                existingItem.qty += 1;
+                existingItem.amount += product.harga;
+            } else {
+                invoiceItems.push({
+                    id: product.id_produk,
+                    name: product.nama_produk,
+                    qty: 1,
+                    price: product.harga,
+                    amount: product.harga
+                });
+            }
+            console.log(invoiceItems)
+            displayInvoice();
+        }
+
+        function displayInvoice() {
+            let invoiceTableBody = document.querySelector('#invoice-table');
+            invoiceTableBody.innerHTML = '';
+            let subTotal = 0;
+            invoiceItems.forEach((item, index) => {
+                subTotal += item.amount;
+                let row = `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${item.name}</td>
+                <td class="text-end">${item.qty}</td>
+                <td class="text-end">${item.price}</td>
+                <td class="text-end">${item.amount}</td>
+            </tr>`;
+                invoiceTableBody.insertAdjacentHTML('beforeend', row);
+            });
+
+            let tax = subTotal * 0.10;
+            let discount = subTotal * 0.05;
+            let shipping = 10;
+            let grandTotal = subTotal + tax + shipping - discount;
+
+            document.getElementById('sub-total').textContent = `Rp. ${subTotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `Rp. ${tax.toFixed(2)}`;
+            document.getElementById('discount').textContent = `Rp. ${discount.toFixed(2)}`;
+            document.getElementById('grand-total').textContent = `Rp. ${grandTotal.toFixed(2)}`;
+        }
+
         function displayProducts(products) {
             let container = document.querySelector('.container-product');
             container.innerHTML = '';
             console.log(products);
             products.forEach(product => {
                 let productCard = `
-                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-4">
                     <div class="card p-3">
                         <img width="100px" height="100px" src="${product.image_produk}" class="card-img-top" alt="${product.nama_produk}">
                         <div class="card-body px-0 pb-0">
                             <h5 class="card-title mb-3">${product.nama_produk}</h5>
-                            <p>Rp${product.harga}</p>
+                            <p>Rp. ${product.harga}</p>
                             <div class="media mt-4 mb-0 pt-1">
-                                <button class="btn btn-primary" type="button">Beli</button>
+                                <button class="btn btn-primary" type="button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="Shopping-Cart-Add--Streamline-Ultimate"><desc>Shopping Cart Add Streamline Icon: https://streamlinehq.com</desc><path d="M4.5 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M12 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m0.75 7.093 2.329 7.887a1.5 1.5 0 0 0 1.45 1.113h10.818A1.5 1.5 0 0 0 16.8 14.98l3.238 -12.154a2.249 2.249 0 0 1 2.174 -1.67h1.038" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m9.75 6.343 0 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m6.75 9.343 6 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg><span class="ml-2">Beli</span></button>
                             </div>
                         </div>
                     </div>
