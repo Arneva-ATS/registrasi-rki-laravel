@@ -4,6 +4,7 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KoperasiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MemberController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Session;
 */
 
 if (config('app.env') === 'production') {
-    if ($_SERVER['HTTP_HOST'] == 'dashboard.rkicoop.co.id') {
+    if (isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST'])) {
         Route::get('/login', function () {
             return view('dashboard.auth.login');
         })->name('login');
@@ -228,6 +229,7 @@ if (config('app.env') === 'production') {
     })->name('login');
 
     Route::post('/dologin', [LoginController::class, 'dologin']);
+    
 
     // Route::get('/dashboard', [HomeController::class, 'index']);
 
@@ -272,7 +274,11 @@ if (config('app.env') === 'production') {
         }
     })->name('overview');
 
-
+    Route::get('/member/login', [MemberController::class, 'loginform']);
+    Route::post('/member/dologin', [MemberController::class, 'loginprocess']);
+    Route::get('/member', [MemberController::class, 'dashboard']);
+    Route::get('/member/logout', [MemberController::class, 'logout']);
+    
     Route::get('/list_inkop', function () {
         $id = Session::get('id_koperasi');
         $username = Session::get('username');
