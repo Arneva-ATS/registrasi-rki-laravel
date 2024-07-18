@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Dashboard Koperasi RKI" />
     <meta name="author" content="RKIAPP" />
+    <meta name="csrf_token" content="{{ csrf_token() }}">
     <title>Dashboard - RKI</title>
     <style>
         .form-stock {
