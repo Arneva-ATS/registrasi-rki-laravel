@@ -279,6 +279,9 @@ if (config('app.env') === 'production') {
     Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('overview-member');
     Route::get('/member/simpanan', [MemberController::class, 'simpanan']);
     Route::get('/member/pinjaman', [MemberController::class, 'pinjaman']);
+    Route::get('/member/tambah_pinjaman', [MemberController::class, 'tambah_pinjaman']);
+    Route::post('/insert/pinjaman', [MemberController::class, 'create']);
+    Route::get('/delete/pinjaman/{id}', [MemberController::class, 'destroy']);
     Route::get('/member/logout', [MemberController::class, 'logout']);
 
     Route::get('/list_inkop', function () {
