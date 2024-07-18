@@ -36,7 +36,7 @@
                                 <td>{{ $data->lama_angsuran }}</td>
                                 <td>{{ $data->keterangan }}</td>
                                 <td>{{ $data->alasan }}</td>
-                                <td>{{ $data->status }}</td>
+                                <td>{{ ($data->status == 1) ? 'pending' : (($data->status == 2) ? 'approved' : 'rejected') }}</td>
                                 <td> <button onclick="deletePinjaman({{$data->id}})" class="btn btn-danger">Delete</button> </td>
                             </tr>
                         @endforeach
