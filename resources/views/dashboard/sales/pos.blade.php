@@ -446,6 +446,12 @@
                                                         <p id="sub-total">Rp. 0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
+                                                        <p class="">Total Qty:</p>
+                                                    </div>
+                                                    <div class="col-sm-4 col-5">
+                                                        <p id="total-qty">0</p>
+                                                    </div>
+                                                    <div class="col-sm-8 col-7">
                                                         <p class="">Tax 11% :</p>
                                                     </div>
                                                     <div class="col-sm-4 col-5">
@@ -496,10 +502,12 @@
             let invoiceDate;
             let invoiceDue;
             let invoice_id = 1; // Initial invoice_id
+            let invoiceNumber;
             let tax;
             let discount;
             let grandTotal;
             let subTotal;
+            let totalQty;
 
             window.addEventListener("load", () => {
                 const url = new URL(window.location.href);
@@ -527,7 +535,6 @@
 
             document.getElementById('no_anggota').addEventListener('change', function(event) {
                 const no_anggota = event.target.value;
-                console.log(no_anggota)
                 fetch(`/api/anggota/list/${no_anggota}/${id_koperasi}`, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
@@ -540,7 +547,6 @@
                             response_code,
                             response_message
                         } = data
-                        console.log(data);
                         if (response_code == '00') {
                             document.getElementById('id_anggota').value = response_message.id
                             document.getElementById('nama_customer').value = response_message.nama_lengkap;
@@ -561,7 +567,7 @@
             });
 
             function setInvoiceDetails() {
-                const invoiceNumber = String(invoice_id).padStart(5, '0'); // Pad the invoice_id with leading zeros to 5 digits
+                invoiceNumber= String(invoice_id).padStart(5, '0'); // Pad the invoice_id with leading zeros to 5 digits
                 document.getElementById('invoice-number').textContent = `#${invoiceNumber}`;
                 const invoiceDate = new Date(); // 17 June 2024 (Month is 0-indexed, so 5 means June)
                 const dueDate = new Date(invoiceDate);
@@ -615,21 +621,35 @@
                         amount: product.harga
                     });
                 }
-                console.log(invoiceItems)
                 displayInvoice();
+            }
+
+            function updateQuantity(productId, change) {
+                const item = invoiceItems.find(item => item.id === productId);
+                if (item) {
+                    item.qty += change;
+                    if (item.qty <= 0) {
+                        deleteFromInvoice(productId);
+                    } else {
+                        item.amount = item.qty * item.price;
+                        displayInvoice();
+                    }
+                }
             }
 
             function displayInvoice() {
                 let invoiceTableBody = document.querySelector('#invoice-table');
                 invoiceTableBody.innerHTML = '';
                 subTotal = 0;
+                totalQty = 0;
                 invoiceItems.forEach((item, index) => {
                     subTotal += item.amount;
+                    totalQty += item.qty;
                     let row = `
             <tr>
                 <td>${index + 1}</td>
-                <td>${item.name}</td>
-                <td class="text-end">${item.qty}</td>
+                <td class="text-wrap">${item.name}</td>
+                <td class="text-end"><button onclick="updateQuantity(${item.id}, -1)" class="btn btn-outline-secondary btn-sm">-</button> ${item.qty} <button onclick="updateQuantity(${item.id}, 1)" class="btn btn-outline-secondary btn-sm">+</button></td>
                 <td class="text-end">${item.price}</td>
                 <td class="text-end">${item.amount}</td>
                 <td class="text-end"><button class="btn btn-danger btn-sm" onclick="deleteFromInvoice(${item.id})">Delete</button></td>
@@ -643,6 +663,7 @@
                 grandTotal = subTotal + tax - discount;
 
                 document.getElementById('sub-total').textContent = `Rp. ${subTotal.toFixed(2)}`;
+                document.getElementById('total-qty').textContent = totalQty;
                 document.getElementById('tax').textContent = `Rp. ${tax.toFixed(2)}`;
                 document.getElementById('discount').textContent = `Rp. ${discount.toFixed(2)}`;
                 document.getElementById('grand-total').textContent = `Rp. ${grandTotal.toFixed(2)}`;
@@ -651,14 +672,13 @@
             function displayProducts(products) {
                 let container = document.querySelector('.container-product');
                 container.innerHTML = '';
-                console.log(products);
                 products.forEach(product => {
                     let productCard = `
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-4">
-                    <div class="card p-3">
+                    <div class="card product-card p-3">
                         <img width="100px" height="100px" src="${product.image_produk}" class="card-img-top" alt="${product.nama_produk}">
                         <div class="card-body px-0 pb-0">
-                            <h5 class="card-title mb-3">${product.nama_produk}</h5>
+                            <h6 class="card-title mb-3 text-truncate">${product.nama_produk}</h6>
                             <p>Rp. ${product.harga}</p>
                             <div class="media mt-4 mb-0 pt-1">
                                 <button onclick="addProduct(${product.id_produk})" class="btn btn-primary" type="button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="Shopping-Cart-Add--Streamline-Ultimate"><desc>Shopping Cart Add Streamline Icon: https://streamlinehq.com</desc><path d="M4.5 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M12 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m0.75 7.093 2.329 7.887a1.5 1.5 0 0 0 1.45 1.113h10.818A1.5 1.5 0 0 0 16.8 14.98l3.238 -12.154a2.249 2.249 0 0 1 2.174 -1.67h1.038" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m9.75 6.343 0 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m6.75 9.343 6 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg><span class="ml-2">Beli</span></button>
@@ -671,7 +691,13 @@
             }
 
             function checkoutItems() {
-                let items = invoiceItems
+                let items = invoiceItems.map(item => ({
+                    id_product: item.id,
+                    quantity: item.qty,
+                    price: item.price,
+                    total: item.amount,
+                    id_koperasi: id_koperasi,
+                })); // Extract item names into a new array of objects
                 let id_anggota = document.getElementById('id_anggota').value;
                 let data_customer;
                 let jsonData = {}
@@ -683,9 +709,10 @@
 
                 data_customer = {
                     nama_customer,
-                    email_customer,
-                    alamat_customer,
-                    no_telp_customer,
+                    email: email_customer,
+                    alamat: alamat_customer,
+                    no_telp: no_telp_customer,
+                    id_koperasi,
                 }
                 jsonData = {
                     items,
@@ -694,66 +721,68 @@
                     data_customer,
                     subTotal,
                     grandTotal,
+                    totalQty,
                     tax,
                     discount,
+                    invoiceNumber,
                 }
                 console.log(jsonData)
                 swal({
-                title: "Please wait",
-                text: "Submitting data...",
-                // icon: "/assets/images/loading.gif",
-                button: false,
-                closeOnClickOutside: false,
-                closeOnEsc: false,
-                className: "swal-loading",
-            });
+                    title: "Please wait",
+                    text: "Submitting data...",
+                    // icon: "/assets/images/loading.gif",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    className: "swal-loading",
+                });
 
 
-            fetch(`/api/pos/checkout`, {
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                        "Content-Type": "application/json",
-                    },
-                    method: "POST",
-                    body: JSON.stringify(jsonData),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data)
-                    swal.close();
-                    if (data.response_code == "00") {
+                fetch(`/api/pos/checkout`, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify(jsonData),
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data)
+                        swal.close();
+                        if (data.response_code == "00") {
+                            swal({
+                                title: "Status",
+                                text: data?.response_message,
+                                icon: "success",
+                                buttons: true,
+                            }).then((willOut) => {
+                                if (willOut) {
+                                    window.location = `/checkout/${data.order_id}`;
+                                    console.log("success")
+                                } else {
+                                    console.log("error");
+                                }
+                            });
+                        } else {
+                            swal({
+                                title: "Status",
+                                text: data?.response_message,
+                                icon: "error",
+                                buttons: true,
+                            })
+                        }
+                    })
+                    .catch((error) => {
+                        swal.close();
+                        console.log(error)
                         swal({
                             title: "Status",
-                            text: data?.response_message,
-                            icon: "success",
-                            buttons: true,
-                        }).then((willOut) => {
-                            if (willOut) {
-                                // window.location = "/list_produk";
-                                console.log("success")
-                            } else {
-                                console.log("error");
-                            }
-                        });
-                    } else {
-                        swal({
-                            title: "Status",
-                            text: data?.response_message,
-                            icon: "error",
+                            text: error,
+                            icon: "info",
                             buttons: true,
                         })
-                    }
-                })
-                .catch((error) => {
-                    swal.close();
-                    console.log(error)
-                    swal({
-                        title: "Status",
-                        text: error,
-                        icon: "info",
-                        buttons: true,
-                    })
-                });
+                    });
             }
         </script>
     @endsection

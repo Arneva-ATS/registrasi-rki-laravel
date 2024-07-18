@@ -22,9 +22,11 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment('production')) {
             $this->app['request']->server->set('HTTPS', true);
+            \Carbon\Carbon::setLocale('id');
             URL::forceScheme('https');
         } else {
             $this->app['request']->server->set('HTTPS', false);
+            \Carbon\Carbon::setLocale('id');
             URL::forceScheme('http');
         }
     }

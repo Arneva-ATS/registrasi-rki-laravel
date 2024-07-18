@@ -21,7 +21,20 @@
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
 
+        .product-card {
+            transition: transform 0.3s ease-in-out;
+            overflow: hidden;
+        }
 
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-card:hover .card-title {
+            white-space: normal;
+            overflow: visible;
+            text-overflow: clip;
+        }
     </style>
 
     @include('dashboard.layouts.partials.head')

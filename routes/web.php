@@ -174,7 +174,7 @@ if (config('app.env') === 'production') {
         Route::get('/', function () {
             return redirect()->route('login');
         })->name('home');
-    } else if($_SERVER['HTTP_HOST'] == 'registrasi.rkicoop.co.id') {
+    } else if ($_SERVER['HTTP_HOST'] == 'registrasi.rkicoop.co.id') {
         Route::get('rki/primkop', function (Request $request) {
             return "OK";
         });
@@ -229,7 +229,7 @@ if (config('app.env') === 'production') {
     })->name('login');
 
     Route::post('/dologin', [LoginController::class, 'dologin']);
-    
+
 
     // Route::get('/dashboard', [HomeController::class, 'index']);
 
@@ -280,7 +280,7 @@ if (config('app.env') === 'production') {
     Route::get('/member/simpanan', [MemberController::class, 'simpanan']);
     Route::get('/member/pinjaman', [MemberController::class, 'pinjaman']);
     Route::get('/member/logout', [MemberController::class, 'logout']);
-    
+
     Route::get('/list_inkop', function () {
         $id = Session::get('id_koperasi');
         $username = Session::get('username');
@@ -371,7 +371,7 @@ if (config('app.env') === 'production') {
 
     Route::get('/pos', function () {
         $tingkatan = Session::get('tingkatan');
-        if($tingkatan == 'anggota'){
+        if ($tingkatan == 'anggota') {
             $id = Session::get('id');
             $id_koperasi = Session::get('id_koperasi');
             $username = Session::get('username');
@@ -383,8 +383,7 @@ if (config('app.env') === 'production') {
             $koperasi = DB::table('tbl_koperasi')->where('id', $id_koperasi)->first();
             $products = DB::table('tbl_produk')->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_produk.id_koperasi', $id_koperasi)->select('*', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori')->get();
             return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state', 'koperasi'));
-
-        }else{
+        } else {
 
             $id = Session::get('id_koperasi');
             $username = Session::get('username');
@@ -397,6 +396,56 @@ if (config('app.env') === 'production') {
             $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
             $products = DB::table('tbl_produk')->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_produk.id_koperasi', $id)->select('*', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori')->get();
             return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state', 'koperasi'));
+        }
+    })->name('view-pos');
+
+    Route::get('/checkout/{id_order}', function ($id_order) {
+        $tingkatan = Session::get('tingkatan');
+        if ($tingkatan == 'anggota') {
+            $id = Session::get('id');
+            $id_koperasi = Session::get('id_koperasi');
+            $username = Session::get('username');
+            $password = Session::get('password');
+            $no_anggota = Session::get('no_anggota');
+            $profile =  DB::table('tbl_anggota')->where('no_anggota', '=', $no_anggota)->first();
+            $koperasi = DB::table('tbl_koperasi')->where('id', $id_koperasi)->first();
+            $order = DB::table('tbl_order')->where('tbl_order.id', $id_order)->first();
+            if(!$order){
+                return view('error');
+            }
+            $order_detail = DB::table('tbl_order_detail')->join("tbl_produk", 'tbl_order_detail.id_product', '=', 'tbl_produk.id')->where('tbl_order_detail.id_order', $id_order)->select('tbl_produk.nama_produk', 'tbl_order_detail.quantity', 'tbl_order_detail.price', 'tbl_order_detail.total', 'tbl_produk.id as id_produk', 'tbl_order_detail.id as id_detail_order')->get();
+            return view('dashboard.sales.checkout', compact('id', 'username', 'password', 'tingkatan', 'order', 'order_detail', 'koperasi'));
+        } else {
+
+            $id = Session::get('id_koperasi');
+            $username = Session::get('username');
+            $password = Session::get('password');
+            $id_inkop = Session::get('id_inkop');
+            $id_puskop = Session::get('id_puskop');
+            $id_primkop = Session::get('id_primkop');
+            $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
+            $order = DB::table('tbl_order')->where('tbl_order.id', $id_order)->where('status', 'pending')->first();
+            if(!$order){
+                return view('error');
+            }
+            if (is_null($order->id_customer)) {
+                $order = DB::table('tbl_order')
+                    ->join('tbl_anggota', 'tbl_order.id_anggota', '=', 'tbl_anggota.id')
+                    ->where('tbl_order.id', $id_order)
+                    ->select('*', 'tbl_order.id as id_order', 'tbl_anggota.id as id_anggota')
+                    ->first();
+            } else {
+                $order = DB::table('tbl_order')
+                ->join('tbl_customer', 'tbl_order.id_customer', '=', 'tbl_customer.id')
+                ->where('tbl_order.id', $id_order)
+                ->select('*', 'tbl_order.id as id_order', 'tbl_customer.id as id_customer')
+                ->first();
+            }
+            $order_detail = DB::table('tbl_order_detail')->join("tbl_produk", 'tbl_order_detail.id_product', '=', 'tbl_produk.id')->where('tbl_order_detail.id_order', $id_order)->select('tbl_produk.nama_produk', 'tbl_order_detail.quantity', 'tbl_order_detail.price', 'tbl_order_detail.total', 'tbl_produk.id as id_produk', 'tbl_order_detail.id as id_detail_order')->get();
+            // return dd($order_detail);
+            // return dd($order);
+
+            return view('dashboard.sales.checkout', compact('id', 'username', 'password', 'tingkatan', 'order', 'order_detail', 'koperasi'));
         }
     })->name('view-pos');
 
@@ -500,5 +549,3 @@ if (config('app.env') === 'production') {
         }
     })->name('koperasi');
 }
-
-

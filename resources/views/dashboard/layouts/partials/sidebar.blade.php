@@ -130,8 +130,8 @@
                 @endif
             </li>
             @if($tingkatan != 'rki' && $tingkatan != 'anggota')
-            <li class="menu {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'active' : '' }}">
-                <a href="#sales-data" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle">
+            <li class="menu {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota','view-pos']) ? 'active' : '' }}">
+                <a href="#sales-data" data-bs-toggle="collapse" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota', 'view-pos']) ? 'true' : 'false' }}" class="dropdown-toggle">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
                         <span>Sales</span>
@@ -140,9 +140,9 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </div>
                 </a>
-                <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'show' : '' }}" id="sales-data" data-bs-parent="#accordionExample" style="">
+                <ul class="submenu list-unstyled collapse {{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota', 'view-pos']) ? 'show' : '' }}" id="sales-data" data-bs-parent="#accordionExample" style="">
                     <li>
-                        <a href="pos" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota']) ? 'true' : 'false' }}" class="dropdown-toggle"> POS <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
+                        <a href="pos" aria-expanded="{{ request()->routeIs(['view-inkop', 'view-puskop', 'view-primkop', 'view-anggota', 'view-pos']) ? 'true' : 'false' }}" class="dropdown-toggle"> POS <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
 
                     </li>
                 </ul>
@@ -175,7 +175,7 @@
                 </a>
             </li>
             @endif
-            
+
         </ul>
     </nav>
 </div>
