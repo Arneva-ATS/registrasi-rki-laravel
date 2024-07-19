@@ -9,6 +9,53 @@
     <div class="row invoice layout-top-spacing layout-spacing">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="doc-container">
+                <!-- Hidden receipt section for printing -->
+                <div id="receipt" style="display: none; width: 80mm; font-size: small;">
+                    <div class="header">
+                        <img src="{{ asset('assets/img/logo-fav-icon.png') }}" alt="company">
+                        <h3>{{ $koperasi->nama_koperasi }}</h3>
+                        <p>{{ $koperasi->alamat }}</p>
+                        <p>{{ $koperasi->email_koperasi }}</p>
+                        <p>{{ $koperasi->no_phone }}</p>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <p><strong>Invoice: #{{ $order->invoice_number }}</strong></p>
+                        <p>Tanggal: {{ $orderDate->translatedFormat('d F Y') }}</p>
+                        <p>Due Date: {{ $dueDate->translatedFormat('d F Y') }}</p>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <p><strong>Invoice To:</strong> {{ $order->nama_lengkap ?? $order->nama_customer }}</p>
+                        <p>{{ $order->alamat ?? '-' }}</p>
+                        <p>{{ $order->email ?? '-' }}</p>
+                        <p>{{ $order->nomor_hp ?? $order->no_telp }}</p>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <p><strong>Items</strong></p>
+                        <table>
+                            @foreach ($order_detail as $item)
+                                <tr>
+                                    <td>{{ $item->nama_produk }}</td>
+                                    <td>{{ $item->quantity }} x Rp. {{ $item->price }}</td>
+                                    <td class="text-end">Rp. {{ $item->total }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <p>Sub Total: Rp. {{ $order->sub_total }}</p>
+                        <p>Tax: Rp. {{ $order->tax }}</p>
+                        <p>Discount: Rp. {{ $order->discount }}</p>
+                        <p><strong>Total: Rp. {{ $order->total_amount }}</strong></p>
+                    </div>
+                    <hr>
+                    <div class="footer">
+                        <p>Thank you for your business!</p>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xl-8">
                         <div class="invoice-container" style="background-color: white; padding: 20px; border-radius: 8px;">
@@ -171,7 +218,6 @@
                         </div>
 
                     </div>
-
                     <div class="col-xl-4">
 
                         <div class="invoice-actions-btn"
@@ -211,17 +257,19 @@
                                             placeholder="Rp. ...." disabled>
                                         </div>
                                     </div>
+                                    @if ($order->status =='pending')
                                     <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
-                                        @if ($order->status =='pending')
-                                            <button style="width:19em;" class="btn btn-dark btn-edit" onclick="payBtn()">Bayar</button> 
-                                        @else
-                                            <a style="width:19em;" class="btn btn-dark btn-edit" href="/pos"><- Kembali</a> 
-                                        @endif
+                                        <button style="width:19em;" class="btn btn-dark btn-edit" onclick="payBtn()">Bayar</button> 
                                     </div>
                                     <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
                                         <button style="width:19em;" class="btn btn-danger"
                                             onclick="cancelTransaction()">Batal</button>
                                     </div>
+                                    @else
+                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                        <a style="width:19em;" class="btn btn-dark btn-edit" href="/pos"><- Kembali</a> 
+                                    </div>
+                                    @endif
                                 </div>
 
                             </div>
@@ -236,9 +284,14 @@
 
         </div>
     </div>
-
     <script>
-        const items = @json($order_detail);
+        const items = @json($order_detail).map(item => ({
+            name: item.nama_produk,
+            quantity: item.quantity,
+            price: item.price,
+            category: item.nama_kategori, 
+            url: "https://yourcompany.com"
+        }));        
         const order = @Json($order);
         const metodePembayaran = document.getElementById('metode_pembayaran');
         const hargaBayar = document.getElementById('harga_bayar');
@@ -248,7 +301,12 @@
         metodePembayaran.addEventListener('change', (event) => {
             if (metodePembayaran.value === '1') { // Cash
                 hargaBayar.disabled = false;
-            } else {
+            }else if(metodePembayaran.value === '2'){
+                hargaBayar.disabled = true;
+                hargaBayar.value = grandTotal;
+                kembalian.value = 0
+            }
+             else {
                 hargaBayar.disabled = true;
                 hargaBayar.value = '';
                 kembalian.value = '';
@@ -268,6 +326,14 @@
                 kembalian.value = '';
             }
         });
+        function printReceipt() {
+            var originalContent = document.body.innerHTML;
+            var printContent = document.getElementById('receipt').innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            window.location.href = "/pos";
+        }
         function payBtn() {
                 let bayar = hargaBayar.value;
                 let sisa  = kembalian.value;
@@ -284,10 +350,10 @@
                             id_koperasi: id_koperasi,
                             id_order: order.id_order,
                             status: 'completed',
-
                         }
                         console.log(jsonData);
-                            fetch(`/api/pos/payment`, {
+
+                        fetch(`/api/pos/payment`, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
@@ -298,20 +364,9 @@
                             .then((response) => response.json())
                             .then((data) => {
                                 console.log(data)
-                                swal.close();
+                                // swal.close();
                                 if (data.response_code == "00") {
-                                    swal({
-                                        title: "Status",
-                                        text: data?.response_message,
-                                        icon: "success",
-                                        buttons: true,
-                                    }).then((willOut) => {
-                                        if (willOut) {
-                                            console.log("success")
-                                        } else {
-                                            console.log("error");
-                                        }
-                                    });
+                                    printReceipt(); // Call print function
                                 } else {
                                     swal({
                                         title: "Status",
@@ -322,7 +377,7 @@
                                 }
                             })
                             .catch((error) => {
-                                swal.close();
+                                // swal.close();
                                 console.log(error)
                                 swal({
                                     title: "Status",
@@ -332,45 +387,96 @@
                                 })
                             });
                     }
+                } else if(metodePembayaran.value == '2'){
+                    jsonData = {
+                            "amount": order.total_amount,
+                            "fees": [
+                                {
+                                    "type": "ADMIN",
+                                    "value": 5000
+                                }
+                            ],
+                            "customer": {
+                                "given_names": "John",
+                                "surname": "Doe",
+                                "email": "johndoe@example.com",
+                                "mobile_number": "+6287774441111",
+                                "addresses": [
+                                    {
+                                        "city": "Jakarta Selatan",
+                                        "country": "Indonesia",
+                                        "postal_code": "12345",
+                                        "state": "Daerah Khusus Ibukota Jakarta",
+                                        "street_line1": "Jalan Makan",
+                                        "street_line2": "Kecamatan Kebayoran Baru"
+                                    }
+                                ]
+                            },
+                            "customer_notification_preference": {
+                                "invoice_created": [
+                                    "whatsapp",
+                                    "email",
+                                    "viber"
+                                ],
+                                "invoice_reminder": [
+                                    "whatsapp",
+                                    "email",
+                                    "viber"
+                                ],
+                                "invoice_paid": [
+                                    "whatsapp",
+                                    "email",
+                                    "viber"
+                                ]
+                            },
+                            "description": "Pembayaran dengan Xendit",
+                            "invoice_duration": 86400,
+                            "currency": "IDR",
+                            "items": items,
+                            change_value: sisa,
+                            paid_value: bayar,
+                            id_koperasi: id_koperasi,
+                            id_order: order.id_order,
+                            status: 'completed',
+                            "metadata": {
+                                id_payment_method: metodePembayaran.value,
+                                amount_value: order.total_amount,
+                                change_value: sisa,
+                                paid_value: bayar,
+                                id_koperasi: id_koperasi,
+                                id_order: order.id_order,
+                                status: 'completed',
+                            }
+                        }
+                        console.log(jsonData);
+
+                        fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                            },
+                            method: "POST",
+                            body: JSON.stringify(jsonData),
+                            })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                console.log(data)
+                                // swal.close();
+                                let url = data.invoiceUrl;
+                                window.location.href = url;
+                            })
+                            .catch((error) => {
+                                // swal.close();
+                                console.log(error)
+                                swal({
+                                    title: "Status",
+                                    text: "Kesalahan Server",
+                                    icon: "info",
+                                    buttons: true,
+                                })
+                            });
                 }
-                // let id_anggota = document.getElementById('id_anggota').value;
-                // let data_customer;
-                // let jsonData = {}
-                // let nama_customer = document.getElementById('nama_customer').value
-                // let email_customer = document.getElementById('email_customer').value
-                // let alamat_customer = document.getElementById('alamat_customer').value
-                // let no_telp_customer = document.getElementById('no_telp_customer').value
-
-
-                // data_customer = {
-                //     nama_customer,
-                //     email: email_customer,
-                //     alamat: alamat_customer,
-                //     no_telp: no_telp_customer,
-                //     id_koperasi,
-                // }
-                // jsonData = {
-                //     items,
-                //     id_anggota,
-                //     id_koperasi,
-                //     data_customer,
-                //     subTotal,
-                //     grandTotal,
-                //     totalQty,
-                //     tax,
-                //     discount,
-                //     invoiceNumber,
-                // }
-                // console.log(jsonData)
-                // swal({
-                //     title: "Please wait",
-                //     text: "Submitting data...",
-                //     // icon: "/assets/images/loading.gif",
-                //     button: false,
-                //     closeOnClickOutside: false,
-                //     closeOnEsc: false,
-                //     className: "swal-loading",
-                // });
+                
             }
         function cancelTransaction() {
             swal({
