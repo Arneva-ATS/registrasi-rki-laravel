@@ -104,6 +104,18 @@ class UserProfileController extends Controller
     }
 }
 
+public function ubah_password()
+    {
+        $id = Session::get('id');
+        $id_koperasi = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $no_anggota = Session::get('no_anggota');
+        $tingkatan = Session::get('tingkatan');
+        $profile =  DB::table('tbl_anggota')->where('no_anggota', '=', $no_anggota)->first();
+        return view('member.user-profile.ubah_password', compact('id', 'no_anggota', 'profile', 'id_koperasi','username','tingkatan'));
+    }
+
 /**
  * Save Base64 Image
  *
@@ -145,4 +157,5 @@ private function getExtensionFromMime($mime)
     ];
     return $mime_map[$mime] ?? null;
 }
+
 }

@@ -340,7 +340,7 @@ if (config('app.env') === 'production') {
         Route::post('/dologin', [MemberController::class, 'loginprocess'])->name('login');
         Route::get('/logout', [MemberController::class, 'logout'])->name('logout');
         Route::get('/user-profile', [UserProfileController::class, 'index'])->name('user-profile');
-
+        Route::get('/ubah_password', [UserProfileController::class, 'ubah_password'])->name('ubah_password');
         // Dashboard
         Route::get('/dashboard', [MemberController::class, 'dashboard'])->name('overview');
 
