@@ -196,11 +196,9 @@
                                                     <table border="0" cellpadding="0" cellspacing="0" class="paragraph_block block-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;" width="100%">
                                                         <tr>
                                                             <td class="pad">
-                                                                <div style="color:#201f42;direction:ltr;font-family:Inter, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:180%;text-align:center;mso-line-height-alt:28.8px;">
-                                                                    <ul>
-                                                                        <li><b>Username: {{ $username }}</b></li>
-                                                                        <li><b>Password: {{ $password }}</b></li>
-                                                                    </ul>
+                                                                <div style="color:#201f42;direction:ltr;font-family:Inter, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:180%;text-align:center;mso-line-height-alt:28.8px; margin-top:10px;">
+                                                                    <span><b>Username: {{ $username }}</b></span><br>
+                                                                    <span><b>Password: {{ $password }}</b></span>
                                                                 </div>
                                                             </td>
                                                         </tr>
