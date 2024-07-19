@@ -613,6 +613,52 @@ class KoperasiController extends Controller
         $id_inkop = Session::get('id_inkop');
         $id_puskop = Session::get('id_puskop');
         $id_primkop = Session::get('id_primkop');
-        return view('dashboard.data.koperasi.simpin.tambah_simpanan', compact('id', 'username', 'password', 'tingkatan'));
+        $id_koperasi = $id;
+        return view('dashboard.data.koperasi.simpin.tambah_simpanan', compact('id', 'username', 'password', 'tingkatan','id_koperasi'));
+    }
+
+
+    public function insert_simpanan(Request $request){
+
+        DB::beginTransaction();
+    
+            try {
+                $request->validate([
+                    'simpanan_pokok' => 'required',
+                    'id_koperasi' => 'required',
+                    'no_anggota' => 'required',
+                    'simpanan_wajib' => 'required',
+                    'simpanan_sukarela' => 'required',
+                    'keterangan' => 'required',
+                    'tanggal_simpanan' => 'required'
+                ]);
+    
+                $simpananData = [
+                    'simpanan_pokok' => $request->simpanan_pokok,
+                    'id_koperasi' => $request->id_koperasi,
+                    'no_anggota' => $request->no_anggota,
+                    'simpanan_wajib' => $request->simpanan_wajib,
+                    'simpanan_sukarela' => $request->simpanan_sukarela,
+                    'keterangan' => $request->keterangan,
+                    'tanggal_simpanan' => $request->tanggal_simpanan
+                ];
+                // Insert into tbl_anggota
+                $insert_simpanan = DB::table('tbl_simpanan')->insert($simpananData);
+                if (!$insert_simpanan) {
+                    throw new \Exception('Gagal Tambah Simpanan!');
+                }
+                DB::commit();
+                return response()->json([
+                    'response_code' => "00",
+                    'response_message' => 'Sukses simpan data!',
+                ], 200);
+            } catch (\Throwable $th) {
+                DB::rollBack();
+                return response()->json([
+                    'response_code' => "01",
+                    'response_message' => $th->getMessage(),
+                ], 400);
+            }
+
     }
 }

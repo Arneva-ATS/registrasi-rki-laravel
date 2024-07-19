@@ -57,7 +57,6 @@ class MemberController extends Controller
     public function create(Request $request)
     {
         
-        {
             DB::beginTransaction();
     
             try {
@@ -99,8 +98,6 @@ class MemberController extends Controller
                     'response_message' => $th->getMessage(),
                 ], 400);
             }
-        }
-
 
     }
 

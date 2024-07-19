@@ -285,6 +285,7 @@ if (config('app.env') === 'production') {
     Route::get('/member/pinjaman', [MemberController::class, 'pinjaman']);
     Route::get('/member/tambah_pinjaman', [MemberController::class, 'tambah_pinjaman']);
     Route::post('/insert/pinjaman', [MemberController::class, 'create']);
+    Route::post('/insert/simpanan', [KoperasiController::class, 'insert_simpanan']);
     Route::get('/delete/pinjaman/{id}', [MemberController::class, 'destroy']);
     Route::get('/member/logout', [MemberController::class, 'logout']);
 
