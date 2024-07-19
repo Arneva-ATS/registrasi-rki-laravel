@@ -85,7 +85,47 @@ class PosController extends Controller
             return response()->json(['repsonse_code' => '01', 'response_message' => $th->getMessage()], 500);
         }
     }
-    public function destroy($order_id){
+    public function insert_payment(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $request->validate([
+                'amount_value' => 'required',
+                'change_value' => 'required',
+                'id_koperasi' => 'required',
+                'id_order' => 'required',
+                'id_payment_method' => 'required',
+                'paid_value' => 'required',
+                'status' => 'required',
+            ]);
+
+            $paymentId = DB::table('tbl_payments')->insertGetId([
+                'amount_value' => $request->amount_value,
+                'change_value' => $request->change_value,
+                'id_koperasi' => $request->id_koperasi,
+                'id_order' => $request->id_order,
+                'id_payment_method' => $request->id_payment_method,
+                'paid_value' => $request->paid_value,
+                'status' => $request->status,
+                'created_by' => 'admin',
+                'updated_by' => 'admin'
+            ]);
+            if (!$paymentId) {
+                throw new \Exception('Gagal Bayar!');
+            }
+            $orderUpdate = DB::table('tbl_order')->where('id', $request->id_order)->update(['status' => 'completed']);
+            if (!$orderUpdate) {
+                throw new \Exception('Gagal Checkout');
+            }
+            DB::commit();
+            return response()->json(['response_code' => '00', 'response_message' => 'Berhasil Bayar'], 200);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['repsonse_code' => '01', 'response_message' => $th->getMessage()], 500);
+        }
+    }
+    public function destroy($order_id)
+    {
         DB::beginTransaction();
 
         try {
@@ -95,7 +135,7 @@ class PosController extends Controller
             if (!$cancel_order_detail) {
                 throw new \Exception('Galat!');
             }
-            $cancel_order = DB::table('tbl_order')->where('id', $order_id)->update(['status'=>'failed']);
+            $cancel_order = DB::table('tbl_order')->where('id', $order_id)->update(['status' => 'failed']);
             if (!$cancel_order) {
                 throw new \Exception('Galat!');
             }
