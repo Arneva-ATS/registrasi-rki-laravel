@@ -442,7 +442,7 @@ if (config('app.env') === 'production') {
 
             return view('dashboard.sales.checkout', compact('id', 'username', 'password', 'tingkatan', 'order', 'order_detail', 'koperasi'));
         }
-    })->name('view-pos2');
+    })->name('view-pos');
 
     Route::get('/list_primkop_puskop/{id}', function ($id) {
         $id_pus = Session::get('id_koperasi');
