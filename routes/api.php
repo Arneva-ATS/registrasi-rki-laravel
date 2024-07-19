@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KoperasiController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\Member\UserProfileController;
 use App\Http\Controllers\PosController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
@@ -66,3 +67,17 @@ Route::get('/anggota/list/{no_anggota}/{id_koperasi}', [AnggotaController::class
 Route::post('/approve/send-mail/pengajuan/{id}', [MailController::class, 'sendMailApprovePengajuan']);
 Route::delete('/reject/send-mail/pengajuan/{id}', [MailController::class, 'sendMailRejectPengajuan']);
 // ============ End Pengajuan Registrasi ================
+
+
+
+// ====================================================================================================================================
+// Member Routing API
+// ====================================================================================================================================
+Route::prefix('member')->name('member.')->group(function () {
+    // User Profile
+    Route::get('/user-profile', [UserProfileController::class, 'index'])->name('user-profile');
+    Route::post('/user-profile/update', [UserProfileController::class, 'update'])->name('update-user-profile');
+});
+// ====================================================================================================================================
+// End Member Routing API
+// ====================================================================================================================================

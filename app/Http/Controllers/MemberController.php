@@ -21,9 +21,9 @@ class MemberController extends Controller
         $password = Session::get('password');
         $no_anggota = Session::get('no_anggota');
         $tingkatan = Session::get('tingkatan');
-        
+
         $profile =  DB::table('tbl_anggota')->where('no_anggota', '=', $no_anggota)->first();
-        return view('member.dashboard', compact('id', 'no_anggota', 'profile', 'id_koperasi','username','tingkatan'));
+        return view('member.overview.dashboard', compact('id', 'no_anggota', 'profile', 'id_koperasi','username','tingkatan'));
     }
 
     /**
@@ -43,7 +43,7 @@ class MemberController extends Controller
             return redirect('/member/dashboard');
         }else{
             return redirect('/member/login');
-        }     
+        }
     }
 
     /**
@@ -56,9 +56,10 @@ class MemberController extends Controller
 
     public function create(Request $request)
     {
-        
+
+        {
             DB::beginTransaction();
-    
+
             try {
                 $request->validate([
                     'jenis_pinjaman' => 'required',
@@ -70,7 +71,7 @@ class MemberController extends Controller
                     'alasan' => 'required',
                     'tanggal_pinjaman' => 'required|date'
                 ]);
-    
+
                 $pinjamanData = [
                     'jenis_pinjaman' => $request->jenis_pinjaman,
                     'id_koperasi' => $request->id_koperasi,
@@ -127,7 +128,7 @@ class MemberController extends Controller
      */
     public function destroy(string $id)
     {
-        
+
         DB::beginTransaction();
 
         try {
@@ -137,13 +138,13 @@ class MemberController extends Controller
             if (!$delete_pinjaman) {
                 throw new \Exception('Gagal delete!');
             }
-            
+
             DB::commit();
 
             return redirect('/member/pinjaman');
 
         } catch (\Throwable $th) {
-            
+
             DB::rollBack();
             return redirect('/member/pinjaman');
         }
