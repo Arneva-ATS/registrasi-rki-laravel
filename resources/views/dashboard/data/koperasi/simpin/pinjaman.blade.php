@@ -46,7 +46,7 @@
         </div>
     </div>
 @endsection
-
+ 
 @push('js')
     <script>
     function approvePinjaman(e) {
