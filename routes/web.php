@@ -445,7 +445,9 @@ if (config('app.env') === 'production') {
                     ->select('*', 'tbl_order.id as id_order', 'tbl_customer.id as id_customer')
                     ->first();
             }
-            $order_detail = DB::table('tbl_order_detail')->join("tbl_produk", 'tbl_order_detail.id_product', '=', 'tbl_produk.id')->where('tbl_order_detail.id_order', $id_order)->select('tbl_produk.nama_produk', 'tbl_order_detail.quantity', 'tbl_order_detail.price', 'tbl_order_detail.total', 'tbl_produk.id as id_produk', 'tbl_order_detail.id as id_detail_order')->get();
+            $order_detail = DB::table('tbl_order_detail')->join("tbl_produk", 'tbl_order_detail.id_product', '=', 'tbl_produk.id')
+                ->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_order_detail.id_order', $id_order)
+                ->select('tbl_produk.nama_produk', 'tbl_order_detail.quantity', 'tbl_order_detail.price', 'tbl_order_detail.total', 'tbl_kategori_produk.nama_kategori', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori', 'tbl_order_detail.id as id_detail_order')->get();
             // return dd($order_detail);
             // return dd($order);
             return view('dashboard.sales.checkout', compact('id', 'username', 'password', 'tingkatan', 'order', 'order_detail', 'koperasi', 'payment_method'));

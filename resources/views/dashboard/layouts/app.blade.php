@@ -36,6 +36,39 @@
             overflow: visible;
             text-overflow: clip;
         }
+        @media print {
+                            #receipt {
+                                width: 80mm;
+                                font-size: small;
+                                text-align: left;
+                            }
+                            #receipt h3, #receipt p, #receipt table, #receipt th, #receipt td {
+                                font-size: small;
+                                margin: 0;
+                                padding: 0;
+                            }
+            
+                            #receipt th, #receipt td {
+                                padding: 5px;
+                                text-align: left;
+                            }
+            
+                            #receipt hr {
+                                border: 1px dashed black;
+                            }
+            
+                            #receipt .header, #receipt .footer {
+                                text-align: center;
+                            }
+            
+                            #receipt .header h3, #receipt .footer p {
+                                margin: 5px 0;
+                            }
+            
+                            #receipt .section {
+                                margin-bottom: 10px;
+                            }
+                        }
     </style>
 
     @include('dashboard.layouts.partials.head')
