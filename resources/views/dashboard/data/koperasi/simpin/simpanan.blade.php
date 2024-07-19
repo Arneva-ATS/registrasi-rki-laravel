@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li class="breadcrumb-item active" aria-current="page">Data Simpanan Anggota</li>
 @endsection
- 
+  
 @section('content')
     <br>
     <div class="row">
