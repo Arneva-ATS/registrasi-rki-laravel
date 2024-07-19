@@ -4,6 +4,7 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KoperasiController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Member\UserProfileController;
 use App\Http\Controllers\MemberController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
@@ -274,15 +275,6 @@ if (config('app.env') === 'production') {
         }
     })->name('overview');
 
-    Route::get('/member/login', [MemberController::class, 'loginform']);
-    Route::post('/member/dologin', [MemberController::class, 'loginprocess']);
-    Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('overview-member');
-    Route::get('/member/simpanan', [MemberController::class, 'simpanan']);
-    Route::get('/member/pinjaman', [MemberController::class, 'pinjaman']);
-    Route::get('/member/tambah_pinjaman', [MemberController::class, 'tambah_pinjaman']);
-    Route::post('/insert/pinjaman', [MemberController::class, 'create']);
-    Route::get('/delete/pinjaman/{id}', [MemberController::class, 'destroy']);
-    Route::get('/member/logout', [MemberController::class, 'logout']);
 
     Route::get('/list_inkop', function () {
         $id = Session::get('id_koperasi');
@@ -450,7 +442,7 @@ if (config('app.env') === 'production') {
 
             return view('dashboard.sales.checkout', compact('id', 'username', 'password', 'tingkatan', 'order', 'order_detail', 'koperasi'));
         }
-    })->name('view-pos');
+    })->name('view-pos2');
 
     Route::get('/list_primkop_puskop/{id}', function ($id) {
         $id_pus = Session::get('id_koperasi');
@@ -551,4 +543,32 @@ if (config('app.env') === 'production') {
             return view('registrasi.registrasi-koperasi', ['tingkat_bawah' => $tingkat_atas[0]->nama_tingkatan, "tingkat_atas" => $tingkat_bawah[0]->nama_tingkatan, 'id_koperasi' => $koperasi[0]->id_kop, 'nama_koperasi' => $koperasi[0]->nama_koperasi, 'id_tingkat' => $tingkatan]);
         }
     })->name('koperasi');
+
+
+    // =========================================================================================================================================================
+    // Member Routing
+    // =========================================================================================================================================================
+    Route::prefix('member')->name('member.')->group(function () {
+        // Authentication
+        Route::get('/login', [MemberController::class, 'loginform'])->name('login');
+        Route::post('/dologin', [MemberController::class, 'loginprocess'])->name('login');
+        Route::get('/logout', [MemberController::class, 'logout'])->name('logout');
+        Route::get('/user-profile', [UserProfileController::class, 'index'])->name('user-profile');
+
+        // Dashboard
+        Route::get('/dashboard', [MemberController::class, 'dashboard'])->name('overview');
+
+        // Simpanan
+        Route::get('/simpanan', [MemberController::class, 'simpanan'])->name('simpanan');
+
+        // Pinjaman
+        Route::get('/pinjaman', [MemberController::class, 'pinjaman'])->name('pinjaman');
+        Route::get('/tambah_pinjaman', [MemberController::class, 'tambah_pinjaman'])->name('tambah.pinjaman');
+        Route::post('/insert/pinjaman', [MemberController::class, 'create'])->name('store.pinjaman');
+        Route::get('/delete/pinjaman/{id}', [MemberController::class, 'destroy'])->name('delete.pinjaman');
+    });
+    // =========================================================================================================================================================
+    // End Member Routing
+    // =========================================================================================================================================================
+
 }

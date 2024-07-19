@@ -37,6 +37,7 @@
  <link rel="stylesheet" type="text/css" href="{{asset('/assets/dashboard/src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
  <link href='https://fonts.googleapis.com/css?family=Libre Barcode 128' rel='stylesheet'>
 
+ @stack('link-style')
  <!-- END PAGE LEVEL STYLES -->
  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
