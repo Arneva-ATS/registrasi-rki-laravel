@@ -542,6 +542,113 @@ class KoperasiController extends Controller
         }
     }
 
+
+    public function dashboard(){
+
+        $id = Session::get('id_koperasi');
+        if (!empty($id)) {
+            $username = Session::get('username');
+            $password = Session::get('password');
+            $tingkatan = Session::get('tingkatan');
+            $id_inkop = Session::get('id_inkop');
+            $id_puskop = Session::get('id_puskop');
+            $id_primkop = Session::get('id_primkop');
+            $inkop_count = DB::table('tbl_koperasi')->where('id_tingkatan_koperasi', '=', 1)->count();
+            $puskop_count = DB::table('tbl_koperasi')->where('id_tingkatan_koperasi', '!=', 3)->count();
+            $primkop_count = DB::table('tbl_koperasi')->where('id_tingkatan_koperasi', '!=', 2)->count();
+            $anggota_count = DB::table('tbl_anggota')->where('id_koperasi', $id)->count();
+            $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
+            // return dd($koperasi);
+            return view('dashboard.overview.index', compact('id', 'username', 'password', 'tingkatan', 'inkop_count', 'puskop_count', 'primkop_count', 'anggota_count', 'koperasi'));
+        } else {
+            return redirect('/login');
+        }
+
+    }
+
+    public function list_inkop(){
+
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        $list_inkop =  DB::table('tbl_koperasi')->where('id_tingkatan_koperasi', '=', 1)->get();
+        return view('dashboard.data.koperasi.inkop.index', compact('id', 'username', 'password', 'tingkatan', 'list_inkop'));
+        
+    }
+
+    public function list_puskop(){
+
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        if ($tingkatan == 'rki') {
+            $puskop = DB::table('tbl_koperasi')->where('id_tingkatan_koperasi', '=', 2)->get();
+        } else {
+            $puskop = DB::table('tbl_koperasi')->where('id_inkop',  $id)->get();
+        }
+        return view('dashboard.data.koperasi.puskop.index', compact('id', 'username', 'password', 'tingkatan', 'puskop'));
+        
+    }
+
+    public function list_puskop_inkop(String $id){
+
+        // return dd($id);
+        $id_ink = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        $puskop = DB::table('tbl_koperasi')->where('id_inkop',  $id)->where('approval', '=', 1)->get();
+        return view('dashboard.data.koperasi.puskop.index', compact('id_ink', 'username', 'password', 'tingkatan', 'puskop'));
+
+    }
+
+
+    public function list_primkop_puskop(String $id){
+
+        $id_pus = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        // return dd($tingkatan);
+
+        $primkop = DB::table('tbl_koperasi')->where('id_puskop', $id)->where('approval', '=', 1)->get();
+        return view('dashboard.data.koperasi.primkop.index', compact('id_pus', 'username', 'password', 'tingkatan', 'primkop'));
+
+    }
+
+    public function list_primkop(){
+
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        // return dd($tingkatan);
+        if ($tingkatan == 'rki') {
+            $primkop = DB::table('tbl_koperasi')->where('id_tingkatan_koperasi', '=', 3)->get();
+            // return dd($primkop);
+        } else {
+            $primkop = DB::table('tbl_koperasi')->where('id_puskop', $id)->get();
+        }
+        return view('dashboard.data.koperasi.primkop.index', compact('id', 'username', 'password', 'tingkatan', 'primkop'));
+    } 
+
     public function primkop()
     {
         $id = Session::get('id_koperasi');
@@ -659,6 +766,19 @@ class KoperasiController extends Controller
                     'response_message' => $th->getMessage(),
                 ], 400);
             }
+
+    }
+
+    public function logout(){
+
+        Session::flush('id_koperasi');
+        Session::flush('username');
+        Session::flush('password');
+        Session::flush('tingkatan');
+        Session::flush('id_inkop');
+        Session::flush('id_puskop');
+        Session::flush('id_primkop');
+        return redirect('/login');
 
     }
 }

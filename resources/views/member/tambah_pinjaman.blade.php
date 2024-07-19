@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item active" aria-current="page">Pinjaman</li>
+    <li class="breadcrumb-item active" aria-current="page">Tambah Pinjaman</li>
 @endsection
 
 @section('content')
