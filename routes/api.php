@@ -3,6 +3,9 @@
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\KoperasiController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PosController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +31,7 @@ Route::prefix('register')->group(function () {
     });
     Route::post("/rki/insert-koperasi/{tingkat}", [KoperasiController::class, 'insert_koperasi_rki']);
     Route::post('/anggota/insert-anggota', [AnggotaController::class, 'insert_anggota']);
+    Route::post('/anggota/update-anggota/{id_anggota}', [AnggotaController::class, 'update_anggota']);
     Route::post('/koperasi/insert-koperasi/{koperasi}/{tingkat}', [KoperasiController::class, 'insert_koperasi']);
 })->name('register');
 
@@ -41,7 +45,22 @@ Route::post('/approve/send-mail/anggota/{id}', [MailController::class, 'sendMail
 Route::post('/approve/send-mail/koperasi/{id}', [MailController::class, 'sendMailApproveKoperasi']);
 Route::delete('/reject/send-mail/anggota/{id}', [MailController::class, 'sendMailRejectAnggota']);
 Route::delete('/reject/send-mail/koperasi/{id}', [MailController::class, 'sendMailRejectKoperasi']);
+Route::prefix('products')->group(function () {
+    Route::get('/get-products/{id}', [ProductController::class, 'get_product']);
+    Route::get('/detail-products/{id_koperasi}/{id_produk}', [ProductController::class, 'detail_product']);
+    Route::post('/insert-product/{id}', [ProductController::class, 'insert']);
+    Route::post('/insert-kategori/{id}', [ProductCategoryController::class, 'store']);
+    Route::delete('/delete-kategori/{id}', [ProductCategoryController::class, 'destroy']);
+    Route::delete('/delete-produk/{id}', [ProductController::class, 'destroy']);
+    Route::patch('/update-produk/{id}', [ProductController::class, 'update']);
+})->name('products');
 
+Route::prefix('pos')->group(function () {
+    Route::post('/checkout', [PosController::class, 'insert_pos']);
+    Route::delete('/cancel/{order_id}', [PosController::class, 'destroy']);
+})->name('pos');
+
+Route::get('/anggota/list/{no_anggota}/{id_koperasi}', [AnggotaController::class, 'show']);
 // ============ Pengajuan Registrasi ================
 Route::post('/approve/send-mail/pengajuan/{id}', [MailController::class, 'sendMailApprovePengajuan']);
 Route::delete('/reject/send-mail/pengajuan/{id}', [MailController::class, 'sendMailRejectPengajuan']);

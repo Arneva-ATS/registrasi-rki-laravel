@@ -1,44 +1,43 @@
 @extends('dashboard.layouts.app')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="#">Data</a></li>
-    <li class="breadcrumb-item"><a href="#">Koperasi</a></li>
-    <li class="breadcrumb-item"><a href="#">Anggota</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Create</li>
+    <li class="breadcrumb-item active" aria-current="page">Anggota</li>
 @endsection
 
 @section('content')
+    <br>
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
             <div class="widget-content widget-content-area br-8 p-3">
                 <form class="row g-3 needs-validation" novalidate enctype="multipart/for-data">
                     <input type="hidden" name="koperasi_name" id="koperasi_name" />
+                    <input type="hidden" name="id_anggota" id="id_anggota" value="{{$profile->id}}"/>
                     <div class="col-md-6 position-relative">
                         <div class="form-group">
                             <label for="no_anggota">No Anggota</label>
                             <input type="text" name="no_anggota" id="no_anggota" class="form-control"
-                                placeholder="masukan no_anggota" required />
+                                placeholder="masukan no_anggota" value="{{$profile->no_anggota}}" required />
                         </div>
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="nik">NIK</label>
-                        <input type="text" name="nik" id="nik" class="form-control" placeholder="Masukan Nik"
+                        <input type="text" name="nik" id="nik" class="form-control" placeholder="Masukan Nik" value="{{$profile->nik}}"
                             required />
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="nama_lengkap">Nama Lengkap</label>
                         <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control"
-                            placeholder="Masukan Nama Lengkap" required />
+                            placeholder="Masukan Nama Lengkap" value="{{$profile->nama_lengkap}}" required />
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="tempat_lahir">Tempat</label>
                         <input type="text" class="form-control w-100" name="tempat_lahir" id="tempat_lahir"
-                            placeholder="Masukan Tempat Lahir" required />
+                            placeholder="Masukan Tempat Lahir" value="{{$profile->tempat_lahir}}" required />
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Tanggal Lahir</label>
                         <input type="date" class="form-control w-100" name="tanggal_lahir" id="tanggal_lahir"
-                            placeholder="Masukan Tanggal Lahir" required />
+                            placeholder="Masukan Tanggal Lahir" value="{{$profile->tanggal_lahir}}" required />
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip05" class="form-label">Jenis Kelamin</label>
@@ -78,22 +77,21 @@
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Kode Pos</label>
                         <input type="text" name="kode_pos" id="kode_pos" class="form-control"
-                            placeholder="Masukan Kode Pos" required />
+                            placeholder="Masukan Kode Pos" value="{{$profile->kode_pos}}" required />
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Alamat Jika Tidak Sesuai dengan KTP</label>
                         <label for="alamat">Alamat jika tidak sesuai KTP</label>
-                        <textarea name="alamat" id="alamat" class="form-control" style="height: 8rem" placeholder="Masukan Alamat"
-                            required></textarea>
+                        <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Masukan Alamat" value="{{$profile->alamat}}" required>
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">No. HP(Whatsapps)</label>
                         <input type="text" name="nomor_hp" id="nomor_hp" class="form-control"
-                            placeholder="Masukan No HP" required />
+                            placeholder="Masukan No HP" value="{{$profile->nomor_hp}}" required />
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Email</label>
-                        <input type="email" name="email" id="email" class="form-control"
+                        <input type="email" name="email" id="email" value="{{$profile->email}}" class="form-control"
                             placeholder="Masukan Email" required />
                     </div>
                     <div class="col-md-6 position-relative">
@@ -122,17 +120,19 @@
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Pekerjaan</label>
                         <input type="text" name="pekerjaan" id="pekerjaan" class="form-control"
-                            placeholder="Masukan Pekerjaan" required />
+                            placeholder="Masukan Pekerjaan" value="{{$profile->pekerjaan}}" required />
                     </div>
 
                     <div class="col-md-6 position-relative">
                         <label for="kewarganegaraan">Kewarganegaraan</label>
                         <input type="text" name="kewarganegaraan" id="kewarganegaraan" class="form-control"
-                            placeholder="Masukan Kewarganegaraan" required />
+                            placeholder="Masukan Kewarganegaraan" value="{{$profile->kewarganegaraan}}" required />
                     </div>
 
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Foto KTP</label>
+                        <img src="{{asset($profile->ktp)}}" alt="selfie" width="150" height="150"
+                                class="d-block mx-auto mb-3" style="border-radius: 10%" />
                         <input type="file" name="ktp" id="ktp" class="form-control px-4"
                             style="height: auto !important; padding-top: 15px !important; padding-bottom: 15px !important;"
                             onchange="convertBase64ktp()" accept="image/jpeg, image/jpg, image/png" />
@@ -141,7 +141,7 @@
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Foto Pribadi</label>
                         <div class="">
-                            <img src="/assets/images/selfie.JPG" alt="selfie" width="150" height="150"
+                            <img src="{{asset($profile->selfie)}}" alt="selfie" width="150" height="150"
                                 class="d-block mx-auto mb-3" style="border-radius: 10%" />
                             <input type="file" name="selfie" id="selfie" class="form-control form-control px-4"
                                 onchange="convertBase64selfie()"
@@ -152,8 +152,8 @@
 
                     <div class="col-12">
                         <button type="button" name="process" id="button-submit" class="btn btn-primary"
-                            onclick="saveData()">
-                            Simpan
+                            onclick="updateData()">
+                            Update
                         </button>
                     </div>
                 </form>
@@ -163,13 +163,9 @@
 @endsection
 
 @push('js')
-    <script>
-        window.addEventListener("load", () => {
-            getProvince();
-        });
-    </script>
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/function.js') }}"></script>
+
     <script>
         let baseStringSelfie;
         let baseStringKtp;
@@ -206,7 +202,8 @@
             reader.readAsDataURL(flt);
         }
 
-        function saveData() {
+        function updateData() {
+            var id_anggota = document.getElementById("id_anggota").value;
             var no_anggota = document.getElementById("no_anggota").value;
             var nik = document.getElementById("nik").value;
             var nama_lengkap = document.getElementById("nama_lengkap").value;
@@ -276,12 +273,10 @@
                 type2: type2,
                 id_role: 2,
                 id_koperasi: {{ $id_koperasi }},
+                id_anggota: id_anggota
             };
 
-
-            // console.log(jsondata)
-
-            fetch("/api/register/anggota/insert-anggota", {
+            fetch("/api/register/anggota/update-anggota/"+id_anggota, {
                     headers: {
                         "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
@@ -301,7 +296,7 @@
                             buttons: true,
                         }).then((willOut) => {
                             if (willOut) {
-                                window.location = "/list_anggota";
+                                window.location.reload();
                                 console.log("success")
                             } else {
                                 console.log("error");
@@ -330,7 +325,7 @@
                         buttons: true,
                     }).then((willOut) => {
                         if (willOut) {
-                            //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
+                            window.location.reload();
                         } else {
                             console.log("error");
                         }
@@ -339,3 +334,4 @@
         }
     </script>
 @endpush
+

@@ -108,10 +108,10 @@
                             placeholder="Masukan no_anggota" />
                     </div>
                     <!-- <div class="col-md-6 position-relative">
-                            <label for="validationTooltip04" class="form-label">Jabatan Pengurus</label>
-                                <input type="text" name="jabatan_pengurus" id="jabatan_pengurus" value="1"
-                                class="form-control" placeholder="Masukan Jabatan" hidden />
-                        </div> -->
+                                <label for="validationTooltip04" class="form-label">Jabatan Pengurus</label>
+                                    <input type="text" name="jabatan_pengurus" id="jabatan_pengurus" value="1"
+                                    class="form-control" placeholder="Masukan Jabatan" hidden />
+                            </div> -->
 
                     <div class="col-md-6 position-relative">
                         <label for="kewarganegaraan">No WA</label>
@@ -150,10 +150,10 @@
                     </div>
 
                     <!-- <div class="col-md-6 position-relative">
-                            <label for="validationTooltip04" class="form-label">Jabatan Pengawas</label>
-                                <input type="text" name="jabatan_pengawas" id="jabatan_pengawas" value="3"
-                                    class="form-control" placeholder="Masukan Jabatan" hidden />
-                        </div> -->
+                                <label for="validationTooltip04" class="form-label">Jabatan Pengawas</label>
+                                    <input type="text" name="jabatan_pengawas" id="jabatan_pengawas" value="3"
+                                        class="form-control" placeholder="Masukan Jabatan" hidden />
+                            </div> -->
 
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">No Wa Pengawas</label>
@@ -517,10 +517,29 @@
             const no_npwp = document.getElementById("no_npwp").value;
             const no_pkp = document.getElementById("no_pkp").value;
             const no_sertifikat = document.getElementById("no_sertifikat").value;
-
+            const validKtpKetua = ktpKetua.files[0];
+            const validKtpPengawas = ktpPengawas.files[0];
+            const validLogo = logoInput.files[0];
             const slug = createSlug(singkatan_koperasi);
             const username = createUsername(singkatan_koperasi);
-
+            var validSKK = dokumenSkKemenkumham.files[0];
+            var validSKDU = dokumenDomisili.files[0];
+            var validSIUP = dokumenSiup.files[0];
+            var validSertifikat = documentSertifikat.files[0];
+            var validSPKK = dokumenSpkum.files[0];
+            var validAktaPendirian = dokumenAktaPendirian.files[0];
+            var validAktaPerubahan = dokumenAktaPerubahan.files[0];
+            if (!validKtpKetua || !validKtpPengawas || !validLogo || !validAktaPendirian || !validAktaPerubahan || !
+                validSIUP || !validSKDU || !validSKK || !validSPKK || !validSertifikat || provinsi == '00' || kota ==
+                '00' || kecamatan == '00' || kelurahan == '00') {
+                swal({
+                    title: "Perhatian!",
+                    text: "Pastikan semua data terisi!",
+                    icon: "info",
+                    buttons: true,
+                });
+                return false;
+            }
             swal({
                 title: "Please wait",
                 text: "Submitting data...",
@@ -642,61 +661,61 @@
                         });
                     });
             } else {
-                    await fetch(`/api/register/koperasi/insert-koperasi/${id_koperasi}/1`, {
-                            headers: {
-                                'Access-Control-Allow-Origin': '*',
-                                'Content-Type': 'application/json'
-                            },
-                            method: "POST",
-                            body: JSON.stringify(jsondata)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            swal.close();
-                            console.log(data)
-                            if (data.response_code == '00') {
-                                swal({
-                                    title: "Status Registrasi",
-                                    text: data?.response_message,
-                                    icon: "success",
-                                    buttons: true,
-                                }).then((willOut) => {
-                                    if (willOut) {
-                                        window.location.href = "/list_primkop";
-                                        console.log("success")
-                                    } else {
-                                        console.log("error");
-                                    }
-                                });
-                            } else {
-                                swal({
-                                    title: "Status Registrasi",
-                                    text: data?.response_message,
-                                    icon: "error",
-                                    buttons: true,
-                                }).then((willOut) => {
-                                    if (willOut) {} else {
-                                        console.log("error");
-                                    }
-                                });
-                            }
-                        }).catch(err => {
-                            console.log(err);
-                            swal.close();
+                await fetch(`/api/register/koperasi/insert-koperasi/${id_koperasi}/1`, {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: JSON.stringify(jsondata)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        swal.close();
+                        console.log(data)
+                        if (data.response_code == '00') {
                             swal({
                                 title: "Status Registrasi",
-                                text: err,
-                                icon: "info",
+                                text: data?.response_message,
+                                icon: "success",
                                 buttons: true,
                             }).then((willOut) => {
                                 if (willOut) {
-                                    //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
+                                    window.location.href = "/list_primkop";
+                                    console.log("success")
                                 } else {
                                     console.log("error");
                                 }
                             });
+                        } else {
+                            swal({
+                                title: "Status Registrasi",
+                                text: data?.response_message,
+                                icon: "error",
+                                buttons: true,
+                            }).then((willOut) => {
+                                if (willOut) {} else {
+                                    console.log("error");
+                                }
+                            });
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                        swal.close();
+                        swal({
+                            title: "Status Registrasi",
+                            text: err,
+                            icon: "info",
+                            buttons: true,
+                        }).then((willOut) => {
+                            if (willOut) {
+                                //window.location.href = "/registrasi/rki/" + tingkatan_koperasi;
+                            } else {
+                                console.log("error");
+                            }
                         });
-                }
+                    });
+            }
         }
     </script>
 @endpush

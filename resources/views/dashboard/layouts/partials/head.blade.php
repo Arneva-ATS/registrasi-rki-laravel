@@ -35,12 +35,18 @@
 
  <link rel="stylesheet" type="text/css" href="{{asset('/assets/dashboard/src/plugins/css/light/table/datatable/dt-global_style.css')}}">
  <link rel="stylesheet" type="text/css" href="{{asset('/assets/dashboard/src/plugins/css/dark/table/datatable/dt-global_style.css')}}">
+ <link href='https://fonts.googleapis.com/css?family=Libre Barcode 128' rel='stylesheet'>
+
  <!-- END PAGE LEVEL STYLES -->
  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
     body.dark .layout-px-spacing, .layout-px-spacing {
         min-height: calc(100vh - 155px) !important;
     }
+    body table tbody td h2 {
+            font-family: 'Libre Barcode 128';
+            font-size: 4em;
+        }
 </style>
 
 @stack('css')

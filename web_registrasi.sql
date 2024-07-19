@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jul 2024 pada 22.43
--- Versi server: 10.4.25-MariaDB
--- Versi PHP: 8.1.10
+-- Generation Time: Jul 17, 2024 at 10:45 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_anggota`
+-- Table structure for table `tbl_anggota`
 --
 
 CREATE TABLE `tbl_anggota` (
@@ -48,37 +48,38 @@ CREATE TABLE `tbl_anggota` (
   `alamat` text DEFAULT NULL,
   `nomor_hp` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `username` varchar(30) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `selfie` varchar(255) DEFAULT NULL,
   `ktp` varchar(255) DEFAULT NULL,
   `id_role` int(11) DEFAULT NULL,
-  `approval` tinyint(1) DEFAULT 1,
+  `approval` tinyint(1) DEFAULT 0,
   `id_koperasi` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `tbl_anggota`
+-- Dumping data for table `tbl_anggota`
 --
 
-INSERT INTO `tbl_anggota` (`id`, `no_anggota`, `nis`, `nik`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `id_kelurahan`, `id_kecamatan`, `id_kota`, `id_provinsi`, `kode_pos`, `agama`, `status_pernikahan`, `pekerjaan`, `kewarganegaraan`, `alamat`, `nomor_hp`, `email`, `selfie`, `ktp`, `id_role`, `approval`, `id_koperasi`, `created_at`, `updated_at`) VALUES
-(21, '10.00025.0405', NULL, '3171066206560001', 'Hj. Dina Latifah', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0816769253', NULL, NULL, NULL, 1, 1, NULL, '2024-07-05 13:19:15', '2024-07-05 13:19:15'),
-(22, '10.05156.0716', NULL, '123456', 'wahyudi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '087785784556', NULL, NULL, NULL, 2, 1, NULL, '2024-07-05 13:19:15', '2024-07-05 13:19:15');
+INSERT INTO `tbl_anggota` (`id`, `no_anggota`, `nis`, `nik`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `id_kelurahan`, `id_kecamatan`, `id_kota`, `id_provinsi`, `kode_pos`, `agama`, `status_pernikahan`, `pekerjaan`, `kewarganegaraan`, `alamat`, `nomor_hp`, `email`, `username`, `password`, `selfie`, `ktp`, `id_role`, `approval`, `id_koperasi`, `created_at`, `updated_at`) VALUES
+(117, '12345345346', NULL, '341534635465346', 'Omnis incididunt qui', 'Cum unde rem omnis o', '2010-03-15', 'laki-laki', 15437, 1078, 90, 5, '2452345235', 'islam', 'sudah kawin', 'Dolores ipsum aperi', 'Excepteur do Nam sin', 'dgsdfgdb sdfgdsfgdfs sdgfdgfg', '2654634565346', 'muhammad45rifki@gmail.com', 'rifqi', '123456789', '/anggota/selfie/1721195478anggota.png', '/anggota/ktp/1721195478anggota.png', 2, 1, 51, '2024-07-17 12:51:18', '2024-07-17 12:51:18');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_cities`
+-- Table structure for table `tbl_cities`
 --
 
 CREATE TABLE `tbl_cities` (
   `city_id` int(11) NOT NULL,
   `city_name` varchar(255) DEFAULT NULL,
   `prov_id` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data untuk tabel `tbl_cities`
+-- Dumping data for table `tbl_cities`
 --
 
 INSERT INTO `tbl_cities` (`city_id`, `city_name`, `prov_id`) VALUES
@@ -561,17 +562,34 @@ INSERT INTO `tbl_cities` (`city_id`, `city_name`, `prov_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_districts`
+-- Table structure for table `tbl_customer`
+--
+
+CREATE TABLE `tbl_customer` (
+  `id` int(11) NOT NULL,
+  `nama_customer` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `no_telp` varchar(30) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `id_koperasi` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_districts`
 --
 
 CREATE TABLE `tbl_districts` (
   `dis_id` int(11) NOT NULL,
   `dis_name` varchar(255) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data untuk tabel `tbl_districts`
+-- Dumping data for table `tbl_districts`
 --
 
 INSERT INTO `tbl_districts` (`dis_id`, `dis_name`, `city_id`) VALUES
@@ -7576,7 +7594,30 @@ INSERT INTO `tbl_districts` (`dis_id`, `dis_name`, `city_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_koperasi`
+-- Table structure for table `tbl_kategori_produk`
+--
+
+CREATE TABLE `tbl_kategori_produk` (
+  `id` int(11) NOT NULL,
+  `nama_kategori` varchar(30) DEFAULT NULL,
+  `deskripsi` varchar(255) DEFAULT NULL,
+  `id_koperasi` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_kategori_produk`
+--
+
+INSERT INTO `tbl_kategori_produk` (`id`, `nama_kategori`, `deskripsi`, `id_koperasi`, `created_at`, `updated_at`) VALUES
+(2, 'Sembako', 'Ini adalah sembako', 51, '2024-07-15 10:07:53', '2024-07-15 10:07:53'),
+(3, 'ATK', 'Alat Tulis Kantor', 51, '2024-07-15 12:51:43', '2024-07-15 12:51:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_koperasi`
 --
 
 CREATE TABLE `tbl_koperasi` (
@@ -7594,7 +7635,6 @@ CREATE TABLE `tbl_koperasi` (
   `id_kecamatan` int(11) DEFAULT NULL,
   `id_kelurahan` int(11) DEFAULT NULL,
   `kode_pos` varchar(20) DEFAULT NULL,
-  `image_logo` varchar(255) DEFAULT NULL,
   `no_akta_pendirian` varchar(255) DEFAULT NULL,
   `tanggal_akta_pendirian` date DEFAULT NULL,
   `no_akta_perubahan` varchar(255) DEFAULT NULL,
@@ -7609,35 +7649,42 @@ CREATE TABLE `tbl_koperasi` (
   `masa_berlaku_sk_domisili` date DEFAULT NULL,
   `no_npwp` varchar(255) DEFAULT NULL,
   `no_pkp` varchar(255) DEFAULT NULL,
-  `no_bpjs_kesehatan` varchar(255) DEFAULT NULL,
-  `no_bpjs_tenaga_kerja` varchar(255) DEFAULT NULL,
   `no_sertifikat_koperasi` varchar(255) DEFAULT NULL,
-  `file_sertifikat_koperasi` varchar(255) DEFAULT NULL,
-  `approval` tinyint(1) DEFAULT 1,
-  `doc_url` varchar(255) DEFAULT NULL,
+  `doc_sertifikat_koperasi` varchar(255) DEFAULT NULL,
+  `approval` tinyint(1) DEFAULT 0,
   `singkatan_koperasi` varchar(100) DEFAULT NULL,
   `id_inkop` int(11) DEFAULT NULL,
   `id_puskop` int(11) DEFAULT NULL,
   `id_primkop` int(11) DEFAULT NULL,
-  `ktp` varchar(255) NOT NULL,
+  `image_ktp_pengawas` varchar(255) DEFAULT NULL,
+  `image_ktp_ketua` varchar(255) DEFAULT NULL,
+  `image_logo` varchar(255) DEFAULT NULL,
+  `image_npwp` varchar(255) DEFAULT NULL,
+  `doc_siup` varchar(255) DEFAULT NULL,
+  `doc_sk_kemenkumham` varchar(255) DEFAULT NULL,
+  `doc_akta_perubahan` varchar(255) DEFAULT NULL,
+  `doc_akta_pendirian` varchar(255) DEFAULT NULL,
+  `doc_spkum` varchar(255) DEFAULT NULL,
+  `doc_sk_domisili` varchar(255) DEFAULT NULL,
   `slug` varchar(100) DEFAULT NULL,
-  `password` varchar(255) DEFAULT '123456789',
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `id_tingkatan_koperasi` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `tbl_koperasi`
+-- Dumping data for table `tbl_koperasi`
 --
 
-INSERT INTO `tbl_koperasi` (`id`, `nama_koperasi`, `no_phone`, `hp_wa`, `hp_fax`, `email_koperasi`, `url_website`, `bidang_koperasi`, `alamat`, `id_provinsi`, `id_kota`, `id_kecamatan`, `id_kelurahan`, `kode_pos`, `image_logo`, `no_akta_pendirian`, `tanggal_akta_pendirian`, `no_akta_perubahan`, `tanggal_akta_perubahan`, `no_sk_kemenkumham`, `tanggal_sk_kemenkumham`, `no_spkum`, `tanggal_spkum`, `no_siup`, `masa_berlaku_siup`, `no_sk_domisili`, `masa_berlaku_sk_domisili`, `no_npwp`, `no_pkp`, `no_bpjs_kesehatan`, `no_bpjs_tenaga_kerja`, `no_sertifikat_koperasi`, `file_sertifikat_koperasi`, `approval`, `doc_url`, `singkatan_koperasi`, `id_inkop`, `id_puskop`, `id_primkop`, `ktp`, `slug`, `password`, `id_tingkatan_koperasi`, `created_at`, `updated_at`) VALUES
-(2, 'Koperasi Serba Usaha \"Pegangsaan\"', '', '085718478040', '', 'deeah.dhanti@gmail.com', '', 'Serba Usaha', 'Jl. Matraman Dalam III No. 12 Rt. 005/007\n', 11, 156, 1915, 25144, '10320', '/koperasi/1719893230157.jpeg', '1367', '1980-09-06', '199', '2011-08-31', '11', '2011-08-25', '1367', '1980-06-09', '1296000230358', '2021-02-05', '118', '2016-07-19', '013745708071000', '123123', '0001263114821', '123456', '3173020020033', NULL, 1, '/koperasi/1719893230161.pdf', 'KSUPegangsaan', NULL, NULL, NULL, '/koperasi/1719893230158.jpeg', 'ksu-pegangsaan', '123456789', 2, '2024-07-05 13:18:46', '2024-07-05 13:18:46');
+INSERT INTO `tbl_koperasi` (`id`, `nama_koperasi`, `no_phone`, `hp_wa`, `hp_fax`, `email_koperasi`, `url_website`, `bidang_koperasi`, `alamat`, `id_provinsi`, `id_kota`, `id_kecamatan`, `id_kelurahan`, `kode_pos`, `no_akta_pendirian`, `tanggal_akta_pendirian`, `no_akta_perubahan`, `tanggal_akta_perubahan`, `no_sk_kemenkumham`, `tanggal_sk_kemenkumham`, `no_spkum`, `tanggal_spkum`, `no_siup`, `masa_berlaku_siup`, `no_sk_domisili`, `masa_berlaku_sk_domisili`, `no_npwp`, `no_pkp`, `no_sertifikat_koperasi`, `doc_sertifikat_koperasi`, `approval`, `singkatan_koperasi`, `id_inkop`, `id_puskop`, `id_primkop`, `image_ktp_pengawas`, `image_ktp_ketua`, `image_logo`, `image_npwp`, `doc_siup`, `doc_sk_kemenkumham`, `doc_akta_perubahan`, `doc_akta_pendirian`, `doc_spkum`, `doc_sk_domisili`, `slug`, `username`, `password`, `id_tingkatan_koperasi`, `created_at`, `updated_at`) VALUES
+(51, 'Koperasi Pegangsaan', '0812621361237', '081293844429', NULL, 'aditbest5@gmail.com', NULL, 'Serba Usaha', 'Pegangsaan Timur No 36', 11, 156, 1915, 25128, '12232', '12334', '2024-07-03', '21312344', '2024-06-01', '123123443', '2024-04-02', '12312', '2024-04-04', '1231', '2024-07-01', '123123', '2024-07-02', '12312323', '2423423', '123123123', '/koperasi/sertifikat_koperasi/1720756409_dokumen.pdf', 1, 'Pegangsaan', NULL, NULL, NULL, '/koperasi/ktp_pengawas/1720756409_ktp.png', '/koperasi/ktp_ketua/1720756409_ktp.png', '/koperasi/logo/1720756409_logo.png', '/koperasi/npwp/1720756409_npwp.png', '/koperasi/siup/1720756409_dokumen.pdf', '/koperasi/sk_kemenkumham/1720756409_dokumen.pdf', '/koperasi/akta_perubahan/1720756409_dokumen.pdf', '/koperasi/akta_pendirian/1720756409_dokumen.pdf', '/koperasi/spkum/1720756409_dokumen.pdf', '/koperasi/sk_domisili/1720756409_dokumen.pdf', 'pegangsaan', 'pegangsaan', '7995331acab793e6f6a5', 3, '2024-07-12 10:53:29', '2024-07-12 10:53:29');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_menu`
+-- Table structure for table `tbl_menu`
 --
 
 CREATE TABLE `tbl_menu` (
@@ -7646,12 +7693,139 @@ CREATE TABLE `tbl_menu` (
   `url` varchar(255) DEFAULT NULL,
   `created_date` datetime NOT NULL,
   `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_provinces`
+-- Table structure for table `tbl_order`
+--
+
+CREATE TABLE `tbl_order` (
+  `id` int(11) NOT NULL,
+  `order_date` datetime DEFAULT NULL,
+  `sub_total` int(20) DEFAULT NULL,
+  `id_anggota` int(11) DEFAULT NULL,
+  `id_customer` int(11) DEFAULT NULL,
+  `id_koperasi` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp(),
+  `tax` int(11) DEFAULT NULL,
+  `discount` int(11) DEFAULT NULL,
+  `total_amount` int(11) NOT NULL,
+  `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_order_detail`
+--
+
+CREATE TABLE `tbl_order_detail` (
+  `id` int(11) NOT NULL,
+  `id_order` int(11) DEFAULT NULL,
+  `id_product` int(11) DEFAULT NULL,
+  `id_koperasi` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `price` int(20) DEFAULT NULL,
+  `discount` int(11) DEFAULT NULL,
+  `total` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_payments`
+--
+
+CREATE TABLE `tbl_payments` (
+  `id` int(11) NOT NULL,
+  `payment_date` datetime DEFAULT NULL,
+  `amount_value` int(20) DEFAULT NULL,
+  `change_value` int(11) NOT NULL,
+  `paid_value` int(11) DEFAULT NULL,
+  `id_anggota` int(11) DEFAULT NULL,
+  `id_payment_method` int(11) DEFAULT NULL,
+  `id_order` int(11) DEFAULT NULL,
+  `id_koperasi` int(11) DEFAULT NULL,
+  `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_payment_method`
+--
+
+CREATE TABLE `tbl_payment_method` (
+  `id` int(11) NOT NULL,
+  `payment_name` varchar(50) NOT NULL,
+  `deskripsi` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_pengajuan`
+--
+
+CREATE TABLE `tbl_pengajuan` (
+  `id` int(11) NOT NULL,
+  `nama_koperasi` varchar(100) NOT NULL,
+  `email_koperasi` varchar(100) NOT NULL,
+  `nama_ketua` varchar(100) NOT NULL,
+  `nomer_ketua` varchar(13) NOT NULL,
+  `tingkat_koperasi` enum('INKOP','PUSKOP','PRIMKOP') NOT NULL,
+  `approve` enum('Accept','Process','Reject') NOT NULL DEFAULT 'Process',
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_produk`
+--
+
+CREATE TABLE `tbl_produk` (
+  `id` int(11) NOT NULL,
+  `nama_produk` varchar(255) DEFAULT NULL,
+  `image_produk` varchar(255) DEFAULT NULL,
+  `harga` int(20) DEFAULT NULL,
+  `uom` varchar(25) DEFAULT NULL,
+  `stok` int(11) DEFAULT NULL,
+  `barcode` varchar(100) DEFAULT NULL,
+  `id_koperasi` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `id_kategori` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_produk`
+--
+
+INSERT INTO `tbl_produk` (`id`, `nama_produk`, `image_produk`, `harga`, `uom`, `stok`, `barcode`, `id_koperasi`, `status`, `id_kategori`, `created_at`, `updated_at`) VALUES
+(9, 'Beras', '/produk/image/1721030049_produk.jpeg', 14000, 'liter', 25, '8888621212', 51, 1, 2, NULL, NULL),
+(10, 'Jagung', '/produk/image/1721036711_produk.jpeg', 20000, 'kg', 10, '221212122', 51, 1, 2, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_provinces`
 --
 
 CREATE TABLE `tbl_provinces` (
@@ -7659,10 +7833,10 @@ CREATE TABLE `tbl_provinces` (
   `prov_name` varchar(255) DEFAULT NULL,
   `locationid` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT 1
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data untuk tabel `tbl_provinces`
+-- Dumping data for table `tbl_provinces`
 --
 
 INSERT INTO `tbl_provinces` (`prov_id`, `prov_name`, `locationid`, `status`) VALUES
@@ -7704,7 +7878,7 @@ INSERT INTO `tbl_provinces` (`prov_id`, `prov_name`, `locationid`, `status`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_roles`
+-- Table structure for table `tbl_roles`
 --
 
 CREATE TABLE `tbl_roles` (
@@ -7713,10 +7887,10 @@ CREATE TABLE `tbl_roles` (
   `id_menu` int(11) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `tbl_roles`
+-- Dumping data for table `tbl_roles`
 --
 
 INSERT INTO `tbl_roles` (`id`, `role_name`, `id_menu`, `created_date`, `updated_at`) VALUES
@@ -7727,17 +7901,70 @@ INSERT INTO `tbl_roles` (`id`, `role_name`, `id_menu`, `created_date`, `updated_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_subdistrics`
+-- Table structure for table `tbl_service`
+--
+
+CREATE TABLE `tbl_service` (
+  `id` int(11) NOT NULL,
+  `nama_service` varchar(100) DEFAULT NULL,
+  `deskripsi` varchar(255) DEFAULT NULL,
+  `price` int(12) DEFAULT NULL,
+  `id_type` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_service_transaction`
+--
+
+CREATE TABLE `tbl_service_transaction` (
+  `id` int(11) NOT NULL,
+  `trans_date` date DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT 1,
+  `id_customer` int(11) DEFAULT NULL,
+  `id_anggota` int(11) DEFAULT NULL,
+  `id_service` int(11) DEFAULT NULL,
+  `id_koperasi` int(11) DEFAULT NULL,
+  `updated_by` int(100) DEFAULT NULL,
+  `created_by` varchar(100) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_service_type`
+--
+
+CREATE TABLE `tbl_service_type` (
+  `id` int(11) NOT NULL,
+  `nama_tipe` varchar(100) DEFAULT NULL,
+  `deskripsi` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_subdistrics`
 --
 
 CREATE TABLE `tbl_subdistrics` (
   `subdis_id` int(11) NOT NULL,
   `subdis_name` varchar(255) DEFAULT NULL,
   `dis_id` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
 
 --
--- Dumping data untuk tabel `tbl_subdistrics`
+-- Dumping data for table `tbl_subdistrics`
 --
 
 INSERT INTO `tbl_subdistrics` (`subdis_id`, `subdis_name`, `dis_id`) VALUES
@@ -89013,7 +89240,7 @@ INSERT INTO `tbl_subdistrics` (`subdis_id`, `subdis_name`, `dis_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_tingkat_koperasi`
+-- Table structure for table `tbl_tingkat_koperasi`
 --
 
 CREATE TABLE `tbl_tingkat_koperasi` (
@@ -89021,10 +89248,10 @@ CREATE TABLE `tbl_tingkat_koperasi` (
   `nama_tingkatan` varchar(30) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `tbl_tingkat_koperasi`
+-- Dumping data for table `tbl_tingkat_koperasi`
 --
 
 INSERT INTO `tbl_tingkat_koperasi` (`id`, `nama_tingkatan`, `created_at`, `updated_at`) VALUES
@@ -89035,7 +89262,7 @@ INSERT INTO `tbl_tingkat_koperasi` (`id`, `nama_tingkatan`, `created_at`, `updat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_user`
+-- Table structure for table `tbl_user`
 --
 
 CREATE TABLE `tbl_user` (
@@ -89049,63 +89276,119 @@ CREATE TABLE `tbl_user` (
   `permission_delete` int(11) NOT NULL DEFAULT 1,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tbl_user`
---
-
-INSERT INTO `tbl_user` (`id`, `username`, `password`, `id_role`, `id_koperasi`, `permission_create`, `permssion_update`, `permission_delete`, `created_at`, `updated_at`) VALUES
-(1, 'dina29', '', 1, 2, 1, 1, 1, '2024-07-03 12:16:05', '2024-07-03 12:16:05'),
-(2, 'wahyudi88', '', 2, 2, 1, 1, 1, '2024-07-03 12:17:09', '2024-07-03 12:17:09');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `tbl_anggota`
+-- Indexes for table `tbl_anggota`
 --
 ALTER TABLE `tbl_anggota`
   ADD PRIMARY KEY (`id`),
   ADD KEY `anggota_ibfk5` (`id_role`),
-  ADD KEY `anggota_ibfk6` (`id_koperasi`);
+  ADD KEY `anggota_ibfk6` (`id_koperasi`),
+  ADD KEY `anggota_ibfk_provinsi` (`id_provinsi`);
 
 --
--- Indeks untuk tabel `tbl_cities`
+-- Indexes for table `tbl_cities`
 --
 ALTER TABLE `tbl_cities`
   ADD PRIMARY KEY (`city_id`) USING BTREE,
   ADD KEY `fk_prov_id` (`prov_id`);
 
 --
--- Indeks untuk tabel `tbl_districts`
+-- Indexes for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_customer_koperasi` (`id_koperasi`);
+
+--
+-- Indexes for table `tbl_districts`
 --
 ALTER TABLE `tbl_districts`
   ADD PRIMARY KEY (`dis_id`) USING BTREE,
   ADD KEY `fk_city_id` (`city_id`);
 
 --
--- Indeks untuk tabel `tbl_koperasi`
+-- Indexes for table `tbl_kategori_produk`
+--
+ALTER TABLE `tbl_kategori_produk`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_kategoriproduk_koperasi` (`id_koperasi`);
+
+--
+-- Indexes for table `tbl_koperasi`
 --
 ALTER TABLE `tbl_koperasi`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `koperasi_ibfk_4` (`id_tingkatan_koperasi`);
+  ADD KEY `koperasi_ibfk_4` (`id_tingkatan_koperasi`),
+  ADD KEY `koperasi_ibfk_5` (`id_provinsi`) USING BTREE;
 
 --
--- Indeks untuk tabel `tbl_menu`
+-- Indexes for table `tbl_menu`
 --
 ALTER TABLE `tbl_menu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbl_provinces`
+-- Indexes for table `tbl_order`
+--
+ALTER TABLE `tbl_order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_koperasi_sales` (`id_koperasi`),
+  ADD KEY `fk_order_customer` (`id_customer`),
+  ADD KEY `fk_order_anggota` (`id_anggota`) USING BTREE;
+
+--
+-- Indexes for table `tbl_order_detail`
+--
+ALTER TABLE `tbl_order_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_product_details` (`id_product`),
+  ADD KEY `fk_order_details` (`id_order`) USING BTREE,
+  ADD KEY `fk_orderdetail_koperasi` (`id_koperasi`);
+
+--
+-- Indexes for table `tbl_payments`
+--
+ALTER TABLE `tbl_payments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `fk_payment_anggota` (`id_anggota`) USING BTREE,
+  ADD KEY `fk_payment_method` (`id_payment_method`) USING BTREE,
+  ADD KEY `fk_payment_order` (`id_order`),
+  ADD KEY `fk_payment_koperasi` (`id_koperasi`);
+
+--
+-- Indexes for table `tbl_payment_method`
+--
+ALTER TABLE `tbl_payment_method`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_pengajuan`
+--
+ALTER TABLE `tbl_pengajuan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_produk`
+--
+ALTER TABLE `tbl_produk`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_product_koperasi` (`id_koperasi`),
+  ADD KEY `fk_product_category` (`id_kategori`);
+
+--
+-- Indexes for table `tbl_provinces`
 --
 ALTER TABLE `tbl_provinces`
   ADD PRIMARY KEY (`prov_id`) USING BTREE;
 
 --
--- Indeks untuk tabel `tbl_roles`
+-- Indexes for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
   ADD PRIMARY KEY (`id`),
@@ -89113,20 +89396,43 @@ ALTER TABLE `tbl_roles`
   ADD KEY `role_ibfk_1` (`id_menu`) USING BTREE;
 
 --
--- Indeks untuk tabel `tbl_subdistrics`
+-- Indexes for table `tbl_service`
+--
+ALTER TABLE `tbl_service`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_service_type` (`id_type`);
+
+--
+-- Indexes for table `tbl_service_transaction`
+--
+ALTER TABLE `tbl_service_transaction`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_customer_service_trans` (`id_customer`),
+  ADD KEY `fK_anggota_service_trans` (`id_anggota`),
+  ADD KEY `fk_service_trans` (`id_service`),
+  ADD KEY `fK_servicetrans_koperasi` (`id_koperasi`);
+
+--
+-- Indexes for table `tbl_service_type`
+--
+ALTER TABLE `tbl_service_type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_subdistrics`
 --
 ALTER TABLE `tbl_subdistrics`
   ADD PRIMARY KEY (`subdis_id`) USING BTREE,
   ADD KEY `fk_dis_id` (`dis_id`);
 
 --
--- Indeks untuk tabel `tbl_tingkat_koperasi`
+-- Indexes for table `tbl_tingkat_koperasi`
 --
 ALTER TABLE `tbl_tingkat_koperasi`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbl_user`
+-- Indexes for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`id`),
@@ -89134,88 +89440,213 @@ ALTER TABLE `tbl_user`
   ADD KEY `user_ibfk_5` (`id_koperasi`) USING BTREE;
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_anggota`
+-- AUTO_INCREMENT for table `tbl_anggota`
 --
 ALTER TABLE `tbl_anggota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_cities`
+-- AUTO_INCREMENT for table `tbl_cities`
 --
 ALTER TABLE `tbl_cities`
   MODIFY `city_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=476;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_districts`
+-- AUTO_INCREMENT for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_districts`
 --
 ALTER TABLE `tbl_districts`
   MODIFY `dis_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6995;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_koperasi`
+-- AUTO_INCREMENT for table `tbl_kategori_produk`
 --
-ALTER TABLE `tbl_koperasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+ALTER TABLE `tbl_kategori_produk`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_provinces`
+-- AUTO_INCREMENT for table `tbl_koperasi`
+--
+ALTER TABLE `tbl_koperasi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+
+--
+-- AUTO_INCREMENT for table `tbl_order`
+--
+ALTER TABLE `tbl_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_order_detail`
+--
+ALTER TABLE `tbl_order_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_payments`
+--
+ALTER TABLE `tbl_payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_payment_method`
+--
+ALTER TABLE `tbl_payment_method`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_pengajuan`
+--
+ALTER TABLE `tbl_pengajuan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_produk`
+--
+ALTER TABLE `tbl_produk`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tbl_provinces`
 --
 ALTER TABLE `tbl_provinces`
   MODIFY `prov_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_roles`
+-- AUTO_INCREMENT for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_subdistrics`
+-- AUTO_INCREMENT for table `tbl_service`
+--
+ALTER TABLE `tbl_service`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_service_transaction`
+--
+ALTER TABLE `tbl_service_transaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_service_type`
+--
+ALTER TABLE `tbl_service_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_subdistrics`
 --
 ALTER TABLE `tbl_subdistrics`
   MODIFY `subdis_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81226;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_tingkat_koperasi`
+-- AUTO_INCREMENT for table `tbl_tingkat_koperasi`
 --
 ALTER TABLE `tbl_tingkat_koperasi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_user`
+-- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `tbl_anggota`
+-- Constraints for table `tbl_anggota`
 --
 ALTER TABLE `tbl_anggota`
   ADD CONSTRAINT `anggota_ibfk5` FOREIGN KEY (`id_role`) REFERENCES `tbl_roles` (`id`),
   ADD CONSTRAINT `anggota_ibfk6` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `tbl_koperasi`
+-- Constraints for table `tbl_customer`
+--
+ALTER TABLE `tbl_customer`
+  ADD CONSTRAINT `fk_customer_koperasi` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`);
+
+--
+-- Constraints for table `tbl_kategori_produk`
+--
+ALTER TABLE `tbl_kategori_produk`
+  ADD CONSTRAINT `fk_kategoriproduk_koperasi` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`);
+
+--
+-- Constraints for table `tbl_koperasi`
 --
 ALTER TABLE `tbl_koperasi`
   ADD CONSTRAINT `koperasi_ibfk_4` FOREIGN KEY (`id_tingkatan_koperasi`) REFERENCES `tbl_tingkat_koperasi` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `tbl_roles`
+-- Constraints for table `tbl_order`
+--
+ALTER TABLE `tbl_order`
+  ADD CONSTRAINT `fk_koperasi_sales` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`),
+  ADD CONSTRAINT `fk_order_anggota` FOREIGN KEY (`id_anggota`) REFERENCES `tbl_anggota` (`id`),
+  ADD CONSTRAINT `fk_order_customer` FOREIGN KEY (`id_customer`) REFERENCES `tbl_customer` (`id`);
+
+--
+-- Constraints for table `tbl_order_detail`
+--
+ALTER TABLE `tbl_order_detail`
+  ADD CONSTRAINT `fk_order_details` FOREIGN KEY (`id_order`) REFERENCES `tbl_order` (`id`),
+  ADD CONSTRAINT `fk_orderdetail_koperasi` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`),
+  ADD CONSTRAINT `fk_product_details` FOREIGN KEY (`id_product`) REFERENCES `tbl_produk` (`id`);
+
+--
+-- Constraints for table `tbl_payments`
+--
+ALTER TABLE `tbl_payments`
+  ADD CONSTRAINT `fk_payment_anggota` FOREIGN KEY (`id_anggota`) REFERENCES `tbl_anggota` (`id`),
+  ADD CONSTRAINT `fk_payment_koperasi` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`),
+  ADD CONSTRAINT `fk_payment_method` FOREIGN KEY (`id_payment_method`) REFERENCES `tbl_payment_method` (`id`),
+  ADD CONSTRAINT `fk_payment_order` FOREIGN KEY (`id_order`) REFERENCES `tbl_order` (`id`);
+
+--
+-- Constraints for table `tbl_produk`
+--
+ALTER TABLE `tbl_produk`
+  ADD CONSTRAINT `fk_product_category	` FOREIGN KEY (`id_kategori`) REFERENCES `tbl_kategori_produk` (`id`),
+  ADD CONSTRAINT `fk_product_koperasi` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`);
+
+--
+-- Constraints for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
   ADD CONSTRAINT `role_ibfk_1` FOREIGN KEY (`id_menu`) REFERENCES `tbl_menu` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `tbl_user`
+-- Constraints for table `tbl_service`
+--
+ALTER TABLE `tbl_service`
+  ADD CONSTRAINT `fk_service_type` FOREIGN KEY (`id_type`) REFERENCES `tbl_service_type` (`id`);
+
+--
+-- Constraints for table `tbl_service_transaction`
+--
+ALTER TABLE `tbl_service_transaction`
+  ADD CONSTRAINT `fK_anggota_service_trans` FOREIGN KEY (`id_anggota`) REFERENCES `tbl_anggota` (`id`),
+  ADD CONSTRAINT `fK_servicetrans_koperasi` FOREIGN KEY (`id_koperasi`) REFERENCES `tbl_koperasi` (`id`),
+  ADD CONSTRAINT `fk_customer_service_trans` FOREIGN KEY (`id_customer`) REFERENCES `tbl_customer` (`id`),
+  ADD CONSTRAINT `fk_service_trans` FOREIGN KEY (`id_service`) REFERENCES `tbl_service` (`id`);
+
+--
+-- Constraints for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_role`) REFERENCES `tbl_roles` (`id`),
