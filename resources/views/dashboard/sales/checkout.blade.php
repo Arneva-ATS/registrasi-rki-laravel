@@ -8,25 +8,16 @@
 @section('content')
     <div class="row invoice layout-top-spacing layout-spacing">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
             <div class="doc-container">
-
                 <div class="row">
-
-                    <div class="col-xl-9">
-
+                    <div class="col-xl-8">
                         <div class="invoice-container" style="background-color: white; padding: 20px; border-radius: 8px;">
                             <div class="invoice-inbox">
-
                                 <div id="ct" class="">
-
                                     <div class="invoice-00001">
                                         <div class="content-section">
-
                                             <div class="inv--head-section inv--detail-section">
-
                                                 <div class="row">
-
                                                     <div class="col-sm-6 col-12 mr-auto">
                                                         <div class="d-flex">
                                                             <img class="company-logo mx-3" src="/assets/img/rki_icon.png"
@@ -71,14 +62,14 @@
 
                                                     <div class="col-xl-8 col-lg-7 col-md-6 col-sm-4">
                                                         <p class="inv-customer-name">
-                                                            {{ $order->nama_lengkap ? $order->nama_lengkap : $order->nama_customer }}
+                                                            {{ $order->nama_lengkap ?? $order->nama_customer }}
                                                         </p>
                                                         <p class="inv-street-addr">
-                                                            {{ $order->alamat ? $order->alamat : '-' }}</p>
+                                                            {{ $order->alamat ?? '-' }}</p>
                                                         <p class="inv-email-address">
-                                                            {{ $order->email ? $order->email : '-' }}</p>
+                                                            {{ $order->email ?? '-' }}</p>
                                                         <p class="inv-email-address">
-                                                            {{ $order->nomor_hp ? $order->nomor_hp : $order->no_telp }}</p>
+                                                            {{ $order->nomor_hp ?? $order->no_telp }}</p>
                                                     </div>
 
                                                     <div
@@ -181,7 +172,7 @@
 
                     </div>
 
-                    <div class="col-xl-3">
+                    <div class="col-xl-4">
 
                         <div class="invoice-actions-btn"
                             style="background-color: white; padding: 20px; border-radius: 8px;">
@@ -190,31 +181,45 @@
 
                                 <div class="row g-3">
                                     <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <label for="">Metode Pembayaran</label>
-                                        <select style="width:21.5em;height:2.5em;" name="metode_pembayaran"
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <label for="">Metode Pembayaran</label>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <select style="width:19em;height:2.5em;" name="metode_pembayaran"
                                             id="metode_pembayaran" class="form-stock">
-                                            <option style="font-size: 1em;" value="1">Cash</option>
-                                            <option style="font-size: 1em;" value="2">Xendit</option>
-                                            <option style="font-size: 1em;" value="3">Debit BCA</option>
-                                            <option style="font-size: 1em;" value="4">Kredit BCA</option>
-                                            <option style="font-size: 1em;" value="5">QRIS</option>
+                                            @foreach ($payment_method as $method)
+                                                <option style="font-size: 1em;" value="{{$method->id}}">{{$method->payment_name}}</option>
+                                            @endforeach
                                         </select>
+                                        </div>
                                     </div>
                                     <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <label for="">Harga Bayar</label>
-                                        <input type="text" style="width:21.5em;height:2.5em;" class="form-stock"
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <label for="">Harga Bayar</label>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <input type="text" id="harga_bayar" style="width: 19em;height:2.5em;" class="form-stock"
                                             placeholder="Rp. ....">
+                                        </div>
                                     </div>
                                     <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <label for="">Kembalian</label>
-                                        <input type="text" style="width:21.5em;height:2.5em;" class="form-stock"
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <label for="">Kembalian</label>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <input type="text" id="kembalian" style="width: 19em;height:2.5em;" class="form-stock"
                                             placeholder="Rp. ...." disabled>
+                                        </div>
                                     </div>
-                                    <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <button style="width:21.5em;" class="btn btn-dark btn-edit">Bayar</button>
+                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                        @if ($order->status =='pending')
+                                            <button style="width:19em;" class="btn btn-dark btn-edit" onclick="payBtn()">Bayar</button> 
+                                        @else
+                                            <a style="width:19em;" class="btn btn-dark btn-edit" href="/pos"><- Kembali</a> 
+                                        @endif
                                     </div>
-                                    <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <button style="width:21.5em;" class="btn btn-danger"
+                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                        <button style="width:19em;" class="btn btn-danger"
                                             onclick="cancelTransaction()">Batal</button>
                                     </div>
                                 </div>
@@ -233,11 +238,13 @@
     </div>
 
     <script>
+        const items = @json($order_detail);
+        const order = @Json($order);
         const metodePembayaran = document.getElementById('metode_pembayaran');
         const hargaBayar = document.getElementById('harga_bayar');
         const kembalian = document.getElementById('kembalian');
         const grandTotal = {{ $order->total_amount }};
-
+        let id_koperasi = {{$id}};
         metodePembayaran.addEventListener('change', (event) => {
             if (metodePembayaran.value === '1') { // Cash
                 hargaBayar.disabled = false;
@@ -252,12 +259,119 @@
             const bayar = parseFloat(hargaBayar.value);
             if (!isNaN(bayar)) {
                 const kembali = bayar - grandTotal;
-                kembalian.value = `Rp. ${kembali.toFixed(2)}`;
+                if(kembali < 0){
+                    swal('Uang tidak kurang dari total pembayaran!', 'Mohon sesuaikan uang pembayaran', 'info')
+                } else{
+                    kembalian.value = kembali;
+                }
             } else {
                 kembalian.value = '';
             }
         });
+        function payBtn() {
+                let bayar = hargaBayar.value;
+                let sisa  = kembalian.value;
+                let jsonData = {}
+                if(metodePembayaran.value=='1'){
+                    if(!bayar){
+                        swal('Perhatian!', 'Harap isi nominal pembayaran', 'info')
+                    } else{
+                        jsonData = {
+                            id_payment_method: metodePembayaran.value,
+                            amount_value: order.total_amount,
+                            change_value: sisa,
+                            paid_value: bayar,
+                            id_koperasi: id_koperasi,
+                            id_order: order.id_order,
+                            status: 'completed',
 
+                        }
+                        console.log(jsonData);
+                            fetch(`/api/pos/payment`, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                            },
+                            method: "POST",
+                            body: JSON.stringify(jsonData),
+                            })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                console.log(data)
+                                swal.close();
+                                if (data.response_code == "00") {
+                                    swal({
+                                        title: "Status",
+                                        text: data?.response_message,
+                                        icon: "success",
+                                        buttons: true,
+                                    }).then((willOut) => {
+                                        if (willOut) {
+                                            console.log("success")
+                                        } else {
+                                            console.log("error");
+                                        }
+                                    });
+                                } else {
+                                    swal({
+                                        title: "Status",
+                                        text: data?.response_message,
+                                        icon: "error",
+                                        buttons: true,
+                                    })
+                                }
+                            })
+                            .catch((error) => {
+                                swal.close();
+                                console.log(error)
+                                swal({
+                                    title: "Status",
+                                    text: error,
+                                    icon: "info",
+                                    buttons: true,
+                                })
+                            });
+                    }
+                }
+                // let id_anggota = document.getElementById('id_anggota').value;
+                // let data_customer;
+                // let jsonData = {}
+                // let nama_customer = document.getElementById('nama_customer').value
+                // let email_customer = document.getElementById('email_customer').value
+                // let alamat_customer = document.getElementById('alamat_customer').value
+                // let no_telp_customer = document.getElementById('no_telp_customer').value
+
+
+                // data_customer = {
+                //     nama_customer,
+                //     email: email_customer,
+                //     alamat: alamat_customer,
+                //     no_telp: no_telp_customer,
+                //     id_koperasi,
+                // }
+                // jsonData = {
+                //     items,
+                //     id_anggota,
+                //     id_koperasi,
+                //     data_customer,
+                //     subTotal,
+                //     grandTotal,
+                //     totalQty,
+                //     tax,
+                //     discount,
+                //     invoiceNumber,
+                // }
+                // console.log(jsonData)
+                // swal({
+                //     title: "Please wait",
+                //     text: "Submitting data...",
+                //     // icon: "/assets/images/loading.gif",
+                //     button: false,
+                //     closeOnClickOutside: false,
+                //     closeOnEsc: false,
+                //     className: "swal-loading",
+                // });
+            }
         function cancelTransaction() {
             swal({
                     title: "Pembatalan!",

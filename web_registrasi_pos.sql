@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jul 2024 pada 05.43
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.1.25
+-- Waktu pembuatan: 19 Jul 2024 pada 07.42
+-- Versi server: 10.4.27-MariaDB
+-- Versi PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -65,7 +65,8 @@ CREATE TABLE `tbl_anggota` (
 
 INSERT INTO `tbl_anggota` (`id`, `no_anggota`, `nis`, `nik`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `id_kelurahan`, `id_kecamatan`, `id_kota`, `id_provinsi`, `kode_pos`, `agama`, `status_pernikahan`, `pekerjaan`, `kewarganegaraan`, `alamat`, `nomor_hp`, `email`, `username`, `password`, `selfie`, `ktp`, `id_role`, `approval`, `id_koperasi`, `created_at`, `updated_at`) VALUES
 (115, '1231262372348', NULL, '315623377889994', 'Andhika Noor Ismawan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '08123612371238', NULL, NULL, NULL, NULL, NULL, 1, 0, 51, '2024-07-12 10:53:29', '2024-07-12 10:53:29'),
-(116, '1232820390', NULL, '33112553647478', 'Muhammad Rifqi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '081237623128', NULL, NULL, NULL, NULL, NULL, 3, 0, 51, '2024-07-12 10:53:29', '2024-07-12 10:53:29');
+(116, '1232820390', NULL, '33112553647478', 'Muhammad Rifqi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '081237623128', NULL, NULL, NULL, NULL, NULL, 3, 0, 51, '2024-07-12 10:53:29', '2024-07-12 10:53:29'),
+(117, 'Non sint veritatis n', NULL, 'Consequat Magni vol', 'Maxime ratione magni', 'Pariatur Debitis qu', '2020-10-26', 'perempuan', 11521, 569, 24, 2, 'Omnis ratione ipsum', 'hindu', 'belum kawin', 'Assumenda est dolor', 'Duis aute a commodi', 'Officia amet facili', 'Quaerat quo commodi', 'gipe@mailinator.com', 'maximerationemagni', NULL, '/anggota/selfie/1721188607anggota.png', '/anggota/ktp/1721188607anggota.png', 2, 0, 51, '2024-07-17 10:56:47', '2024-07-17 10:56:47');
 
 -- --------------------------------------------------------
 
@@ -576,6 +577,15 @@ CREATE TABLE `tbl_customer` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `tbl_customer`
+--
+
+INSERT INTO `tbl_customer` (`id`, `nama_customer`, `email`, `no_telp`, `alamat`, `id_koperasi`, `created_at`, `updated_at`) VALUES
+(3, NULL, NULL, NULL, NULL, 51, '2024-07-19 11:24:28', '2024-07-19 11:24:28'),
+(4, NULL, NULL, NULL, NULL, 51, '2024-07-19 11:25:53', '2024-07-19 11:25:53'),
+(5, 'Aditya Aprianto', 'aditbest5@gmail.com', '0823123919', 'Dasana Indah', 51, '2024-07-19 11:26:33', '2024-07-19 11:26:33');
 
 -- --------------------------------------------------------
 
@@ -7613,7 +7623,8 @@ CREATE TABLE `tbl_kategori_produk` (
 
 INSERT INTO `tbl_kategori_produk` (`id`, `nama_kategori`, `deskripsi`, `id_koperasi`, `created_at`, `updated_at`) VALUES
 (2, 'Sembako', 'Ini adalah sembako', 51, '2024-07-15 10:07:53', '2024-07-15 10:07:53'),
-(3, 'ATK', 'Alat Tulis Kantor', 51, '2024-07-15 12:51:43', '2024-07-15 12:51:43');
+(3, 'ATK', 'Alat Tulis Kantor', 51, '2024-07-15 12:51:43', '2024-07-15 12:51:43'),
+(4, 'Minuman', 'Segala jenis minuman', 51, '2024-07-17 14:02:00', '2024-07-17 14:02:00');
 
 -- --------------------------------------------------------
 
@@ -7704,7 +7715,8 @@ CREATE TABLE `tbl_menu` (
 
 CREATE TABLE `tbl_order` (
   `id` int(11) NOT NULL,
-  `order_date` datetime DEFAULT NULL,
+  `order_date` date DEFAULT current_timestamp(),
+  `invoice_number` varchar(30) DEFAULT NULL,
   `sub_total` int(20) DEFAULT NULL,
   `id_anggota` int(11) DEFAULT NULL,
   `id_customer` int(11) DEFAULT NULL,
@@ -7715,9 +7727,16 @@ CREATE TABLE `tbl_order` (
   `discount` int(11) DEFAULT NULL,
   `total_amount` int(11) NOT NULL,
   `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',
-  `created_by` int(11) DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL
+  `created_by` varchar(30) DEFAULT NULL,
+  `updated_by` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `tbl_order`
+--
+
+INSERT INTO `tbl_order` (`id`, `order_date`, `invoice_number`, `sub_total`, `id_anggota`, `id_customer`, `id_koperasi`, `created_at`, `updated_at`, `tax`, `discount`, `total_amount`, `status`, `created_by`, `updated_by`) VALUES
+(3, '2024-07-19', '00001', 23000, NULL, 5, 51, '2024-07-19 11:26:33', '2024-07-19 11:26:33', 2530, 1150, 24380, 'completed', 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -7734,9 +7753,17 @@ CREATE TABLE `tbl_order_detail` (
   `price` int(20) DEFAULT NULL,
   `discount` int(11) DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `tbl_order_detail`
+--
+
+INSERT INTO `tbl_order_detail` (`id`, `id_order`, `id_product`, `id_koperasi`, `quantity`, `price`, `discount`, `total`, `created_at`, `updated_at`) VALUES
+(5, 3, 11, 51, 1, 4000, NULL, 4000, '2024-07-19 11:26:33', '2024-07-19 11:26:33'),
+(6, 3, 12, 51, 1, 19000, NULL, 19000, '2024-07-19 11:26:33', '2024-07-19 11:26:33');
 
 -- --------------------------------------------------------
 
@@ -7746,7 +7773,7 @@ CREATE TABLE `tbl_order_detail` (
 
 CREATE TABLE `tbl_payments` (
   `id` int(11) NOT NULL,
-  `payment_date` datetime DEFAULT NULL,
+  `payment_date` datetime DEFAULT current_timestamp(),
   `amount_value` int(20) DEFAULT NULL,
   `change_value` int(11) NOT NULL,
   `paid_value` int(11) DEFAULT NULL,
@@ -7755,11 +7782,18 @@ CREATE TABLE `tbl_payments` (
   `id_order` int(11) DEFAULT NULL,
   `id_koperasi` int(11) DEFAULT NULL,
   `status` enum('pending','completed','failed') NOT NULL DEFAULT 'pending',
-  `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL
+  `created_by` varchar(30) DEFAULT NULL,
+  `updated_by` varchar(30) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `tbl_payments`
+--
+
+INSERT INTO `tbl_payments` (`id`, `payment_date`, `amount_value`, `change_value`, `paid_value`, `id_anggota`, `id_payment_method`, `id_order`, `id_koperasi`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, '2024-07-19 12:28:28', 24380, 5620, 30000, NULL, 1, 3, 51, 'completed', 'admin', 'admin', '2024-07-19 12:28:28', '2024-07-19 12:28:28');
 
 -- --------------------------------------------------------
 
@@ -7775,6 +7809,13 @@ CREATE TABLE `tbl_payment_method` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `tbl_payment_method`
+--
+
+INSERT INTO `tbl_payment_method` (`id`, `payment_name`, `deskripsi`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Cash', 'Pembayaran dengan uang tunai', 1, '2024-07-19 11:49:11', '2024-07-19 11:49:11');
 
 -- --------------------------------------------------------
 
@@ -7821,7 +7862,9 @@ CREATE TABLE `tbl_produk` (
 
 INSERT INTO `tbl_produk` (`id`, `nama_produk`, `image_produk`, `harga`, `uom`, `stok`, `barcode`, `id_koperasi`, `status`, `id_kategori`, `created_at`, `updated_at`) VALUES
 (9, 'Beras', '/produk/image/1721030049_produk.jpeg', 14000, 'liter', 25, '8888621212', 51, 1, 2, NULL, NULL),
-(10, 'Jagung', '/produk/image/1721036711_produk.jpeg', 20000, 'kg', 10, '221212122', 51, 1, 2, NULL, NULL);
+(10, 'Jagung', '/produk/image/1721036711_produk.jpeg', 20000, 'kg', 10, '221212122', 51, 1, 2, NULL, NULL),
+(11, 'Pensil 2B', '/produk/image/1721117711_produk.jpeg', 4000, 'pcs', 20, '2223334455', 51, 1, 3, NULL, NULL),
+(12, 'Susu Ultramilk 1000ml', '/produk/image/1721199822_produk.jpeg', 19000, 'pcs', 20, '888847529', 51, 1, 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89448,7 +89491,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT untuk tabel `tbl_anggota`
 --
 ALTER TABLE `tbl_anggota`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_cities`
@@ -89460,7 +89503,7 @@ ALTER TABLE `tbl_cities`
 -- AUTO_INCREMENT untuk tabel `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_districts`
@@ -89472,7 +89515,7 @@ ALTER TABLE `tbl_districts`
 -- AUTO_INCREMENT untuk tabel `tbl_kategori_produk`
 --
 ALTER TABLE `tbl_kategori_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_koperasi`
@@ -89484,25 +89527,25 @@ ALTER TABLE `tbl_koperasi`
 -- AUTO_INCREMENT untuk tabel `tbl_order`
 --
 ALTER TABLE `tbl_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_order_detail`
 --
 ALTER TABLE `tbl_order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_payments`
 --
 ALTER TABLE `tbl_payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_payment_method`
 --
 ALTER TABLE `tbl_payment_method`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_pengajuan`
@@ -89514,7 +89557,7 @@ ALTER TABLE `tbl_pengajuan`
 -- AUTO_INCREMENT untuk tabel `tbl_produk`
 --
 ALTER TABLE `tbl_produk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbl_provinces`
