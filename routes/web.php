@@ -238,6 +238,10 @@ if (config('app.env') === 'production') {
     Route::get('/tambah_puskop', [KoperasiController::class, 'puskop']);
     Route::get('/tambah_inkop', [KoperasiController::class, 'inkop']);
 
+    Route::get('/simpanan', [KoperasiController::class, 'simpanan']);
+    Route::get('/pinjaman', [KoperasiController::class, 'pinjaman']);
+    Route::get('/tambah_simpanan', [KoperasiController::class, 'tambah_simpanan']);
+
     Route::get('/logout', function () {
         Session::flush('id_koperasi');
         Session::flush('username');

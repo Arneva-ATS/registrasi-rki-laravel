@@ -577,4 +577,42 @@ class KoperasiController extends Controller
         $id_primkop = Session::get('id_primkop');
         return view('dashboard.data.koperasi.inkop.create', compact('id', 'username', 'password', 'tingkatan'));
     }
+
+    public function pinjaman()
+    {
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        $list_pinjaman =  DB::table('tbl_pinjaman')->where('id_koperasi', '=', $id)->get();
+        return view('dashboard.data.koperasi.simpin.pinjaman', compact('id', 'username', 'password', 'tingkatan','list_pinjaman'));
+    }
+
+    public function simpanan()
+    {
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        $list_simpanan =  DB::table('tbl_simpanan')->where('id_koperasi', '=', $id)->get();
+        return view('dashboard.data.koperasi.simpin.simpanan', compact('id', 'username', 'password', 'tingkatan','list_simpanan'));
+    }
+
+    public function tambah_simpanan()
+    {
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $tingkatan = Session::get('tingkatan');
+        $id_inkop = Session::get('id_inkop');
+        $id_puskop = Session::get('id_puskop');
+        $id_primkop = Session::get('id_primkop');
+        return view('dashboard.data.koperasi.simpin.tambah_simpanan', compact('id', 'username', 'password', 'tingkatan'));
+    }
 }
