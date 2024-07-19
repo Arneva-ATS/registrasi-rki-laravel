@@ -21,6 +21,7 @@
                             <th>Nik</th>
                             <th>Nama Anggota</th>
                             <th>No HP</th>
+                            <th>Email</th>
                             <th class="no-content">Action</th>
                         </tr>
                     </thead>
@@ -32,11 +33,12 @@
                                 <td>{{ $data->nik }}</td>
                                 <td>{{ $data->nama_lengkap }}</td>
                                 <td>{{ $data->nomor_hp }}</td>
+                                <td>{{ $data->email ?? '-' }}</td>
                                 <td>
                                     @if ($data->approval)
                                         <button class="btn" disabled>Verified</button>
                                     @else
-                            
+
                                         <button onclick="rejectBtn({{ $data->id }}, '{{ $data->email }}')"
                                             class="btn btn-danger"> Reject </button>                                            </div>
                                         <button onclick="approveBtn({{ $data->id }}, '{{ $data->email }}', '{{ $data->username }}')"

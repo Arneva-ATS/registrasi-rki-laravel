@@ -47,6 +47,9 @@ class VerificationMail extends Mailable
                 'info' => $this->details['info'],
                 'username' => $this->details['username'],
                 'password' => $this->details['password'],
+                'link' => $this->details['link'],
+                'logo_rki' => $this->details['logo_rki'],
+                'logo_background' => $this->details['logo_background'],
             ]
         );
     }
