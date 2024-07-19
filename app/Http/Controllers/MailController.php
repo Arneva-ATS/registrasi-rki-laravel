@@ -27,7 +27,10 @@ class MailController extends Controller
                 'content' => 'Selamat! Email Anda berhasil Terverifikasi',
                 'info' => 'Berikut akun keanggotaan yang bisa anda gunakan saat login',
                 'username' => $request->username,
-                'password' => $password
+                'password' => $password,
+                'link' => 'https://dashboard.rkicoop.co.id/member/login',
+                'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
+                'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
             ];
             Mail::to($request->email)->send(new VerificationMail($details));
 
@@ -53,7 +56,10 @@ class MailController extends Controller
                 'content' => 'Selamat! Akun Koperasi Anda berhasil Terverifikasi',
                 'info' => 'Berikut akun koperasi yang bisa anda gunakan saat login',
                 'username' => $request->username,
-                'password' => $password
+                'password' => $password,
+                'link' => 'https://dashboard.rkicoop.co.id/login',
+                'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
+                'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
             ];
             Mail::to($request->email)->send(new VerificationMail($details));
 
@@ -77,7 +83,9 @@ class MailController extends Controller
                 'title' => 'Keanggotan Ditolak',
                 'content' => 'Maaf, keanggotaan anda ditolak',
                 'info' => 'Berikut alasan registrasi anda ditolak.',
-                'alasan' => $request->alasan
+                'alasan' => $request->alasan,
+                'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
+                'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
             ];
             Mail::to($request->email)->send(new RejectMail($details));
 
@@ -108,7 +116,9 @@ class MailController extends Controller
                         'title' => 'Data Koperasi Ditolak',
                         'content' => 'Maaf, koperasi anda ditolak',
                         'info' => 'Berikut alasan registrasi koperasi ditolak.',
-                        'alasan' => $request->alasan
+                        'alasan' => $request->alasan,
+                        'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
+                        'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
                     ];
                     Mail::to($request->email)->send(new RejectMail($details));
                     DB::commit();
@@ -156,10 +166,13 @@ class MailController extends Controller
             }
 
             $details = [
-                'title' => 'Pengajuan Registrasi Koperasi',
-                'content' => 'Selamat! Anda dapat melanjutkan registrasi koperasi',
+                'title' => 'PENGAJUAN REGISTRASI KOPERASI',
+                'content' => 'Selamat! Anda dapat melanjutkan registrasi koperasi. Langkah selanjutnya adalah memastikan semua persyaratan dan dokumen yang diperlukan telah lengkap dan sesuai dengan ketentuan yang berlaku.',
                 'info' => 'Berikut link untuk registrasi koperasi',
                 'link' => $linkRegistration,
+                'data' => $data,
+                'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
+                'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
             ];
             Mail::to($data->email_koperasi)->send(new VerificationPengajuanMail($details));
 
@@ -178,17 +191,21 @@ class MailController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data = DB::table('tbl_pengajuan')->where('id', $id)->where('approve', 'process')->first();
+            $data = DB::table('tbl_pengajuan')->where('id', $id)->where('approve', 'Process')->first();
             if (!$data) {
                 throw new \Exception('Data tidak ada!');
             }
 
             $details = [
-                'title' => 'Pengajuan Registrasi Koperasi Ditolak',
-                'content' => 'Maaf, Pengajuan anda ditolak',
+                'title' => 'PENGAJUAN REGISTRASI KOPERASI DITOLAK',
+                'content' => 'Maaf, pengajuan Anda ditolak. Silakan periksa kembali dokumen dan persyaratan yang diperlukan, kemudian ajukan ulang setelah melakukan perbaikan yang diperlukan. Terima kasih.',
                 'info' => 'Berikut alasan anda ditolak.',
-                'alasan' => $request->alasan
+                'alasan' => $request->alasan,
+                'data' => $data,
+                'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
+                'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
             ];
+
             Mail::to($data->email_koperasi)->send(new RejectPengajuanMail($details));
 
             // Delete data pengajuan

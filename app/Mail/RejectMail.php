@@ -50,6 +50,8 @@ class RejectMail extends Mailable
                 'content' => $this->details['content'],
                 'info' => $this->details['info'],
                 'alasan' => $this->details['alasan'],
+                'logo_rki' => $this->details['logo_rki'],
+                'logo_background' => $this->details['logo_background'],
             ]
         );
     }
