@@ -20,7 +20,7 @@
                     </div>
                     <hr>
                     <div class="section">
-                        <p><strong>Invoice: #{{ $order->invoice_number }}</strong></p>
+                        <p><strong>Invoice: #{{ $order->invoice_number  }}</strong></p>
                         <p>Tanggal: {{ $orderDate->translatedFormat('d F Y') }}</p>
                         <p>Due Date: {{ $dueDate->translatedFormat('d F Y') }}</p>
                     </div>
@@ -397,10 +397,10 @@
                                 }
                             ],
                             "customer": {
-                                "given_names": "John",
-                                "surname": "Doe",
-                                "email": "johndoe@example.com",
-                                "mobile_number": "+6287774441111",
+                                "given_names": "{{$order->nama_customer ?? $order->nama_lengkap}}",
+                                "surname": "{{$order->nama_customer ?? $order->nama_lengkap}}",
+                                "email": "{{$order->email}}",
+                                "mobile_number": "{{$order->no_telp ?? $order->nomor_hp}}",
                                 "addresses": [
                                     {
                                         "city": "Jakarta Selatan",
@@ -433,11 +433,6 @@
                             "invoice_duration": 86400,
                             "currency": "IDR",
                             "items": items,
-                            change_value: sisa,
-                            paid_value: bayar,
-                            id_koperasi: id_koperasi,
-                            id_order: order.id_order,
-                            status: 'completed',
                             "metadata": {
                                 id_payment_method: metodePembayaran.value,
                                 amount_value: order.total_amount,

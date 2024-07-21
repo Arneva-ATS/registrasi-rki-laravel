@@ -116,6 +116,22 @@ class PosController extends Controller
             if (!$paymentId) {
                 throw new \Exception('Gagal Bayar!');
             }
+            // Fetch order details
+            $orderDetails = DB::table('tbl_order_detail')->where('id_order', $request->id_order)->get();
+            foreach ($orderDetails as $detail) {
+                // Update product stock
+                $product = DB::table('tbl_produk')->where('id', $detail->id_product)->first();
+                if ($product) {
+                    $newStock = $product->stok - $detail->quantity;
+                    if ($newStock < 0) {
+                        throw new \Exception('Stok produk ' . $product->nama_produk . ' tidak mencukupi!');
+                    }
+                    DB::table('tbl_produk')->where('id', $detail->id_product)->update(['stok' => $newStock]);
+                } else {
+                    throw new \Exception('Produk dengan ID ' . $detail->id_product . ' tidak ditemukan!');
+                }
+            }
+
             $orderUpdate = DB::table('tbl_order')->where('id', $request->id_order)->update(['status' => 'completed']);
             if (!$orderUpdate) {
                 throw new \Exception('Gagal Checkout');
@@ -156,7 +172,8 @@ class PosController extends Controller
         }
     }
 
-    public function pos(){
+    public function pos()
+    {
 
         $tingkatan = Session::get('tingkatan');
         if ($tingkatan == 'anggota') {
@@ -166,11 +183,12 @@ class PosController extends Controller
             $password = Session::get('password');
             $no_anggota = Session::get('no_anggota');
             $edit_state = false;
+            $orderCount = DB::table('tbl_order')->where('id_koperasi', $id)->count();
             $categories = DB::table('tbl_kategori_produk')->where('id_koperasi', $id_koperasi)->get();
             $profile =  DB::table('tbl_anggota')->where('no_anggota', '=', $no_anggota)->first();
             $koperasi = DB::table('tbl_koperasi')->where('id', $id_koperasi)->first();
             $products = DB::table('tbl_produk')->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_produk.id_koperasi', $id_koperasi)->select('*', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori')->get();
-            return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state', 'koperasi'));
+            return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'orderCount', 'products', 'categories', 'edit_state', 'koperasi'));
         } else {
 
             $id = Session::get('id_koperasi');
@@ -181,14 +199,24 @@ class PosController extends Controller
             $id_primkop = Session::get('id_primkop');
             $categories = DB::table('tbl_kategori_produk')->where('id_koperasi', $id)->get();
             $edit_state = false;
+            $orderCount = DB::table('tbl_order')->where('id_koperasi', $id)->count();
             $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
             $products = DB::table('tbl_produk')->join('tbl_kategori_produk', 'tbl_produk.id_kategori', '=', 'tbl_kategori_produk.id')->where('tbl_produk.id_koperasi', $id)->select('*', 'tbl_produk.id as id_produk', 'tbl_kategori_produk.id as id_kategori')->get();
-            return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'products', 'categories', 'edit_state', 'koperasi'));
+            return view('dashboard.sales.pos', compact('id', 'username', 'password', 'tingkatan', 'orderCount', 'products', 'categories', 'edit_state', 'koperasi'));
         }
-
     }
-
-    public function checkout (String $id_order){
+    public function history_pos()
+    {
+        $tingkatan = Session::get('tingkatan');
+        $id = Session::get('id_koperasi');
+        $username = Session::get('username');
+        $password = Session::get('password');
+        $order = DB::table('tbl_order')->where('tbl_order.id_koperasi', $id)->get();
+        // return dd($order);
+        return view('dashboard.sales.history_pos', compact('id', 'username', 'password', 'tingkatan', 'order'));
+    }
+    public function checkout(String $id_order)
+    {
 
         $tingkatan = Session::get('tingkatan');
         if ($tingkatan == 'anggota') {
@@ -232,11 +260,12 @@ class PosController extends Controller
                     ->select('*', 'tbl_order.id as id_order', 'tbl_customer.id as id_customer')
                     ->first();
             }
-            $order_detail = DB::table('tbl_order_detail')->join("tbl_produk", 'tbl_order_detail.id_product', '=', 'tbl_produk.id')->where('tbl_order_detail.id_order', $id_order)->select('tbl_produk.nama_produk', 'tbl_order_detail.quantity', 'tbl_order_detail.price', 'tbl_order_detail.total', 'tbl_produk.id as id_produk', 'tbl_order_detail.id as id_detail_order')->get();
+            $order_detail = DB::table('tbl_order_detail')->join("tbl_produk", 'tbl_order_detail.id_product', '=', 'tbl_produk.id')
+                ->where('tbl_order_detail.id_order', $id_order)
+                ->select('tbl_produk.nama_produk', 'tbl_order_detail.quantity', 'tbl_order_detail.price', 'tbl_order_detail.total', 'tbl_produk.id as id_produk', 'tbl_order_detail.id as id_detail_order')->get();
             // return dd($order_detail);
             // return dd($order);
             return view('dashboard.sales.checkout', compact('id', 'username', 'password', 'tingkatan', 'order', 'order_detail', 'koperasi', 'payment_method'));
         }
-
     }
 }

@@ -501,7 +501,7 @@
             let invoiceItems = [];
             let invoiceDate;
             let invoiceDue;
-            let invoice_id = 1; // Initial invoice_id
+            let invoice_id = {{$orderCount + 1}}; // Initial invoice_id
             let invoiceNumber;
             let tax;
             let discount;
