@@ -23,8 +23,8 @@ class MailController extends Controller
                 throw new \Exception('Data tidak ada!');
             }
             $details = [
-                'title' => 'Verifikasi Keanggotaan',
-                'content' => 'Selamat! Email Anda berhasil Terverifikasi',
+                'title' => 'VERIFIKASI KEANGGOTAAN',
+                'content' => 'Selamat! Data anda berhasil terverifikasi',
                 'info' => 'Berikut akun keanggotaan yang bisa anda gunakan saat login',
                 'username' => $request->username,
                 'password' => $password,
@@ -52,8 +52,8 @@ class MailController extends Controller
                 throw new \Exception('Data tidak ada!');
             }
             $details = [
-                'title' => 'Verifikasi Keanggotaan',
-                'content' => 'Selamat! Akun Koperasi Anda berhasil Terverifikasi',
+                'title' => 'VERIFIKASI KEANGGOTAAN',
+                'content' => 'Selamat! Akun koperasi anda berhasil terverifikasi',
                 'info' => 'Berikut akun koperasi yang bisa anda gunakan saat login',
                 'username' => $request->username,
                 'password' => $password,
@@ -62,7 +62,6 @@ class MailController extends Controller
                 'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
             ];
             Mail::to($request->email)->send(new VerificationMail($details));
-
             DB::commit();
             return response()->json(['response_code' => '00', 'response_message' => 'Berhasil verfikasi data!']);
         } catch (\Throwable $th) {
@@ -75,19 +74,22 @@ class MailController extends Controller
     {
         DB::beginTransaction();
         try {
-            $deleted = DB::table('tbl_anggota')->where('id', $id)->delete();
-            if (!$deleted) {
-                throw new \Exception('Gagal hapus data!');
+            $data = DB::table('tbl_anggota')->where('id', $id)->first();
+            if (!$data) {
+                throw new \Exception('Data tidak ada!');
             }
+
             $details = [
-                'title' => 'Keanggotan Ditolak',
-                'content' => 'Maaf, keanggotaan anda ditolak',
+                'title' => 'REGISTRASI KEANGGOTAAN DITOLAK',
+                'content' => 'Maaf, pengajuan Anda ditolak. Silakan periksa kembali dokumen dan persyaratan yang diperlukan, kemudian ajukan ulang setelah melakukan perbaikan yang diperlukan. Terima kasih.',
                 'info' => 'Berikut alasan registrasi anda ditolak.',
                 'alasan' => $request->alasan,
+                'data' => $data->nama_lengkap ?? 'Undefined',
                 'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
                 'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
             ];
             Mail::to($request->email)->send(new RejectMail($details));
+            DB::table('tbl_anggota')->where('id', $id)->delete();
 
             DB::commit();
             // return response()->json(['response_code' => '00', 'response_message' => $details]);
@@ -108,25 +110,23 @@ class MailController extends Controller
             // Jika anggota berhasil dihapus atau tidak ada anggota yang berhubungan dengan koperasi tersebut
             if ($deleted_anggota !== false) {
                 // Hapus koperasi
-                $deleted_koperasi = DB::table('tbl_koperasi')->where('id', $id)->delete();
+                $data = DB::table('tbl_koperasi')->where('id', $id)->first();
 
-                // Jika koperasi berhasil dihapus
-                if ($deleted_koperasi) {
-                    $details = [
-                        'title' => 'Data Koperasi Ditolak',
-                        'content' => 'Maaf, koperasi anda ditolak',
-                        'info' => 'Berikut alasan registrasi koperasi ditolak.',
-                        'alasan' => $request->alasan,
-                        'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
-                        'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
-                    ];
-                    Mail::to($request->email)->send(new RejectMail($details));
-                    DB::commit();
-                    return response()->json(['response_code' => '00', 'response_message' => 'Berhasil Reject!']);
-                } else {
-                    // Jika penghapusan koperasi gagal
-                    throw new \Exception('Gagal hapus data koperasi!');
-                }
+                $details = [
+                    'title' => 'REGISTRASI KOPERASI DITOLAK',
+                    'content' => 'Maaf, koperasi anda ditolak',
+                    'info' => 'Berikut alasan registrasi koperasi ditolak.',
+                    'alasan' => $request->alasan,
+                    'data' => $data->nama_koperasi ?? 'Undefined',
+                    'logo_rki' => 'https://rkicoop.co.id/assets/imgs/Logo.png',
+                    'logo_background' => 'https://rkicoop.co.id/assets/imgs/pattern_3.svg',
+                ];
+                Mail::to($request->email)->send(new RejectMail($details));
+                DB::table('tbl_koperasi')->where('id', $id)->delete();
+
+                DB::commit();
+                return response()->json(['response_code' => '00', 'response_message' => 'Berhasil Reject!']);
+
             } else {
                 // Jika penghapusan anggota gagal
                 throw new \Exception('Gagal hapus data anggota!');
