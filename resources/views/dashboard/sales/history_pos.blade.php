@@ -40,13 +40,13 @@
                             <td class="text-center">{{$list_order->discount}}</td>
                             <td class="text-center">{{$list_order->total_amount}}</td>
                             <td class="text-center"><span class="badge  {{ $list_order->status == 'pending' ? 'badge-light-secondary' : ($list_order->status == 'rejected' ? 'badge-light-danger' : 'badge-light-success') }} ">{{strtoupper($list_order->status)}}</span></td>
-                            <td class="text-center"><a href='/checkout/{{$list_order->id}}' class="btn {{$list_order->status == 'pending' ? 'btn-danger' : 'btn-info'}}">{{$list_order->status == 'pending' ? 'Bayar' : 'View Detail'}}</a></td>
+                            <td class="text-center"><a href='{{ $list_order->status == 'pending' ? '/checkout/' . $list_order->id : '/detail-order/'. $list_order->id }}' class="btn {{$list_order->status == 'pending' ? 'btn-danger' : 'btn-info'}}">{{$list_order->status == 'pending' ? 'Bayar' : 'View Detail'}}</a></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            
+
         </div>
     </div>
     <script>

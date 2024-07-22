@@ -54,6 +54,8 @@ Route::prefix('products')->group(function () {
     Route::delete('/delete-kategori/{id}', [ProductCategoryController::class, 'destroy']);
     Route::delete('/delete-produk/{id}', [ProductController::class, 'destroy']);
     Route::patch('/update-produk/{id}', [ProductController::class, 'update']);
+    Route::patch('/add-stock/{id}', [ProductController::class, 'add_stock']);
+
 })->name('products');
 
 Route::prefix('pos')->group(function () {

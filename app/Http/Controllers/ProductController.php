@@ -86,8 +86,9 @@ class ProductController extends Controller
             $request->validate([
                 'nama_produk' => 'required',
                 'harga' => 'required',
-                'stok' => 'required',
+                // 'stok' => 'required',
                 'kategori' => 'required',
+                'barcode' => 'required',
                 'uom' => 'required',
             ]);
 
@@ -106,8 +107,9 @@ class ProductController extends Controller
             $product_data = [
                 'nama_produk' => $request->nama_produk,
                 'harga' => $request->harga,
-                'stok' => $request->stok,
+                // 'stok' => $request->stok,
                 'uom' => $request->uom,
+                'barcode' => $request->barcode,
                 'id_kategori' => $request->kategori,
             ];
 
@@ -123,6 +125,37 @@ class ProductController extends Controller
 
             DB::commit();
             return response()->json(['response_code' => '00', 'response_message' => 'Berhasil Update Produk!'], 200);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['response_code' => '01', 'response_message' => $th->getMessage()], 500);
+        }
+    }
+
+    public function add_stock(Request $request, $id)
+    {
+        DB::beginTransaction();
+
+        try {
+            $request->validate([
+                'stok' => 'required',
+            ]);
+
+            // Simpan foto selfie
+
+            // Simpan foto produk
+            $stock = DB::table('tbl_produk')->where('id', $id)->select('tbl_produk.stok')->first();
+            $new_stock = $stock->stok + $request->stok;
+            $product_data = [
+                'stok' => $new_stock,
+            ];
+            $update = DB::table('tbl_produk')->where('id', $id)->update($product_data);
+
+            if (!$update) {
+                throw new \Exception('Gagal tambah stok!');
+            }
+
+            DB::commit();
+            return response()->json(['response_code' => '00', 'response_message' => 'Berhasil tambah stok!'], 200);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['response_code' => '01', 'response_message' => $th->getMessage()], 500);

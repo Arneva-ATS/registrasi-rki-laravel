@@ -250,13 +250,14 @@ class PosController extends Controller
             if (is_null($order->id_customer)) {
                 $order = DB::table('tbl_order')
                     ->join('tbl_anggota', 'tbl_order.id_anggota', '=', 'tbl_anggota.id')
-                    ->where('tbl_order.id', $id_order)
+                    ->where('tbl_order.id', $id_order)->where('tbl_order.status', 'pending')
                     ->select('*', 'tbl_order.id as id_order', 'tbl_anggota.id as id_anggota')
                     ->first();
             } else {
                 $order = DB::table('tbl_order')
                     ->join('tbl_customer', 'tbl_order.id_customer', '=', 'tbl_customer.id')
                     ->where('tbl_order.id', $id_order)
+                    ->where('tbl_order.id', $id_order)->where('tbl_order.status', 'pending')
                     ->select('*', 'tbl_order.id as id_order', 'tbl_customer.id as id_customer')
                     ->first();
             }
@@ -267,5 +268,61 @@ class PosController extends Controller
             // return dd($order);
             return view('dashboard.sales.checkout', compact('id', 'username', 'password', 'tingkatan', 'order', 'order_detail', 'koperasi', 'payment_method'));
         }
+    }
+
+    public function detail_order(String $id_order)
+    {
+
+            $id = Session::get('id_koperasi');
+            $username = Session::get('username');
+            $password = Session::get('password');
+            $tingkatan = Session::get('tingkatan');
+            $id_inkop = Session::get('id_inkop');
+            $id_puskop = Session::get('id_puskop');
+            $id_primkop = Session::get('id_primkop');
+            $payment_method = DB::table('tbl_payment_method')->where('status', 1)->get();
+            $koperasi = DB::table('tbl_koperasi')->where('id', $id)->first();
+            $order = DB::table('tbl_order')->where('tbl_order.id', $id_order)->first();
+            if (!$order) {
+                return view('error');
+            }
+            if (is_null($order->id_customer)) {
+                if($order->status == 'completed'){
+                    $order = DB::table('tbl_order')
+                    ->join('tbl_anggota', 'tbl_order.id_anggota', '=', 'tbl_anggota.id')
+                    ->join('tbl_payments', 'tbl_payments.id_order', '=', 'tbl_order.id')
+                    ->where('tbl_order.id', $id_order)
+                    ->select('*', 'tbl_order.id as id_order', 'tbl_anggota.id as id_anggota', 'tbl_payments.id as id_payment')
+                    ->first();
+                } else{
+                    $order = DB::table('tbl_order')
+                    ->join('tbl_anggota', 'tbl_order.id_anggota', '=', 'tbl_anggota.id')
+                    ->where('tbl_order.id', $id_order)
+                    ->select('*', 'tbl_order.id as id_order', 'tbl_anggota.id as id_anggota')
+                    ->first();
+                }
+            } else {
+                if($order->status == 'completed'){
+                    $order = DB::table('tbl_order')
+                    ->join('tbl_customer', 'tbl_order.id_customer', '=', 'tbl_customer.id')
+                    ->join('tbl_payments', 'tbl_payments.id_order', '=', 'tbl_order.id')
+                    ->where('tbl_order.id', $id_order)
+                    ->select('*', 'tbl_order.id as id_order', 'tbl_customer.id as id_customer', 'tbl_payments.id as id_payment')
+                    ->first();
+                } else{
+                    $order = DB::table('tbl_order')
+                    ->join('tbl_customer', 'tbl_order.id_customer', '=', 'tbl_customer.id')
+                    ->where('tbl_order.id', $id_order)
+                    ->select('*', 'tbl_order.id as id_order', 'tbl_customer.id as id_customer', 'tbl_payments.id as id_payment')
+                    ->first();
+                }
+
+            }
+
+            $order_detail = DB::table('tbl_order_detail')->join("tbl_produk", 'tbl_order_detail.id_product', '=', 'tbl_produk.id')
+                ->where('tbl_order_detail.id_order', $id_order)
+                ->select('tbl_produk.nama_produk', 'tbl_order_detail.quantity', 'tbl_order_detail.price', 'tbl_order_detail.total', 'tbl_produk.id as id_produk', 'tbl_order_detail.id as id_detail_order')->get();
+            // return dd($order);
+            return view('dashboard.sales.detail_order', compact('id', 'username', 'password', 'tingkatan', 'order', 'order_detail', 'koperasi', 'payment_method'));
     }
 }

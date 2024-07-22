@@ -12,7 +12,7 @@
                 <!-- Hidden receipt section for printing -->
                 <div id="receipt" style="display: none; width: 80mm; font-size: small;">
                     <div class="header">
-                        <img src="{{ asset('assets/img/logo-fav-icon.png') }}" alt="company">
+                        {{-- <img class="w-25" src="{{ asset('assets/img/logo-fav-icon.png') }}" alt="company"> --}}
                         <h3>{{ $koperasi->nama_koperasi }}</h3>
                         <p>{{ $koperasi->alamat }}</p>
                         <p>{{ $koperasi->email_koperasi }}</p>
@@ -20,7 +20,7 @@
                     </div>
                     <hr>
                     <div class="section">
-                        <p><strong>Invoice: #{{ $order->invoice_number  }}</strong></p>
+                        <p><strong>Invoice: #{{ $order->invoice_number }}</strong></p>
                         <p>Tanggal: {{ $orderDate->translatedFormat('d F Y') }}</p>
                         <p>Due Date: {{ $dueDate->translatedFormat('d F Y') }}</p>
                     </div>
@@ -50,6 +50,8 @@
                         <p>Tax: Rp. {{ $order->tax }}</p>
                         <p>Discount: Rp. {{ $order->discount }}</p>
                         <p><strong>Total: Rp. {{ $order->total_amount }}</strong></p>
+                        <p>Harga Bayar: Rp. {{ $order->paid_value ?? '' }}</p>
+                        <p>Kembalian: Rp. {{ $order->change_value ?? '' }}</p>
                     </div>
                     <hr>
                     <div class="footer">
@@ -179,7 +181,7 @@
                                                                     <p class="">Rp. {{ $order->tax }}</p>
                                                                 </div>
                                                                 <div class="col-sm-8 col-7">
-                                                                    <p class=" discount-rate">Discount 5% :</p>
+                                                                    <p class=" discount-rate">Discount:</p>
                                                                 </div>
                                                                 <div class="col-sm-4 col-5">
                                                                     <p class="">Rp. {{ $order->discount }}</p>
@@ -232,11 +234,12 @@
                                         </div>
                                         <div class="d-flex flex-row justify-content-center">
                                             <select style="width:19em;height:2.5em;" name="metode_pembayaran"
-                                            id="metode_pembayaran" class="form-stock">
-                                            @foreach ($payment_method as $method)
-                                                <option style="font-size: 1em;" value="{{$method->id}}">{{$method->payment_name}}</option>
-                                            @endforeach
-                                        </select>
+                                                id="metode_pembayaran" class="form-stock">
+                                                @foreach ($payment_method as $method)
+                                                    <option style="font-size: 1em;" value="{{ $method->id }}">
+                                                        {{ $method->payment_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-md-3 col-sm-6">
@@ -244,8 +247,8 @@
                                             <label for="">Harga Bayar</label>
                                         </div>
                                         <div class="d-flex flex-row justify-content-center">
-                                            <input type="text" id="harga_bayar" style="width: 19em;height:2.5em;" class="form-stock"
-                                            placeholder="Rp. ....">
+                                            <input type="text" id="harga_bayar" style="width: 19em;height:2.5em;"
+                                                class="form-stock" placeholder="Rp. ....">
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-md-3 col-sm-6">
@@ -253,22 +256,24 @@
                                             <label for="">Kembalian</label>
                                         </div>
                                         <div class="d-flex flex-row justify-content-center">
-                                            <input type="text" id="kembalian" style="width: 19em;height:2.5em;" class="form-stock"
-                                            placeholder="Rp. ...." disabled>
+                                            <input type="text" id="kembalian" style="width: 19em;height:2.5em;"
+                                                class="form-stock" placeholder="Rp. ...." disabled>
                                         </div>
                                     </div>
-                                    @if ($order->status =='pending')
-                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
-                                        <button style="width:19em;" class="btn btn-dark btn-edit" onclick="payBtn()">Bayar</button> 
-                                    </div>
-                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
-                                        <button style="width:19em;" class="btn btn-danger"
-                                            onclick="cancelTransaction()">Batal</button>
-                                    </div>
+                                    @if ($order->status == 'pending')
+                                        <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                            <button style="width:19em;" class="btn btn-dark btn-edit"
+                                                onclick="payBtn()">Bayar</button>
+                                        </div>
+                                        <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                            <button style="width:19em;" class="btn btn-danger"
+                                                onclick="cancelTransaction()">Batal</button>
+                                        </div>
                                     @else
-                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
-                                        <a style="width:19em;" class="btn btn-dark btn-edit" href="/pos"><- Kembali</a> 
-                                    </div>
+                                        <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                            <a style="width:19em;" class="btn btn-dark btn-edit" href="/pos"><-
+                                                    Kembali</a>
+                                        </div>
                                     @endif
                                 </div>
 
@@ -289,24 +294,23 @@
             name: item.nama_produk,
             quantity: item.quantity,
             price: item.price,
-            category: item.nama_kategori, 
+            category: item.nama_kategori,
             url: "https://yourcompany.com"
-        }));        
+        }));
         const order = @Json($order);
         const metodePembayaran = document.getElementById('metode_pembayaran');
         const hargaBayar = document.getElementById('harga_bayar');
         const kembalian = document.getElementById('kembalian');
         const grandTotal = {{ $order->total_amount }};
-        let id_koperasi = {{$id}};
+        let id_koperasi = {{ $id }};
         metodePembayaran.addEventListener('change', (event) => {
             if (metodePembayaran.value === '1') { // Cash
                 hargaBayar.disabled = false;
-            }else if(metodePembayaran.value === '2'){
+            } else if (metodePembayaran.value === '2') {
                 hargaBayar.disabled = true;
                 hargaBayar.value = grandTotal;
                 kembalian.value = 0
-            }
-             else {
+            } else {
                 hargaBayar.disabled = true;
                 hargaBayar.value = '';
                 kembalian.value = '';
@@ -317,15 +321,16 @@
             const bayar = parseFloat(hargaBayar.value);
             if (!isNaN(bayar)) {
                 const kembali = bayar - grandTotal;
-                if(kembali < 0){
+                if (kembali < 0) {
                     swal('Uang tidak kurang dari total pembayaran!', 'Mohon sesuaikan uang pembayaran', 'info')
-                } else{
+                } else {
                     kembalian.value = kembali;
                 }
             } else {
                 kembalian.value = '';
             }
         });
+
         function printReceipt() {
             var originalContent = document.body.innerHTML;
             var printContent = document.getElementById('receipt').innerHTML;
@@ -334,145 +339,143 @@
             document.body.innerHTML = originalContent;
             window.location.href = "/pos";
         }
+
         function payBtn() {
-                let bayar = hargaBayar.value;
-                let sisa  = kembalian.value;
-                let jsonData = {}
-                if(metodePembayaran.value=='1'){
-                    if(!bayar){
-                        swal('Perhatian!', 'Harap isi nominal pembayaran', 'info')
-                    } else{
-                        jsonData = {
-                            id_payment_method: metodePembayaran.value,
-                            amount_value: order.total_amount,
-                            change_value: sisa,
-                            paid_value: bayar,
-                            id_koperasi: id_koperasi,
-                            id_order: order.id_order,
-                            status: 'completed',
-                        }
-                        console.log(jsonData);
-
-                        fetch(`/api/pos/payment`, {
-                            headers: {
-                                "Access-Control-Allow-Origin": "*",
-                                "Content-Type": "application/json",
-                            },
-                            method: "POST",
-                            body: JSON.stringify(jsonData),
-                            })
-                            .then((response) => response.json())
-                            .then((data) => {
-                                console.log(data)
-                                // swal.close();
-                                if (data.response_code == "00") {
-                                    printReceipt(); // Call print function
-                                } else {
-                                    swal({
-                                        title: "Status",
-                                        text: data?.response_message,
-                                        icon: "error",
-                                        buttons: true,
-                                    })
-                                }
-                            })
-                            .catch((error) => {
-                                // swal.close();
-                                console.log(error)
-                                swal({
-                                    title: "Status",
-                                    text: error,
-                                    icon: "info",
-                                    buttons: true,
-                                })
-                            });
-                    }
-                } else if(metodePembayaran.value == '2'){
+            let bayar = hargaBayar.value;
+            let sisa = kembalian.value;
+            let jsonData = {}
+            if (metodePembayaran.value == '1') {
+                if (!bayar) {
+                    swal('Perhatian!', 'Harap isi nominal pembayaran', 'info')
+                } else {
                     jsonData = {
-                            "amount": order.total_amount,
-                            "fees": [
-                                {
-                                    "type": "ADMIN",
-                                    "value": 5000
-                                }
-                            ],
-                            "customer": {
-                                "given_names": "{{$order->nama_customer ?? $order->nama_lengkap}}",
-                                "surname": "{{$order->nama_customer ?? $order->nama_lengkap}}",
-                                "email": "{{$order->email}}",
-                                "mobile_number": "{{$order->no_telp ?? $order->nomor_hp}}",
-                                "addresses": [
-                                    {
-                                        "city": "Jakarta Selatan",
-                                        "country": "Indonesia",
-                                        "postal_code": "12345",
-                                        "state": "Daerah Khusus Ibukota Jakarta",
-                                        "street_line1": "Jalan Makan",
-                                        "street_line2": "Kecamatan Kebayoran Baru"
-                                    }
-                                ]
-                            },
-                            "customer_notification_preference": {
-                                "invoice_created": [
-                                    "whatsapp",
-                                    "email",
-                                    "viber"
-                                ],
-                                "invoice_reminder": [
-                                    "whatsapp",
-                                    "email",
-                                    "viber"
-                                ],
-                                "invoice_paid": [
-                                    "whatsapp",
-                                    "email",
-                                    "viber"
-                                ]
-                            },
-                            "description": "Pembayaran dengan Xendit",
-                            "invoice_duration": 86400,
-                            "currency": "IDR",
-                            "items": items,
-                            "metadata": {
-                                id_payment_method: metodePembayaran.value,
-                                amount_value: order.total_amount,
-                                change_value: sisa,
-                                paid_value: bayar,
-                                id_koperasi: id_koperasi,
-                                id_order: order.id_order,
-                                status: 'completed',
-                            }
-                        }
-                        console.log(jsonData);
+                        id_payment_method: metodePembayaran.value,
+                        amount_value: order.total_amount,
+                        change_value: sisa,
+                        paid_value: bayar,
+                        id_koperasi: id_koperasi,
+                        id_order: order.id_order,
+                        status: 'completed',
+                    }
+                    console.log(jsonData);
 
-                        fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
+                    fetch(`/api/pos/payment`, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
                             },
                             method: "POST",
                             body: JSON.stringify(jsonData),
-                            })
-                            .then((response) => response.json())
-                            .then((data) => {
-                                console.log(data)
-                                // swal.close();
-                                let url = data.invoiceUrl;
-                                window.location.href = url;
-                            })
-                            .catch((error) => {
-                                // swal.close();
-                                console.log(error)
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data)
+                            // swal.close();
+                            if (data.response_code == "00") {
+                                printReceipt(); // Call print function
+                            } else {
                                 swal({
                                     title: "Status",
-                                    text: "Kesalahan Server",
-                                    icon: "info",
+                                    text: data?.response_message,
+                                    icon: "error",
                                     buttons: true,
                                 })
-                            });
+                            }
+                        })
+                        .catch((error) => {
+                            // swal.close();
+                            console.log(error)
+                            swal({
+                                title: "Status",
+                                text: error,
+                                icon: "info",
+                                buttons: true,
+                            })
+                        });
                 }
-                
+            } else if (metodePembayaran.value == '2') {
+                jsonData = {
+                    "amount": order.total_amount,
+                    "fees": [{
+                        "type": "ADMIN",
+                        "value": 5000
+                    }],
+                    "customer": {
+                        "given_names": "{{ $order->nama_customer ?? $order->nama_lengkap }}",
+                        "surname": "{{ $order->nama_customer ?? $order->nama_lengkap }}",
+                        "email": "{{ $order->email }}",
+                        "mobile_number": "{{ $order->no_telp ?? $order->nomor_hp }}",
+                        "addresses": [{
+                            "city": "Jakarta Selatan",
+                            "country": "Indonesia",
+                            "postal_code": "12345",
+                            "state": "Daerah Khusus Ibukota Jakarta",
+                            "street_line1": "Jalan Makan",
+                            "street_line2": "Kecamatan Kebayoran Baru"
+                        }]
+                    },
+                    "customer_notification_preference": {
+                        "invoice_created": [
+                            "whatsapp",
+                            "email",
+                            "viber"
+                        ],
+                        "invoice_reminder": [
+                            "whatsapp",
+                            "email",
+                            "viber"
+                        ],
+                        "invoice_paid": [
+                            "whatsapp",
+                            "email",
+                            "viber"
+                        ]
+                    },
+                    "description": "Pembayaran dengan Xendit",
+                    "invoice_duration": 86400,
+                    "currency": "IDR",
+                    "items": items,
+                    "metadata": {
+                        id_payment_method: metodePembayaran.value,
+                        amount_value: order.total_amount,
+                        change_value: sisa,
+                        paid_value: bayar,
+                        id_koperasi: id_koperasi,
+                        id_order: order.id_order,
+                        status: 'completed',
+                    }
+                }
+                console.log(jsonData);
+
+                fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify(jsonData),
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data)
+                        // swal.close();
+                        let url = data.invoiceUrl;
+                        window.location.href = url;
+                    })
+                    .catch((error) => {
+                        // swal.close();
+                        console.log(error)
+                        swal({
+                            title: "Status",
+                            text: "Kesalahan Server",
+                            icon: "info",
+                            buttons: true,
+                        })
+                    });
             }
+
+        }
+
         function cancelTransaction() {
             swal({
                     title: "Pembatalan!",

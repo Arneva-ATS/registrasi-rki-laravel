@@ -47,6 +47,9 @@
                                     </button>
                                 </td>
                                 <td>
+                                    <button data-bs-toggle="modal" data-bs-target="#modalStok" class="btn btn btn-info"
+                                        onclick="getProduct({{ $data->id_produk }})">
+                                        + Stok </button>
                                     <button data-bs-toggle="modal" data-bs-target="#modalEdit" class="btn btn btn-warning"
                                         onclick="editModal({{ $data->id_produk }})">
                                         Edit </button>
@@ -190,7 +193,7 @@
                                         <div class="form-group mt-3">
                                             <label class="text-white" for="edit_stok">Stok</label>
                                             <input type="number" name="edit_stok" id="edit_stok" class="form-control"
-                                                placeholder="masukan stok" required />
+                                                placeholder="" disabled/>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -223,6 +226,36 @@
                             <button type="button" name="process" id="button-submit" class="btn btn-primary"
                                 onclick="updateData()">
                                 Simpan
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalStok" tabindex="-1" aria-labelledby="stokModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-white" id="stokModalLabel">Tambah Stok</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="g-3 needs-validation" novalidate enctype="multipart/for-data">
+                                <input type="text" name="get_id_produk" id="get_id_produk" class="form-control"
+                                    hidden required />
+                                <div class="form-group">
+                                    <label class="text-white" for="tambah_stok">Stok</label>
+                                    <input type="text" name="tambah_stok" id="tambah_stok"
+                                        class="form-control" placeholder="Masukan stok" required />
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" name="process" id="button-submit" class="btn btn-primary"
+                                onclick="addStock()">
+                                Tambah
                             </button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
@@ -294,9 +327,9 @@
         }
 
         function generateBarcodePage(barcodeValue, qty) {
-            const barcodesPerPage = 40;
+            const barcodesPerPage = 30;
             const rowsPerPage = 10;
-            const colsPerPage = 4;
+            const colsPerPage = 3;
             const totalPages = Math.ceil(qty / barcodesPerPage);
             const barcodeContainer = document.getElementById('barcodeContainer');
             barcodeContainer.innerHTML = '';
@@ -313,7 +346,8 @@
                     for (let col = 0; col < colsPerPage; col++) {
                         const index = page * barcodesPerPage + row * colsPerPage + col;
                         if (index >= qty) break;
-                        html += '<td class="barcode"><h2>' + barcodeValue + '</h2><p class="text-center">' + barcodeValue + '</p></td>';
+                        html += '<td class="barcode"><h2>' + barcodeValue + '</h2><p class="text-center">' + barcodeValue +
+                            '</p></td>';
                     }
 
                     html += '</tr>';
@@ -465,6 +499,29 @@
                 });
         }
 
+        function getProduct(id) {
+            fetch(`/api/products/detail-products/${id_koperasi}/${id}`, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                    method: "GET",
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    let dataProduct = data.response_message;
+                    console.log(dataProduct)
+                    if (data.response_code == "00") {
+                        document.getElementById("get_id_produk").value = dataProduct[0].id
+                    } else {
+                        console.error('Failed to update product');
+                    }
+                }).catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
         function saveData() {
             const nama_produk = document.getElementById("nama_produk").value;
             const harga = document.getElementById("harga").value;
@@ -547,8 +604,9 @@
             const nama_produk = document.getElementById("edit_nama_produk").value;
             const id_produk = document.getElementById("edit_id_produk").value;
             const harga = document.getElementById("edit_harga").value;
-            const stok = document.getElementById("edit_stok").value;
+            // const stok = document.getElementById("edit_stok").value;
             const uom = document.getElementById("edit_uom").value;
+            const barcode = document.getElementById("edit_barcode").value;
             const kategori = document.getElementById("edit_kategori").value;
             const image_produk = baseStringEditProduk;
 
@@ -564,7 +622,8 @@
             const jsondata = {
                 nama_produk,
                 harga,
-                stok,
+                // stok,
+                barcode,
                 uom,
                 kategori,
                 type,
@@ -586,6 +645,69 @@
                 .then((data) => {
                     console.log(data)
                     swal.close();
+                    if (data.response_code == "00") {
+                        swal({
+                            title: "Status",
+                            text: data?.response_message,
+                            icon: "success",
+                            buttons: true,
+                        }).then((willOut) => {
+                            if (willOut) {
+                                window.location = "/list_produk";
+                                console.log("success")
+                            } else {
+                                console.log("error");
+                            }
+                        });
+                    } else {
+                        swal({
+                            title: "Status",
+                            text: data?.response_message,
+                            icon: "error",
+                            buttons: true,
+                        })
+                    }
+                })
+                .catch((error) => {
+                    swal.close();
+                    console.log(error)
+                    swal({
+                        title: "Status",
+                        text: error,
+                        icon: "info",
+                        buttons: true,
+                    })
+                });
+        }
+
+        function addStock() {
+            const stok = parseInt(document.getElementById("tambah_stok").value);
+            const id_produk = document.getElementById('get_id_produk').value
+            swal({
+                title: "Please wait",
+                text: "Submitting data...",
+                // icon: "/assets/images/loading.gif",
+                button: false,
+                closeOnClickOutside: false,
+                closeOnEsc: false,
+                className: "swal-loading",
+            });
+            const jsondata = {
+                stok,
+            };
+
+            fetch(`/api/products/add-stock/${id_produk}`, {
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                    },
+                    method: "PATCH",
+                    body: JSON.stringify(jsondata),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    swal.close();
+                    console.log(data)
                     if (data.response_code == "00") {
                         swal({
                             title: "Status",
