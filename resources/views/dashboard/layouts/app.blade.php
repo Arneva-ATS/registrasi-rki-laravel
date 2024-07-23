@@ -47,29 +47,30 @@
                                 margin: 0;
                                 padding: 0;
                             }
-            
+
                             #receipt th, #receipt td {
                                 padding: 5px;
                                 text-align: left;
                             }
-            
+
                             #receipt hr {
                                 border: 1px dashed black;
                             }
-            
+
                             #receipt .header, #receipt .footer {
                                 text-align: center;
                             }
-            
+
                             #receipt .header h3, #receipt .footer p {
                                 margin: 5px 0;
                             }
-            
+
                             #receipt .section {
                                 margin-bottom: 10px;
                             }
                         }
     </style>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
 
     @include('dashboard.layouts.partials.head')
 </head>

@@ -7,6 +7,8 @@
 <script src="{{ asset('assets/dashboard/src/plugins/src/global/vendors.min.js') }}"></script>
 <script src="{{ asset('assets/dashboard/src/assets/js/custom.js') }}"></script>
 <script src="{{ asset('assets/dashboard/src/plugins/src/table/datatable/datatables.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+
 <script>
     $('#zero-config').DataTable({
         "dom": "<'dt--top-section'<'row'<'col-12 col-sm-6 d-flex justify-content-sm-start justify-content-center'l><'col-12 col-sm-6 d-flex justify-content-sm-end justify-content-center mt-sm-0 mt-3'f>>>" +

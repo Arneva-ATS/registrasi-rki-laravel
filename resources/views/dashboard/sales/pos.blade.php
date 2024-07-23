@@ -548,11 +548,11 @@
                             response_message
                         } = data
                         if (response_code == '00') {
-                            document.getElementById('id_anggota').value = response_message.id
-                            document.getElementById('nama_customer').value = response_message.nama_lengkap;
-                            document.getElementById('alamat_customer').value = response_message.alamat;
-                            document.getElementById('email_customer').value = response_message.email;
-                            document.getElementById('no_telp_customer').value = response_message.nomor_hp;
+                            document.getElementById('id_anggota').value = response_message.id;
+                            document.getElementById('nama_customer').value = response_message.nama_lengkap ? response_message.nama_lengkap : '-';
+                            document.getElementById('alamat_customer').value = response_message.alamat ? response_message.alamat : '-' ;
+                            document.getElementById('email_customer').value = response_message.email ? response_message.email : '-';
+                            document.getElementById('no_telp_customer').value = response_message.nomor_hp ? response_message.nomor_hp : '-';
                             document.getElementById('nama_customer').disabled = true
                             document.getElementById('alamat_customer').disabled = true;
                             document.getElementById('email_customer').disabled = true

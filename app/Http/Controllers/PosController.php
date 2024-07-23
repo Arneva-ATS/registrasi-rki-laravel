@@ -143,6 +143,7 @@ class PosController extends Controller
             return response()->json(['repsonse_code' => '01', 'response_message' => $th->getMessage()], 500);
         }
     }
+
     public function destroy($order_id)
     {
         DB::beginTransaction();

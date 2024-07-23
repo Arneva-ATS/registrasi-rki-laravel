@@ -46,6 +46,8 @@ Route::post('/approve/send-mail/anggota/{id}', [MailController::class, 'sendMail
 Route::post('/approve/send-mail/koperasi/{id}', [MailController::class, 'sendMailApproveKoperasi']);
 Route::delete('/reject/send-mail/anggota/{id}', [MailController::class, 'sendMailRejectAnggota']);
 Route::delete('/reject/send-mail/koperasi/{id}', [MailController::class, 'sendMailRejectKoperasi']);
+
+// ============ Produk ================
 Route::prefix('products')->group(function () {
     Route::get('/get-products/{id}', [ProductController::class, 'get_product']);
     Route::get('/detail-products/{id_koperasi}/{id_produk}', [ProductController::class, 'detail_product']);
@@ -57,12 +59,15 @@ Route::prefix('products')->group(function () {
     Route::patch('/add-stock/{id}', [ProductController::class, 'add_stock']);
 
 })->name('products');
+// ============ End Produk ================
 
+// ============ POS ================
 Route::prefix('pos')->group(function () {
     Route::post('/checkout', [PosController::class, 'insert_pos']);
     Route::delete('/cancel/{order_id}', [PosController::class, 'destroy']);
     Route::post('/payment', [PosController::class, 'insert_payment']);
 })->name('pos');
+// ============ End POS ================
 
 Route::get('/anggota/list/{no_anggota}/{id_koperasi}', [AnggotaController::class, 'show']);
 // ============ Pengajuan Registrasi ================

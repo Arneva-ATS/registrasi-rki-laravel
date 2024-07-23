@@ -42,8 +42,10 @@
                                 <td>
                                     <button data-bs-toggle="modal" data-bs-target="#modalBarcode"
                                         onclick="setBarcodeId({{ $data->id_produk }})" class="btn">
-                                        <h2 id="generate_barcode" class="generate_barcode">{{ $data->barcode }}</h2>
-                                        <p id="generate_barcode" class="generate_barcode">{{ $data->barcode }}</p>
+                                        <svg id="barcode"></svg>
+
+                                        {{-- <h2 id="generate_barcode" class="generate_barcode">{{ $data->barcode }}</h2>
+                                        <p id="generate_barcode" class="generate_barcode">{{ $data->barcode }}</p> --}}
                                     </button>
                                 </td>
                                 <td>
@@ -193,7 +195,7 @@
                                         <div class="form-group mt-3">
                                             <label class="text-white" for="edit_stok">Stok</label>
                                             <input type="number" name="edit_stok" id="edit_stok" class="form-control"
-                                                placeholder="" disabled/>
+                                                placeholder="" disabled />
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -247,8 +249,8 @@
                                     hidden required />
                                 <div class="form-group">
                                     <label class="text-white" for="tambah_stok">Stok</label>
-                                    <input type="text" name="tambah_stok" id="tambah_stok"
-                                        class="form-control" placeholder="Masukan stok" required />
+                                    <input type="text" name="tambah_stok" id="tambah_stok" class="form-control"
+                                        placeholder="Masukan stok" required />
                                 </div>
                             </form>
                         </div>
@@ -458,6 +460,13 @@
                 }
                 reader.readAsDataURL(file);
             }
+        });
+        JsBarcode("#barcode", "123456789012", {
+            format: "CODE128",
+            lineColor: "#0aa",
+            width: 4,
+            height: 40,
+            displayValue: true
         });
 
         function editModal(id) {

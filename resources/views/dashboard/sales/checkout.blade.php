@@ -405,34 +405,8 @@
                         "surname": "{{ $order->nama_customer ?? $order->nama_lengkap }}",
                         "email": "{{ $order->email }}",
                         "mobile_number": "{{ $order->no_telp ?? $order->nomor_hp }}",
-                        "addresses": [{
-                            "city": "Jakarta Selatan",
-                            "country": "Indonesia",
-                            "postal_code": "12345",
-                            "state": "Daerah Khusus Ibukota Jakarta",
-                            "street_line1": "Jalan Makan",
-                            "street_line2": "Kecamatan Kebayoran Baru"
-                        }]
-                    },
-                    "customer_notification_preference": {
-                        "invoice_created": [
-                            "whatsapp",
-                            "email",
-                            "viber"
-                        ],
-                        "invoice_reminder": [
-                            "whatsapp",
-                            "email",
-                            "viber"
-                        ],
-                        "invoice_paid": [
-                            "whatsapp",
-                            "email",
-                            "viber"
-                        ]
                     },
                     "description": "Pembayaran dengan Xendit",
-                    "invoice_duration": 86400,
                     "currency": "IDR",
                     "items": items,
                     "metadata": {
@@ -447,31 +421,31 @@
                 }
                 console.log(jsonData);
 
-                fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Type": "application/json",
-                        },
-                        method: "POST",
-                        body: JSON.stringify(jsonData),
-                    })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        console.log(data)
-                        // swal.close();
-                        let url = data.invoiceUrl;
-                        window.location.href = url;
-                    })
-                    .catch((error) => {
-                        // swal.close();
-                        console.log(error)
-                        swal({
-                            title: "Status",
-                            text: "Kesalahan Server",
-                            icon: "info",
-                            buttons: true,
-                        })
-                    });
+                // fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
+                //         headers: {
+                //             "Access-Control-Allow-Origin": "*",
+                //             "Content-Type": "application/json",
+                //         },
+                //         method: "POST",
+                //         body: JSON.stringify(jsonData),
+                //     })
+                //     .then((response) => response.json())
+                //     .then((data) => {
+                //         console.log(data)
+                //         // swal.close();
+                //         let url = data.invoiceUrl;
+                //         window.location.href = url;
+                //     })
+                //     .catch((error) => {
+                //         // swal.close();
+                //         console.log(error)
+                //         swal({
+                //             title: "Status",
+                //             text: "Kesalahan Server",
+                //             icon: "info",
+                //             buttons: true,
+                //         })
+                //     });
             }
 
         }
