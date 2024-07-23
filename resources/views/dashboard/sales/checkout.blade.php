@@ -8,25 +8,63 @@
 @section('content')
     <div class="row invoice layout-top-spacing layout-spacing">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-
             <div class="doc-container">
-
+                <!-- Hidden receipt section for printing -->
+                <div id="receipt" style="display: none; width: 80mm; font-size: small;">
+                    <div class="header">
+                        <img src="{{ asset('assets/img/logo-fav-icon.png') }}" alt="company">
+                        <h3>{{ $koperasi->nama_koperasi }}</h3>
+                        <p>{{ $koperasi->alamat }}</p>
+                        <p>{{ $koperasi->email_koperasi }}</p>
+                        <p>{{ $koperasi->no_phone }}</p>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <p><strong>Invoice: #{{ $order->invoice_number }}</strong></p>
+                        <p>Tanggal: {{ $orderDate->translatedFormat('d F Y') }}</p>
+                        <p>Due Date: {{ $dueDate->translatedFormat('d F Y') }}</p>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <p><strong>Invoice To:</strong> {{ $order->nama_lengkap ?? $order->nama_customer }}</p>
+                        <p>{{ $order->alamat ?? '-' }}</p>
+                        <p>{{ $order->email ?? '-' }}</p>
+                        <p>{{ $order->nomor_hp ?? $order->no_telp }}</p>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <p><strong>Items</strong></p>
+                        <table>
+                            @foreach ($order_detail as $item)
+                                <tr>
+                                    <td>{{ $item->nama_produk }}</td>
+                                    <td>{{ $item->quantity }} x Rp. {{ $item->price }}</td>
+                                    <td class="text-end">Rp. {{ $item->total }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <p>Sub Total: Rp. {{ $order->sub_total }}</p>
+                        <p>Tax: Rp. {{ $order->tax }}</p>
+                        <p>Discount: Rp. {{ $order->discount }}</p>
+                        <p><strong>Total: Rp. {{ $order->total_amount }}</strong></p>
+                    </div>
+                    <hr>
+                    <div class="footer">
+                        <p>Thank you for your business!</p>
+                    </div>
+                </div>
                 <div class="row">
-
-                    <div class="col-xl-9">
-
+                    <div class="col-xl-8">
                         <div class="invoice-container" style="background-color: white; padding: 20px; border-radius: 8px;">
                             <div class="invoice-inbox">
-
                                 <div id="ct" class="">
-
                                     <div class="invoice-00001">
                                         <div class="content-section">
-
                                             <div class="inv--head-section inv--detail-section">
-
                                                 <div class="row">
-
                                                     <div class="col-sm-6 col-12 mr-auto">
                                                         <div class="d-flex">
                                                             <img class="company-logo mx-3" src="/assets/img/rki_icon.png"
@@ -71,14 +109,14 @@
 
                                                     <div class="col-xl-8 col-lg-7 col-md-6 col-sm-4">
                                                         <p class="inv-customer-name">
-                                                            {{ $order->nama_lengkap ? $order->nama_lengkap : $order->nama_customer }}
+                                                            {{ $order->nama_lengkap ?? $order->nama_customer }}
                                                         </p>
                                                         <p class="inv-street-addr">
-                                                            {{ $order->alamat ? $order->alamat : '-' }}</p>
+                                                            {{ $order->alamat ?? '-' }}</p>
                                                         <p class="inv-email-address">
-                                                            {{ $order->email ? $order->email : '-' }}</p>
+                                                            {{ $order->email ?? '-' }}</p>
                                                         <p class="inv-email-address">
-                                                            {{ $order->nomor_hp ? $order->nomor_hp : $order->no_telp }}</p>
+                                                            {{ $order->nomor_hp ?? $order->no_telp }}</p>
                                                     </div>
 
                                                     <div
@@ -180,8 +218,7 @@
                         </div>
 
                     </div>
-
-                    <div class="col-xl-3">
+                    <div class="col-xl-4">
 
                         <div class="invoice-actions-btn"
                             style="background-color: white; padding: 20px; border-radius: 8px;">
@@ -190,33 +227,49 @@
 
                                 <div class="row g-3">
                                     <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <label for="">Metode Pembayaran</label>
-                                        <select style="width:21.5em;height:2.5em;" name="metode_pembayaran"
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <label for="">Metode Pembayaran</label>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <select style="width:19em;height:2.5em;" name="metode_pembayaran"
                                             id="metode_pembayaran" class="form-stock">
-                                            <option style="font-size: 1em;" value="1">Cash</option>
-                                            <option style="font-size: 1em;" value="2">Xendit</option>
-                                            <option style="font-size: 1em;" value="3">Debit BCA</option>
-                                            <option style="font-size: 1em;" value="4">Kredit BCA</option>
-                                            <option style="font-size: 1em;" value="5">QRIS</option>
+                                            @foreach ($payment_method as $method)
+                                                <option style="font-size: 1em;" value="{{$method->id}}">{{$method->payment_name}}</option>
+                                            @endforeach
                                         </select>
+                                        </div>
                                     </div>
                                     <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <label for="">Harga Bayar</label>
-                                        <input type="text" style="width:21.5em;height:2.5em;" class="form-stock"
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <label for="">Harga Bayar</label>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <input type="text" id="harga_bayar" style="width: 19em;height:2.5em;" class="form-stock"
                                             placeholder="Rp. ....">
+                                        </div>
                                     </div>
                                     <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <label for="">Kembalian</label>
-                                        <input type="text" style="width:21.5em;height:2.5em;" class="form-stock"
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <label for="">Kembalian</label>
+                                        </div>
+                                        <div class="d-flex flex-row justify-content-center">
+                                            <input type="text" id="kembalian" style="width: 19em;height:2.5em;" class="form-stock"
                                             placeholder="Rp. ...." disabled>
+                                        </div>
                                     </div>
-                                    <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <button style="width:21.5em;" class="btn btn-dark btn-edit">Bayar</button>
+                                    @if ($order->status =='pending')
+                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                        <button style="width:19em;" class="btn btn-dark btn-edit" onclick="payBtn()">Bayar</button> 
                                     </div>
-                                    <div class="col-xl-12 col-md-3 col-sm-6">
-                                        <button style="width:21.5em;" class="btn btn-danger"
+                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                        <button style="width:19em;" class="btn btn-danger"
                                             onclick="cancelTransaction()">Batal</button>
                                     </div>
+                                    @else
+                                    <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
+                                        <a style="width:19em;" class="btn btn-dark btn-edit" href="/pos"><- Kembali</a> 
+                                    </div>
+                                    @endif
                                 </div>
 
                             </div>
@@ -231,17 +284,29 @@
 
         </div>
     </div>
-
     <script>
+        const items = @json($order_detail).map(item => ({
+            name: item.nama_produk,
+            quantity: item.quantity,
+            price: item.price,
+            category: item.nama_kategori, 
+            url: "https://yourcompany.com"
+        }));        
+        const order = @Json($order);
         const metodePembayaran = document.getElementById('metode_pembayaran');
         const hargaBayar = document.getElementById('harga_bayar');
         const kembalian = document.getElementById('kembalian');
         const grandTotal = {{ $order->total_amount }};
-
+        let id_koperasi = {{$id}};
         metodePembayaran.addEventListener('change', (event) => {
             if (metodePembayaran.value === '1') { // Cash
                 hargaBayar.disabled = false;
-            } else {
+            }else if(metodePembayaran.value === '2'){
+                hargaBayar.disabled = true;
+                hargaBayar.value = grandTotal;
+                kembalian.value = 0
+            }
+             else {
                 hargaBayar.disabled = true;
                 hargaBayar.value = '';
                 kembalian.value = '';
@@ -252,12 +317,167 @@
             const bayar = parseFloat(hargaBayar.value);
             if (!isNaN(bayar)) {
                 const kembali = bayar - grandTotal;
-                kembalian.value = `Rp. ${kembali.toFixed(2)}`;
+                if(kembali < 0){
+                    swal('Uang tidak kurang dari total pembayaran!', 'Mohon sesuaikan uang pembayaran', 'info')
+                } else{
+                    kembalian.value = kembali;
+                }
             } else {
                 kembalian.value = '';
             }
         });
+        function printReceipt() {
+            var originalContent = document.body.innerHTML;
+            var printContent = document.getElementById('receipt').innerHTML;
+            document.body.innerHTML = printContent;
+            window.print();
+            document.body.innerHTML = originalContent;
+            window.location.href = "/pos";
+        }
+        function payBtn() {
+                let bayar = hargaBayar.value;
+                let sisa  = kembalian.value;
+                let jsonData = {}
+                if(metodePembayaran.value=='1'){
+                    if(!bayar){
+                        swal('Perhatian!', 'Harap isi nominal pembayaran', 'info')
+                    } else{
+                        jsonData = {
+                            id_payment_method: metodePembayaran.value,
+                            amount_value: order.total_amount,
+                            change_value: sisa,
+                            paid_value: bayar,
+                            id_koperasi: id_koperasi,
+                            id_order: order.id_order,
+                            status: 'completed',
+                        }
+                        console.log(jsonData);
 
+                        fetch(`/api/pos/payment`, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                            },
+                            method: "POST",
+                            body: JSON.stringify(jsonData),
+                            })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                console.log(data)
+                                // swal.close();
+                                if (data.response_code == "00") {
+                                    printReceipt(); // Call print function
+                                } else {
+                                    swal({
+                                        title: "Status",
+                                        text: data?.response_message,
+                                        icon: "error",
+                                        buttons: true,
+                                    })
+                                }
+                            })
+                            .catch((error) => {
+                                // swal.close();
+                                console.log(error)
+                                swal({
+                                    title: "Status",
+                                    text: error,
+                                    icon: "info",
+                                    buttons: true,
+                                })
+                            });
+                    }
+                } else if(metodePembayaran.value == '2'){
+                    jsonData = {
+                            "amount": order.total_amount,
+                            "fees": [
+                                {
+                                    "type": "ADMIN",
+                                    "value": 5000
+                                }
+                            ],
+                            "customer": {
+                                "given_names": "John",
+                                "surname": "Doe",
+                                "email": "johndoe@example.com",
+                                "mobile_number": "+6287774441111",
+                                "addresses": [
+                                    {
+                                        "city": "Jakarta Selatan",
+                                        "country": "Indonesia",
+                                        "postal_code": "12345",
+                                        "state": "Daerah Khusus Ibukota Jakarta",
+                                        "street_line1": "Jalan Makan",
+                                        "street_line2": "Kecamatan Kebayoran Baru"
+                                    }
+                                ]
+                            },
+                            "customer_notification_preference": {
+                                "invoice_created": [
+                                    "whatsapp",
+                                    "email",
+                                    "viber"
+                                ],
+                                "invoice_reminder": [
+                                    "whatsapp",
+                                    "email",
+                                    "viber"
+                                ],
+                                "invoice_paid": [
+                                    "whatsapp",
+                                    "email",
+                                    "viber"
+                                ]
+                            },
+                            "description": "Pembayaran dengan Xendit",
+                            "invoice_duration": 86400,
+                            "currency": "IDR",
+                            "items": items,
+                            change_value: sisa,
+                            paid_value: bayar,
+                            id_koperasi: id_koperasi,
+                            id_order: order.id_order,
+                            status: 'completed',
+                            "metadata": {
+                                id_payment_method: metodePembayaran.value,
+                                amount_value: order.total_amount,
+                                change_value: sisa,
+                                paid_value: bayar,
+                                id_koperasi: id_koperasi,
+                                id_order: order.id_order,
+                                status: 'completed',
+                            }
+                        }
+                        console.log(jsonData);
+
+                        fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                            },
+                            method: "POST",
+                            body: JSON.stringify(jsonData),
+                            })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                console.log(data)
+                                // swal.close();
+                                let url = data.invoiceUrl;
+                                window.location.href = url;
+                            })
+                            .catch((error) => {
+                                // swal.close();
+                                console.log(error)
+                                swal({
+                                    title: "Status",
+                                    text: "Kesalahan Server",
+                                    icon: "info",
+                                    buttons: true,
+                                })
+                            });
+                }
+                
+            }
         function cancelTransaction() {
             swal({
                     title: "Pembatalan!",

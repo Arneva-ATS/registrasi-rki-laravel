@@ -59,6 +59,7 @@ Route::prefix('products')->group(function () {
 Route::prefix('pos')->group(function () {
     Route::post('/checkout', [PosController::class, 'insert_pos']);
     Route::delete('/cancel/{order_id}', [PosController::class, 'destroy']);
+    Route::post('/payment', [PosController::class, 'insert_payment']);
 })->name('pos');
 
 Route::get('/anggota/list/{no_anggota}/{id_koperasi}', [AnggotaController::class, 'show']);

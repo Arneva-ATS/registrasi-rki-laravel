@@ -41,10 +41,11 @@
                             placeholder="Masukan Tanggal Lahir" required />
                     </div>
                     <div class="col-md-6 position-relative">
+                        <br /><br />
                         <label for="validationTooltip05" class="form-label">Jenis Kelamin</label>
-                        <input type="radio" name="jenis_kelamin" class="form-check" value="laki-laki" checked />
+                        <input type="radio" name="jenis_kelamin" value="laki-laki" checked />
                         Laki Laki &nbsp;
-                        <input type="radio" name="jenis_kelamin" class="form-check" value="perempuan" />
+                        <input type="radio" name="jenis_kelamin" value="perempuan" />
                         Perempuan
                     </div>
                     <div class="col-md-6 position-relative">
@@ -83,8 +84,8 @@
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Alamat Jika Tidak Sesuai dengan KTP</label>
                         <label for="alamat">Alamat jika tidak sesuai KTP</label>
-                        <textarea name="alamat" id="alamat" class="form-control" style="height: 8rem" placeholder="Masukan Alamat"
-                            required></textarea>
+                        <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Masukan Alamat"
+                            required>
                     </div>
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">No. HP(Whatsapps)</label>
@@ -133,6 +134,8 @@
 
                     <div class="col-md-6 position-relative">
                         <label for="validationTooltip04" class="form-label">Foto KTP</label>
+                        <img src="/assets/images/ktp.JPG" alt="selfie" width="150" height="150"
+                                class="d-block mx-auto mb-3" style="border-radius: 10%" />
                         <input type="file" name="ktp" id="ktp" class="form-control px-4"
                             style="height: auto !important; padding-top: 15px !important; padding-bottom: 15px !important;"
                             onchange="convertBase64ktp()" accept="image/jpeg, image/jpg, image/png" />
@@ -229,11 +232,11 @@
             var image_selfie = baseStringSelfie;
             var image_ktp = baseStringKtp;
             const username = createUsername(nama_lengkap);
-            if (provinsi == '00' || kota == '00' || kecamatan == '00' || kelurahan == '00' || agama == '00' ||
-                status_pernikahan == '00') {
+            if (image_selfie == '' || image_ktp == '' || provinsi == '00' || nik == '' || kota == '00' || kecamatan == '00' || kelurahan == '00' || agama == '00' ||
+                status_pernikahan == '00' || email == '') {
                 swal({
                     title: "Perhatian!",
-                    text: 'Pastikan data terisi! Kecuali pas foto dan ktp',
+                    text: 'Pastikan data terisi dengan benar',
                     icon: "info",
                     buttons: true,
                 })

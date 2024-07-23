@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.app')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item active" aria-current="page">Tambah Pinjaman</li>
+    <li class="breadcrumb-item active" aria-current="page">Tambah Simpanan</li>
 @endsection
 
 @section('content')
@@ -11,45 +11,37 @@
             <div class="widget-content widget-content-area br-8 p-3">
            
                 <form class="row g-3 needs-validation" novalidate enctype="multipart/for-data">
-                    <input type="hidden" id="id_koperasi" value="{{$id_koperasi}}">
-                    <input type="hidden" id="no_anggota" value="{{$no_anggota}}">
+                    <input type="hidden" name="id_koperasi" id="id_koperasi" value="{{$id_koperasi}}">
                     <div class="col-md-6 position-relative">
-                        <div class="form-group">
-                            <label for="jenis_pinjaman">Jenis Pinjaman</label>
-                            <select name="jenis_pinjaman" id="jenis_pinjaman" class="form-control" required>
-                                    <option value="00"> Pilih Jenis Pinjaman</option>
-                                    <option value="biasa"> Biasa</option>
-                                    <option value="darurat"> Darurat</option>
-                            </select>
-                        </div>
+                        <label for="simpanan_pokok">Simpanan Pokok</label>
+                        <input type="number" name="simpanan_pokok" id="simpanan_pokok" class="form-control" placeholder="Masukan Simpanan Pokok" required />
                     </div>
                     <div class="col-md-6 position-relative">
-                        <label for="tanggal_pinjaman">Nominal</label>
-                        <input type="date" name="tanggal_pinjaman" id="tanggal_pinjaman" class="form-control" placeholder="Masukan Tanggal Pinjaman" required />
+                        <label for="simpanan_wajib">Simpanan Wajib</label>
+                        <input type="number" name="simpanan_wajib" id="simpanan_wajib" class="form-control" placeholder="Masukan Simpanan Wajib" required />
                     </div>
                     <div class="col-md-6 position-relative">
-                        <label for="nominal">Nominal</label>
-                        <input type="number" name="nominal" id="nominal" class="form-control" placeholder="Masukan Nominal" required />
-                    </div>
-                    <div class="col-md-6 position-relative">
-                        <label for="lama_angsuran">Lama Angsuran</label>
-                        <input type="number" name="lama_angsuran" id="lama_angsuran" class="form-control" placeholder="Masukan Lama Angsuran" required /> 
+                        <label for="simpanan_sukarela">Simpanan Sukarela</label>
+                        <input type="number" name="simpanan_sukarela" id="simpanan_sukarela" class="form-control" placeholder="Masukan Simpanan Sukarela" required /> 
                     </div>
                    
                     <div class="col-md-6 position-relative">
-                        <label for="keterangan">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Masukan Keterangan" required /> 
+                        <label for="tanggal_simpanan">Tanggal Simpanan</label>
+                        <input type="date" name="tanggal_simpanan" id="tanggal_simpanan" class="form-control" placeholder="Masukan Tanggal Simpanan" required /> 
                     </div>
 
                     <div class="col-md-6 position-relative">
-                        <label for="alasan">Alasan</label>
-                        <input type="text" name="alasan" id="alasan" class="form-control" placeholder="Masukan Alasan" required /> 
+                        <label for="no_anggota">No Anggota</label>
+                        <input type="text" name="no_anggota" id="no_anggota" class="form-control" placeholder="No Anggota" required /> 
                     </div>
 
+                    <div class="col-md-6 position-relative">
+                        <label for="no_anggota">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder=" Masukan Keterangan" required /> 
+                    </div>
 
                     <div class="col-12">
-                        <button type="button" name="process" id="button-submit" class="btn btn-primary"
-                            onclick="saveData()">
+                        <button type="button" name="process" id="button-submit" class="btn btn-primary" onclick="saveData()">
                             Simpan Data
                         </button>
                     </div>
@@ -61,20 +53,18 @@
 @endsection
 
 @push('js')
-    <script>
-
-            function saveData() {
-            var jenis_pinjaman = document.getElementById("jenis_pinjaman").value;
+<script>
+    function saveData() {
+            var simpanan_pokok = document.getElementById("simpanan_pokok").value;
             var id_koperasi = document.getElementById("id_koperasi").value;
             var no_anggota = document.getElementById("no_anggota").value;
-            var nominal = document.getElementById("nominal").value;
-            var lama_angsuran = document.getElementById("lama_angsuran").value;
+            var simpanan_wajib = document.getElementById("simpanan_wajib").value;
+            var simpanan_sukarela = document.getElementById("simpanan_sukarela").value;
             var keterangan = document.getElementById('keterangan').value;
-            var tanggal_pinjaman = document.getElementById('tanggal_pinjaman').value;
-            var alasan = document.getElementById('alasan').value;
+            var tanggal_simpanan = document.getElementById('tanggal_simpanan').value;
             var csrfToken = document.head.querySelector("[name~=csrf_token][content]").content;
 
-            if (jenis_pinjaman == '00') {
+            if (simpanan_pokok == '' || simpanan_wajib == '' || simpanan_sukarela == '') {
                 swal({
                     title: "Perhatian!",
                     text: 'Pastikan data terisi! Kecuali pas foto dan ktp',
@@ -92,17 +82,16 @@
                 className: "swal-loading",
             });
             var datajson = {
-                    "jenis_pinjaman" : jenis_pinjaman,
+                    "simpanan_pokok" : simpanan_pokok,
                     "id_koperasi" : id_koperasi,
                     "no_anggota" : no_anggota,
-                    "nominal" : nominal,
-                    "lama_angsuran" : lama_angsuran,
+                    "simpanan_wajib" : simpanan_wajib,
+                    "simpanan_sukarela" : simpanan_sukarela,
                     "keterangan" : keterangan,
-                    "tanggal_pinjaman" : tanggal_pinjaman,
-                    "alasan" : alasan
+                    "tanggal_simpanan" : tanggal_simpanan
             };
 
-            fetch("/insert/pinjaman", {
+            fetch("/insert/simpanan", {
                     headers: {
                         "Access-Control-Allow-Origin": "*",
                         "Content-Type": "application/json",
@@ -122,7 +111,7 @@
                             buttons: true,
                         }).then((willOut) => {
                             if (willOut) {
-                                window.location.href = '/member/pinjaman';
+                                window.location.href = '/simpanan';
                             } else {
                                 console.log("error");
                             }
@@ -145,5 +134,5 @@
                     console.log(error)
                 });
         }
-    </script>
+</script>
 @endpush
