@@ -40,10 +40,12 @@
                                 <td>{{ $data->uom }}</td>
                                 <td>{{ $data->nama_kategori }}</td>
                                 <td>
+                                    <svg class="barcode" jsbarcode-format="upc" jsbarcode-value="{{ $data->barcode }}"
+                                    jsbarcode-textmargin="0" jsbarcode-fontoptions="bold" >
+                                </svg>
                                     <button data-bs-toggle="modal" data-bs-target="#modalBarcode"
                                         onclick="setBarcodeId({{ $data->id_produk }})" class="btn">
-                                        <svg id="barcode"></svg>
-
+                                        Print
                                         {{-- <h2 id="generate_barcode" class="generate_barcode">{{ $data->barcode }}</h2>
                                         <p id="generate_barcode" class="generate_barcode">{{ $data->barcode }}</p> --}}
                                     </button>
@@ -461,13 +463,7 @@
                 reader.readAsDataURL(file);
             }
         });
-        JsBarcode("#barcode", "123456789012", {
-            format: "CODE128",
-            lineColor: "#0aa",
-            width: 4,
-            height: 40,
-            displayValue: true
-        });
+        JsBarcode(".barcode").init();
 
         function editModal(id) {
             fetch(`/api/products/detail-products/${id_koperasi}/${id}`, {

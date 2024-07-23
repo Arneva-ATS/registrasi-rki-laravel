@@ -400,6 +400,8 @@
                         "type": "ADMIN",
                         "value": 5000
                     }],
+                    'success_redirect_url': 'https://dashboard.rkicoop.co.id/history-pos',
+                    'failed_redirect_url': 'https://dashboard.rkicoop.co.id/history-pos',
                     "customer": {
                         "given_names": "{{ $order->nama_customer ?? $order->nama_lengkap }}",
                         "surname": "{{ $order->nama_customer ?? $order->nama_lengkap }}",
@@ -421,31 +423,31 @@
                 }
                 console.log(jsonData);
 
-                // fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
-                //         headers: {
-                //             "Access-Control-Allow-Origin": "*",
-                //             "Content-Type": "application/json",
-                //         },
-                //         method: "POST",
-                //         body: JSON.stringify(jsonData),
-                //     })
-                //     .then((response) => response.json())
-                //     .then((data) => {
-                //         console.log(data)
-                //         // swal.close();
-                //         let url = data.invoiceUrl;
-                //         window.location.href = url;
-                //     })
-                //     .catch((error) => {
-                //         // swal.close();
-                //         console.log(error)
-                //         swal({
-                //             title: "Status",
-                //             text: "Kesalahan Server",
-                //             icon: "info",
-                //             buttons: true,
-                //         })
-                //     });
+                fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify(jsonData),
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data)
+                        // swal.close();
+                        let url = data.invoiceUrl;
+                        window.location.href = url;
+                    })
+                    .catch((error) => {
+                        // swal.close();
+                        console.log(error)
+                        swal({
+                            title: "Status",
+                            text: "Kesalahan Server",
+                            icon: "info",
+                            buttons: true,
+                        })
+                    });
             }
 
         }
