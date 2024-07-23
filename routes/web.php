@@ -276,6 +276,9 @@ if (config('app.env') === 'production') {
     Route::get('/pos', [PosController::class, 'pos'])->name('view-pos');
 
     Route::get('/checkout/{id_order}', [PosController::class, 'checkout'])->name('view-pos');
+    Route::get('/detail-order/{id_order}', [PosController::class, 'detail_order'])->name('view-detail-order');
+
+    Route::get('/history-pos', [PosController::class, 'history_pos'])->name('view-history-pos');
 
 
     Route::get('/', function () {

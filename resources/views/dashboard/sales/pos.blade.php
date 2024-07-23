@@ -366,7 +366,7 @@
                                         <div class="col-sm-6 text-sm-end">
                                             <p class="inv-list-number mt-sm-3 pb-sm-2 mt-4">
                                                 <span class="inv-title">Invoice : </span>
-                                                <span id="invoice-number" class="inv-number">#0001</span>
+                                                <span id="invoice-number" class="inv-number"></span>
                                             </p>
                                             <p class="inv-created-date mt-sm-5 mt-3">
                                                 <span class="inv-title">Invoice Date : </span>
@@ -392,16 +392,16 @@
                                         <div class="col-xl-8 col-lg-7 col-md-6 col-sm-4">
                                             <p class="inv-customer-name"><input type="text" id="nama_customer"
                                                     name="nama_customer" class="form-control w-75" style="height: 1.5em;"
-                                                    placeholder="nama customer"></p>
+                                                    placeholder="nama customer" required></p>
                                             <p class="inv-street-addr"><input type="text" id="alamat_customer"
                                                     name="alamat_customer" class="form-control w-75"
                                                     style="height: 1.5em;" placeholder="alamat customer"></p>
-                                            <p class="inv-email-address"><input type="text" id="email_customer"
+                                            <p class="inv-email-address" required><input type="text" id="email_customer"
                                                     name="email_customer" class="form-control w-75"
-                                                    style="height: 1.5em;" placeholder="email customer"></p>
+                                                    style="height: 1.5em;" placeholder="email customer" required></p>
                                             <p class="inv-email-address"><input type="text" id="no_telp_customer"
                                                     name="no_telp_customer" class="form-control w-75"
-                                                    style="height: 1.5em;" placeholder="telp customer"></p>
+                                                    style="height: 1.5em;" placeholder="telp customer" required></p>
                                         </div>
                                         <div
                                             class="col-xl-4 col-lg-5 col-md-6 col-sm-8 col-12 order-sm-0 order-1 text-sm-end">
@@ -458,10 +458,10 @@
                                                         <p id="tax">Rp. 0</p>
                                                     </div>
                                                     <div class="col-sm-8 col-7">
-                                                        <p class="discount-rate">Discount 5% :</p>
+                                                        <p class="discount-rate">Discount :</p>
                                                     </div>
-                                                    <div class="col-sm-4 col-5">
-                                                        <p id="discount">Rp. 0</p>
+                                                    <div class="col-sm-4 col-5 d-flex flex-row">
+                                                    <span>Rp.  </span> <input id="discount" name="discount" class="form-control" style="max-height: 1em;" oninput="calculateGrandTotal()">
                                                     </div>
                                                     <div class="col-sm-8 col-7 grand-total-title mt-3">
                                                         <h4 class="">Grand Total : </h4>
@@ -501,7 +501,7 @@
             let invoiceItems = [];
             let invoiceDate;
             let invoiceDue;
-            let invoice_id = 1; // Initial invoice_id
+            let invoice_id = {{$orderCount + 1}}; // Initial invoice_id
             let invoiceNumber;
             let tax;
             let discount;
@@ -548,11 +548,11 @@
                             response_message
                         } = data
                         if (response_code == '00') {
-                            document.getElementById('id_anggota').value = response_message.id
-                            document.getElementById('nama_customer').value = response_message.nama_lengkap;
-                            document.getElementById('alamat_customer').value = response_message.alamat;
-                            document.getElementById('email_customer').value = response_message.email;
-                            document.getElementById('no_telp_customer').value = response_message.nomor_hp;
+                            document.getElementById('id_anggota').value = response_message.id;
+                            document.getElementById('nama_customer').value = response_message.nama_lengkap ? response_message.nama_lengkap : '-';
+                            document.getElementById('alamat_customer').value = response_message.alamat ? response_message.alamat : '-' ;
+                            document.getElementById('email_customer').value = response_message.email ? response_message.email : '-';
+                            document.getElementById('no_telp_customer').value = response_message.nomor_hp ? response_message.nomor_hp : '-';
                             document.getElementById('nama_customer').disabled = true
                             document.getElementById('alamat_customer').disabled = true;
                             document.getElementById('email_customer').disabled = true
@@ -659,13 +659,13 @@
                 });
 
                 tax = subTotal * 0.11;
-                discount = subTotal * 0.05;
+                discount = document.getElementById('discount').value || 0;
                 grandTotal = subTotal + tax - discount;
 
                 document.getElementById('sub-total').textContent = `Rp. ${subTotal.toFixed(2)}`;
                 document.getElementById('total-qty').textContent = totalQty;
                 document.getElementById('tax').textContent = `Rp. ${tax.toFixed(2)}`;
-                document.getElementById('discount').textContent = `Rp. ${discount.toFixed(2)}`;
+                // document.getElementById('discount').textContent = `Rp. ${discount.toFixed(2)}`;
                 document.getElementById('grand-total').textContent = `Rp. ${grandTotal.toFixed(2)}`;
             }
 
@@ -680,6 +680,7 @@
                         <div class="card-body px-0 pb-0">
                             <h6 class="card-title mb-3 text-truncate">${product.nama_produk}</h6>
                             <p>Rp. ${product.harga}</p>
+                            <p>Stok: ${product.stok}</p>
                             <div class="media mt-4 mb-0 pt-1">
                                 <button onclick="addProduct(${product.id_produk})" class="btn btn-primary" type="button"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="Shopping-Cart-Add--Streamline-Ultimate"><desc>Shopping Cart Add Streamline Icon: https://streamlinehq.com</desc><path d="M4.5 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="M12 20.968a1.875 1.875 0 1 0 3.75 0 1.875 1.875 0 1 0 -3.75 0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m0.75 7.093 2.329 7.887a1.5 1.5 0 0 0 1.45 1.113h10.818A1.5 1.5 0 0 0 16.8 14.98l3.238 -12.154a2.249 2.249 0 0 1 2.174 -1.67h1.038" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m9.75 6.343 0 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path><path d="m6.75 9.343 6 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg><span class="ml-2">Beli</span></button>
                             </div>
@@ -688,6 +689,9 @@
                 </div>`;
                     container.insertAdjacentHTML('beforeend', productCard);
                 });
+            }
+            function calculateGrandTotal() {
+                displayInvoice();
             }
 
             function checkoutItems() {
@@ -706,7 +710,10 @@
                 let alamat_customer = document.getElementById('alamat_customer').value
                 let no_telp_customer = document.getElementById('no_telp_customer').value
 
-
+                if(!nama_customer || !email_customer || !alamat_customer || !no_telp_customer){
+                    swal('Perhatian!', 'Harap Isi Data Customer', 'info');
+                    return false;
+                }
                 data_customer = {
                     nama_customer,
                     email: email_customer,
