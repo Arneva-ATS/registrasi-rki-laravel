@@ -40,7 +40,7 @@
  @stack('link-style')
  <!-- END PAGE LEVEL STYLES -->
  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+ {{-- <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script> --}}
 <style>
     body.dark .layout-px-spacing, .layout-px-spacing {
         min-height: calc(100vh - 155px) !important;
