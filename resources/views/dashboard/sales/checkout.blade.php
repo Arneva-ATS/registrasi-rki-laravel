@@ -10,54 +10,63 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="doc-container">
                 <!-- Hidden receipt section for printing -->
-                <div id="receipt" style="display: none; width: 80mm; font-size: small;">
-                    <div class="header">
+                <!-- Hidden receipt section for printing -->
+                <div id="receipt" style="display: none; width: 80mm; font-size: x-small; padding: 10px;">
+                    <div class="header" style="text-align: center;margin-top:15px;">
                         {{-- <img class="w-25" src="{{ asset('assets/img/logo-fav-icon.png') }}" alt="company"> --}}
-                        <h3>{{ $koperasi->nama_koperasi }}</h3>
-                        <p>{{ $koperasi->alamat }}</p>
-                        <p>{{ $koperasi->email_koperasi }}</p>
-                        <p>{{ $koperasi->no_phone }}</p>
+                        <h3 style="margin: 0; font-weight: bold;">{{ $koperasi->nama_koperasi }}</h3>
+                        <p style="margin: 0; font-weight: bold;">{{ $koperasi->alamat }}</p>
+                        <p style="margin: 0; font-weight: bold;">{{ $koperasi->email_koperasi }}</p>
+                        <p style="margin: 0; font-weight: bold;">{{ $koperasi->no_phone }}</p>
                     </div>
-                    <hr>
-                    <div class="section">
-                        <p><strong>Invoice: #{{ $order->invoice_number }}</strong></p>
-                        <p>Tanggal: {{ $orderDate->translatedFormat('d F Y') }}</p>
-                        <p>Due Date: {{ $dueDate->translatedFormat('d F Y') }}</p>
+                    <hr style="border: 1px solid #000;">
+                    <div class="section" style="margin-bottom: 5px;">
+                        <p style="margin: 0;"><strong>Invoice:
+                                #{{ $order->invoice_number }}</strong></p>
+                        <p style="margin: 0;">Tanggal: {{ $orderDate->translatedFormat('d F Y') }}
+                        </p>
+                        <p style="margin: 0;">Due Date: {{ $dueDate->translatedFormat('d F Y') }}
+                        </p>
                     </div>
-                    <hr>
-                    <div class="section">
-                        <p><strong>Invoice To:</strong> {{ $order->nama_lengkap ?? $order->nama_customer }}</p>
-                        <p>{{ $order->alamat ?? '-' }}</p>
-                        <p>{{ $order->email ?? '-' }}</p>
-                        <p>{{ $order->nomor_hp ?? $order->no_telp }}</p>
+                    <hr style="border: 1px solid #000;">
+                    <div class="section" style="margin-bottom: 5px;">
+                        <p style="margin: 0;"><strong>Invoice To:</strong></p>
+                        <p style="margin: 0;"> {{ $order->nama_lengkap ?? $order->nama_customer }}</p>
+                        <p style="margin: 0;">{{ $order->alamat ?? '-' }}</p>
+                        <p style="margin: 0;">{{ $order->email ?? '-' }}</p>
+                        <p style="margin: 0;">{{ $order->nomor_hp ?? $order->no_telp }}</p>
                     </div>
-                    <hr>
-                    <div class="section">
-                        <p><strong>Items</strong></p>
-                        <table>
+                    <hr style="border: 1px solid #000;">
+                    <div class="section" style="margin-bottom: 5px;">
+                        <p style="margin: 0;"><strong>Items</strong></p>
+                        <table style="width: 100%; border-collapse: collapse;">
                             @foreach ($order_detail as $item)
                                 <tr>
-                                    <td>{{ $item->nama_produk }}</td>
-                                    <td>{{ $item->quantity }} x Rp. {{ $item->price }}</td>
-                                    <td class="text-end">Rp. {{ $item->total }}</td>
+                                    <td style="padding: 2px 0;font-size:small;">{{ $item->nama_produk }}</td>
+                                    <td style="padding: 2px 0;font-size:small;">{{ $item->quantity }} x Rp.
+                                        {{ $item->price }}</td>
+                                    <td style="padding: 2px 0; text-align:right;font-size:small;">Rp.
+                                        {{ $item->total }}</td>
                                 </tr>
                             @endforeach
                         </table>
                     </div>
-                    <hr>
-                    <div class="section">
-                        <p>Sub Total: Rp. {{ $order->sub_total }}</p>
-                        <p>Tax: Rp. {{ $order->tax }}</p>
-                        <p>Discount: Rp. {{ $order->discount }}</p>
-                        <p><strong>Total: Rp. {{ $order->total_amount }}</strong></p>
-                        <p>Harga Bayar: Rp. {{ $order->paid_value ?? '' }}</p>
-                        <p>Kembalian: Rp. {{ $order->change_value ?? '' }}</p>
+                    <hr style="border: 1px solid #000;">
+                    <div class="section" style="margin-bottom: 5px;">
+                        <p style="margin: 0;">Sub Total: Rp. {{ $order->sub_total }}</p>
+                        <p style="margin: 0;">Tax: Rp. {{ $order->tax }}</p>
+                        <p style="margin: 0;">Discount: Rp. {{ $order->discount }}</p>
+                        <p style="margin: 0;"><strong>Total: Rp.
+                                {{ $order->total_amount }}</strong></p>
+                        <p style="margin: 0;" id="paid_receipt"></p>
+                        <p style="margin: 0;" id="change_receipt"></p>
                     </div>
-                    <hr>
-                    <div class="footer">
-                        <p>Thank you for your business!</p>
+                    <hr style="border: 1px solid #000;">
+                    <div class="footer" style="text-align: center;">
+                        <p style="margin: 0;">Thank you for your business!</p>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-xl-8">
                         <div class="invoice-container" style="background-color: white; padding: 20px; border-radius: 8px;">
@@ -332,12 +341,25 @@
         });
 
         function printReceipt() {
-            var originalContent = document.body.innerHTML;
-            var printContent = document.getElementById('receipt').innerHTML;
-            document.body.innerHTML = printContent;
-            window.print();
-            document.body.innerHTML = originalContent;
-            window.location.href = "/pos";
+            document.getElementById('paid_receipt').textContent = "Harga Bayar: Rp. " + hargaBayar.value;
+            document.getElementById('change_receipt').textContent = "Kembalian: Rp. " + kembalian.value;
+            const receiptContent = document.getElementById('receipt').innerHTML;
+            const printWindow = window.open('', '', 'width=800,height=600');
+            printWindow.document.write('<html><head><title>Print Receipt</title>');
+            printWindow.document.write('<style>');
+            printWindow.document.write('body { font-family: Arial, sans-serif; font-size: small; }');
+            printWindow.document.write('.header, .section, .footer { text-align: center; margin: 5px 0; }');
+            printWindow.document.write('table { width: 100%; border-collapse: collapse; }');
+            printWindow.document.write('td { padding: 5px 0;font-weight:small; }');
+            printWindow.document.write('hr { border: 1px solid #000; }');
+            printWindow.document.write('</style></head><body>');
+            printWindow.document.write(receiptContent);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+            window.location.href="/pos";
         }
 
         function payBtn() {
@@ -358,7 +380,15 @@
                         status: 'completed',
                     }
                     console.log(jsonData);
-
+                    swal({
+                    title: "Please wait",
+                    text: "Submitting data...",
+                    // icon: "/assets/images/loading.gif",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    className: "swal-loading",
+                    });
                     fetch(`/api/pos/payment`, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
@@ -370,7 +400,7 @@
                         .then((response) => response.json())
                         .then((data) => {
                             console.log(data)
-                            // swal.close();
+                            swal.close();
                             if (data.response_code == "00") {
                                 printReceipt(); // Call print function
                             } else {
@@ -383,7 +413,7 @@
                             }
                         })
                         .catch((error) => {
-                            // swal.close();
+                            swal.close();
                             console.log(error)
                             swal({
                                 title: "Status",
@@ -401,7 +431,7 @@
                         "value": 5000
                     }],
                     'success_redirect_url': 'https://dashboard.rkicoop.co.id/history-pos',
-                    'failed_redirect_url': 'https://dashboard.rkicoop.co.id/history-pos',
+                    'failure_redirect_url': 'https://dashboard.rkicoop.co.id/history-pos',
                     "customer": {
                         "given_names": "{{ $order->nama_customer ?? $order->nama_lengkap }}",
                         "surname": "{{ $order->nama_customer ?? $order->nama_lengkap }}",
@@ -422,7 +452,15 @@
                     }
                 }
                 console.log(jsonData);
-
+                swal({
+                    title: "Please wait",
+                    text: "Submitting data...",
+                    // icon: "/assets/images/loading.gif",
+                    button: false,
+                    closeOnClickOutside: false,
+                    closeOnEsc: false,
+                    className: "swal-loading",
+                    });
                 fetch(`https://xendit-api.arnevats.com/v1/api/xendit/create-payment`, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
@@ -434,12 +472,12 @@
                     .then((response) => response.json())
                     .then((data) => {
                         console.log(data)
-                        // swal.close();
+                        swal.close();
                         let url = data.invoiceUrl;
                         window.location.href = url;
                     })
                     .catch((error) => {
-                        // swal.close();
+                        swal.close();
                         console.log(error)
                         swal({
                             title: "Status",

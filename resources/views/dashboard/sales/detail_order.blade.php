@@ -199,7 +199,7 @@
                                         </div>
                                     @endif
                                     <div class="col-xl-12 col-md-3 col-sm-6 d-flex flex-row justify-content-center">
-                                        <a style="width:19em;" class="btn btn-dark btn-edit" href="/pos"><-
+                                        <a style="width:19em;" class="btn btn-dark btn-edit" href="/history-pos"><-
                                                 Kembali</a>
                                     </div>
                                 </div>

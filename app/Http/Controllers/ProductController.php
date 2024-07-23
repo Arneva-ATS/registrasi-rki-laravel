@@ -74,7 +74,7 @@ class ProductController extends Controller
             return response()->json(['response_code' => '00', 'response_message' => 'Berhasil Tambah Produk!'], 200);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['response_code' => '00', 'response_message' => $th->getMessage()], 500);
+            return response()->json(['response_code' => '01', 'response_message' => $th->getMessage()], 500);
         }
     }
 
