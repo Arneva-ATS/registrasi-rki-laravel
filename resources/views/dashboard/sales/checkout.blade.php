@@ -451,7 +451,7 @@
                         status: 'completed',
                     }
                 }
-                console.log(jsonData);
+                // console.log(jsonData);
                 swal({
                     title: "Please wait",
                     text: "Submitting data...",
